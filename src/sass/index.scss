@@ -1,12 +1,17 @@
+@use 'helpers' as *;
+
+@import "normalize/import-now";
+
 html {
     font-size: 16px;
+    line-height: 1.2;
 }
 
 
 body {
     min-height: 100vw;
     margin: 0;
-    position: relative;
+    font-family: $font-family;
 }
 
 
@@ -82,3 +87,7 @@ a {
 .page {
     min-height: 100vh;
 }
+
+
+
+/* Landing Page */
