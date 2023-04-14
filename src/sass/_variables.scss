@@ -1,4 +1,4 @@
-$home-bg: #fcb900;
+$home-bg: #F5DE7F;
 $home-color: #404040;
 $font-family: 'Poppins';
 
@@ -6,3 +6,6 @@ $font-family: 'Poppins';
 $base-unit: 'rem';
 $base-font-family: 'Poppins', sans-serif;
 $indent-amount: 2.5rem;
+
+// bootstrap overrides
+$include-column-box-sizing: true;
