@@ -5,11 +5,11 @@
     "type": "module",
     "scripts": {
         "watch:all": "run-p -n rollup:watch sass:watch postcss:watch",
-        "sass": "sass --load-path=node_modules/normalize-scss/sass --embed-sources ./src/sass/index.scss:./tmp/bundle.css",
+        "sass": "sass --embed-sources ./src/sass/index.scss:./tmp/bundle.css",
         "postcss": "postcss tmp/bundle.css --verbose --map --output public/assets/bundle.css",
         "minify": "postcss tmp/bundle.css --output public/assets/bundle.min.css --verbose --no-map --env production",
         "rollup": "rollup -c",
-        "sass:watch": "sass --load-path=node_modules/normalize-scss/sass --embed-sources --watch ./src/sass/index.scss:./tmp/bundle.css",
+        "sass:watch": "sass --embed-sources --watch ./src/sass/index.scss:./tmp/bundle.css",
         "postcss:watch": "postcss tmp/bundle.css --map --watch --output public/assets/bundle.css",
         "rollup:watch": "rollup -c -w",
         "serve": "node ./express.config.cjs"
@@ -46,6 +46,7 @@
         "sass": "^1.59.2"
     },
     "dependencies": {
+        "bootstrap": "^5.3.0-alpha3",
         "normalize-scss": "^7.0.1"
     }
 }

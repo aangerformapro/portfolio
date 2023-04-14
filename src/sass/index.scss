@@ -1,6 +1,11 @@
+//@use "bootstrap-utilities";
+
 @use 'helpers' as *;
 
-@import "normalize/import-now";
+@use 'components/bootstrap';
+@use 'components/reset';
+
+
 
 html {
     font-size: 16px;
@@ -11,7 +16,7 @@ html {
 body {
     min-height: 100vw;
     margin: 0;
-    font-family: $font-family;
+
 }
 
 

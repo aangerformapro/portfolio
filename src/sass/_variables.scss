@@ -1,3 +1,8 @@
 $home-bg: #fcb900;
 $home-color: #404040;
 $font-family: 'Poppins';
+
+// normalize.scss overrides
+$base-unit: 'rem';
+$base-font-family: 'Poppins', sans-serif;
+$indent-amount: 2.5rem;
