@@ -1,28 +1,37 @@
 //@use "bootstrap-utilities";
 
+@use 'components/bootstrap';
+
+@use 'components/gerillass';
+
 @use 'helpers' as *;
 
-@use 'components/bootstrap';
-@use 'components/reset';
 
 
-
-html {
+html
+{
     font-size: 16px;
     line-height: 1.2;
 }
 
 
-body {
+body
+{
     min-height: 100vw;
     margin: 0;
+
+    font-size: gerillass.remify(17px);
+
+
+
 
 }
 
 
 *,
 ::before,
-::after {
+::after
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -30,13 +39,15 @@ body {
 }
 
 
-a {
+a
+{
     text-decoration: none;
 }
 
 
 /* Text meant only for screen readers. */
-.screen-reader-text {
+.screen-reader-text
+{
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
@@ -50,24 +61,28 @@ a {
 }
 
 
-.nav-pills {
+.nav-pills
+{
     position: fixed;
     right: 2vw;
     z-index: 10;
     top: 50vh;
     transform: translateY(-50%);
 
-    ul {
+    ul
+    {
         list-style-type: none;
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        li {
+        li
+        {
             margin: .5rem 0;
             cursor: pointer;
 
-            a {
+            a
+            {
 
                 border: 2px solid;
                 border-radius: 50%;
@@ -78,8 +93,10 @@ a {
                 padding: 3px;
             }
 
-            &.active {
-                a {
+            &.active
+            {
+                a
+                {
                     border-color: rgba(202, 63, 63, 0.94);
                     padding: 5px;
                 }
@@ -89,7 +106,8 @@ a {
     }
 }
 
-.page {
+.page
+{
     min-height: 100vh;
 }
 
@@ -97,7 +115,8 @@ a {
 
 /* Landing Page */
 
-#home {
+#home
+{
     background: $home-bg;
     color: $home-color;
 }

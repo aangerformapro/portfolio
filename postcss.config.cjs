@@ -14,6 +14,8 @@ module.exports = (ctx) => {
                     cascade: false,
                 },
                 features: {
+                    // creates fallback duplicates properties for older browsers
+                    // adds ~200 lines to bootstrap mini
                     'custom-properties': true,
                 },
             },

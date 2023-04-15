@@ -1,0 +1,104 @@
+@import 'gerillass/scss/gerillass';
+
+
+//forwards private imports
+
+@function clearUnit($value)
+{
+    @return __clearUnit($value);
+}
+
+@function clearWhitespace($string)
+{
+    @return __clearWhitespace($string);
+}
+
+@function convertToEm($value)
+{
+    @return __convertToEm($value);
+}
+
+@function convertToNumber($value)
+{
+    @return __convertToNumber($value);
+}
+
+@function darken($color, $percentage)
+{
+    @return __darken($color, $percentage);
+}
+
+@function fontSizer($size, $time)
+{
+    @return __fontSizer($size, $time);
+}
+
+@function fontSource($font-family, $file-path, $file-formats)
+{
+    @return __fontSource($font-family, $file-path, $file-formats);
+}
+
+@function isColor($value)
+{
+    @return __isColor($value);
+}
+
+@function isNumber($value)
+{
+    @return __isNumber($value);
+}
+
+@function isTime($value)
+{
+    @return __isTime($value);
+}
+
+@function lighten($color, $percentage)
+{
+    @return __lighten($color, $percentage);
+}
+
+@function mapDeepGet($map, $keys...)
+{
+    @return __mapDeepGet($map, $keys...);
+}
+
+@function null($value, $seperation: comma, $skip: false)
+{
+    @return __null($value, $seperation, $skip);
+}
+
+@function pixelify($value)
+{
+    @return __pixelify($value);
+}
+
+@function pseudoSelector($elements, $pseudo: null)
+{
+    @return __pseudoSelector($elements, $pseudo);
+}
+
+@function remify($value)
+{
+    @return __remify($value);
+}
+
+@function shorthandProperty($value)
+{
+    @return __shorthandProperty($value);
+}
+
+@function validateBreakpoint($value)
+{
+    @return __validateBreakpoint($value);
+}
+
+@function validateLength($value)
+{
+    @return __validateLength($value);
+}
+
+@function validateScissors($value)
+{
+    @return __validateScissors($value);
+}

@@ -32,7 +32,7 @@ addEventListener('click', e => {
 
 
 addEventListener('wheel', e => {
-    e.preventDefault();
+    //e.preventDefault();
     if (scrollLock) {
         return;
     }
