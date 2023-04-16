@@ -6805,12 +6805,13 @@ progress {
 html {
   font-size: 16px;
   line-height: 1.2;
+  /* slide scroll */
+  scroll-snap-type: y mandatory;
 }
 
 body {
   min-height: 100vw;
   margin: 0;
-  font-size: 1.0625rem;
 }
 
 *,
@@ -6839,6 +6840,40 @@ a {
   word-wrap: normal !important;
 }
 
+.tooltip {
+  font-size: 0.875rem;
+  display: inline-block;
+  border-radius: 5rem;
+  right: 2.3rem;
+  top: -0.5rem;
+  background: #222;
+  color: #fff;
+  padding: 0.575rem 1.5rem;
+  position: absolute;
+  max-width: 220px;
+  visibility: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  text-transform: uppercase;
+}
+.tooltip::after {
+  border: 0.6rem solid transparent;
+  border-left-color: #222;
+  bottom: 50%;
+  content: "";
+  position: absolute;
+  margin-bottom: -0.6rem;
+  right: -1rem;
+  width: 0;
+  height: 0;
+}
+
+*:hover > .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
 .nav-pills {
   position: fixed;
   right: 2vw;
@@ -6850,27 +6885,30 @@ a {
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.nav-pills ul li {
-  margin: 0.5rem 0;
+  align-items: flex-end;
   cursor: pointer;
 }
-.nav-pills ul li a {
+.nav-pills ul li {
+  margin: 0.125rem 0;
+  position: relative;
+}
+.nav-pills ul li .pill {
   border: 2px solid;
   border-radius: 50%;
-  display: block;
+  display: inline-block;
   outline: 0;
   border-color: rgba(123, 123, 123, 0.77);
   padding: 3px;
 }
-.nav-pills ul li.active a {
+.nav-pills ul li.active .pill {
   border-color: rgba(202, 63, 63, 0.94);
   padding: 5px;
 }
 
 .page {
   min-height: 100vh;
+  scroll-snap-align: start;
+  transition: transform 0.5s ease-in-out;
 }
 
 /* Landing Page */

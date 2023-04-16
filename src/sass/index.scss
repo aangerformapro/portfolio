@@ -2,7 +2,7 @@
 
 @use 'components/bootstrap';
 
-@use 'components/gerillass';
+@use 'components/gerillass' as g;
 
 @use 'helpers' as *;
 
@@ -12,6 +12,9 @@ html
 {
     font-size: 16px;
     line-height: 1.2;
+    /* slide scroll */
+    scroll-snap-type: y mandatory;
+
 }
 
 
@@ -19,12 +22,6 @@ body
 {
     min-height: 100vw;
     margin: 0;
-
-    font-size: gerillass.remify(17px);
-
-
-
-
 }
 
 
@@ -61,6 +58,49 @@ a
 }
 
 
+.tooltip
+{
+    @include font-size(g.remify(14px));
+
+    display: inline-block;
+
+    border-radius: 5rem;
+    right: 2.3rem;
+    top: -.5rem;
+    background: #222;
+    color: #fff;
+    padding: .575rem 1.5rem;
+    position: absolute;
+    max-width: 220px;
+
+    visibility: hidden;
+    white-space: nowrap;
+    opacity: 0;
+
+    transition: opacity .4s ease-in-out;
+    text-transform: uppercase;
+
+    &::after
+    {
+        border: .6rem solid transparent;
+        border-left-color: #222;
+        bottom: 50%;
+        content: '';
+        position: absolute;
+        margin-bottom: -.6rem;
+        right: -1rem;
+
+        @include g.sizer(0);
+    }
+
+}
+
+*:hover > .tooltip
+{
+    opacity: 1;
+    visibility: visible;
+}
+
 .nav-pills
 {
     position: fixed;
@@ -74,19 +114,20 @@ a
         list-style-type: none;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
+        cursor: pointer;
 
         li
         {
-            margin: .5rem 0;
-            cursor: pointer;
+            margin: .125rem 0;
+            position: relative;
 
-            a
+            .pill
             {
 
                 border: 2px solid;
                 border-radius: 50%;
-                display: block;
+                display: inline-block;
 
                 outline: 0;
                 border-color: rgba(123, 123, 123, .77);
@@ -95,7 +136,7 @@ a
 
             &.active
             {
-                a
+                .pill
                 {
                     border-color: rgba(202, 63, 63, 0.94);
                     padding: 5px;
@@ -106,9 +147,13 @@ a
     }
 }
 
+
+
 .page
 {
     min-height: 100vh;
+    scroll-snap-align: start;
+    transition: transform .5s ease-in-out;
 }
 
 
