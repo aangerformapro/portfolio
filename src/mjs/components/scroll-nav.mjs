@@ -17,6 +17,18 @@ export class ScrollNav {
     #ready = false;
     #ignoreScrollEvent = true;
 
+    #delta = 0;
+
+    get view() {
+        for (let i = 0; i < this.#targets.length; i++) {
+            let target = this.#targets[i];
+
+            if (target.classList.contains('active')) {
+                return target;
+            }
+        }
+    }
+
 
 
     get ready() {
@@ -61,13 +73,11 @@ export class ScrollNav {
 
         this.#root = createElement('div', {
             class: 'nav-pills',
-            html: '<ul/>'
+            html: '<ul class="m-0 p-0" />'
         });
         this.#nav = [];
 
         this.#ids = {};
-
-        let ignoreScrollEvent = true;
 
         const root = this.#root.firstChild;
 
@@ -86,7 +96,11 @@ export class ScrollNav {
                         index: i
                     }
                 }),
-                tooltip = createElement('span', { class: 'tooltip' }, target.getAttribute('title') ?? id.charAt(0).toUpperCase() + id.slice(1).toLowerCase());
+                tooltip = createElement(
+                    'span',
+                    { class: 'tooltip' },
+                    target.getAttribute('title') ?? id.charAt(0).toUpperCase() + id.slice(1).toLowerCase()
+                );
 
             this.#ids[id] = i;
             pill.appendChild(tooltip);
@@ -126,20 +140,21 @@ export class ScrollNav {
                 if (y === 0) {
                     y = innerHeight - rect.height;
                 }
-                dataset(target, 'top', y + 'px');
-                dataset(target, 'bottom', (y + rect.height) + 'px');
+                dataset(target, 'top', y);
+                dataset(target, 'bottom', y + rect.height);
                 y += rect.height;
             });
 
-        }, whichIsIntoView = () => {
+        }, whichIsIntoView = e => {
             if (this.#ignoreScrollEvent) {
                 return;
             }
 
+
             for (let i = 0; i < this.#targets.length; i++) {
 
                 let target = this.#targets[i], y = scrollY;
-                let [top, bottom] = [parseInt(dataset(target, 'top')), parseInt(dataset(target, 'bottom'))];
+                let [top, bottom] = [dataset(target, 'top'), dataset(target, 'bottom')];
                 if (top <= y && bottom > y) {
                     this.setActive(i);
                     return;
@@ -151,6 +166,9 @@ export class ScrollNav {
 
 
         addEventListener('resize', onResize);
+        addEventListener('wheel', e => {
+            this.#delta = Math.sign(e.deltaY);
+        });
         addEventListener('scroll', whichIsIntoView);
 
 
@@ -200,7 +218,7 @@ export class ScrollNav {
             }
             if (elem) {
 
-                const [top, bottom] = [parseInt(dataset(elem, 'top')), parseInt(dataset(elem, 'bottom'))];
+                const [top, bottom] = [dataset(elem, 'top'), dataset(elem, 'bottom')];
 
                 const listener = () => {
 

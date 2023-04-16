@@ -14,6 +14,7 @@ html
     line-height: 1.2;
     /* slide scroll */
     scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
 
 }
 
@@ -104,7 +105,7 @@ a
 .nav-pills
 {
     position: fixed;
-    right: 2vw;
+    right: 1vw;
     z-index: 10;
     top: 50vh;
     transform: translateY(-50%);
@@ -155,13 +156,8 @@ a
 .page
 {
     min-height: 100vh;
-
-
     scroll-snap-align: start;
-
-
-
-
+    transition: transform 1s ease-in-out, visibility 1s ease-in-out;
 
 }
 
