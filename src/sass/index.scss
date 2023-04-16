@@ -78,7 +78,7 @@ a
     white-space: nowrap;
     opacity: 0;
 
-    transition: opacity .4s ease-in-out;
+    transition: opacity .7s ease-in-out;
     text-transform: uppercase;
 
     &::after
@@ -91,7 +91,7 @@ a
         margin-bottom: -.6rem;
         right: -1rem;
 
-        @include g.sizer(0);
+        @include sizer(0);
     }
 
 }

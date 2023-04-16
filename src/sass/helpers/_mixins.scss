@@ -143,8 +143,14 @@
 
 
 
-@mixin sizer($width, $height: $width)
+@mixin sizer($width, $height: null)
 {
+
+    @if $height ==null
+    {
+        $height: $width;
+    }
+
     width: $width;
     height: $height;
 }

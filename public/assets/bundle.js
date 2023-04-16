@@ -948,7 +948,7 @@ var ScrollNav = /*#__PURE__*/function () {
   return ScrollNav;
 }();
 
-// old browsers nav
+// old browsers scroll-snap-type nav support
 if (typeof globalThis === 'undefined') {
   //console.warn('Navigator is too old !!!');
   new PanelSnap$1({
@@ -957,6 +957,10 @@ if (typeof globalThis === 'undefined') {
   });
 }
 new ScrollNav(document.body, '.page');
+
+/**
+ * Smooth scrolling to id
+ */
 addEventListener('click', function (e) {
   var target;
   if (target = e.target.closest('a[href^="#"]')) {
