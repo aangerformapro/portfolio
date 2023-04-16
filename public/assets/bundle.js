@@ -461,8 +461,5 @@ class ScrollNav {
     }
 }
 
-const scrollNav = new ScrollNav(document.body, '.page');
-
-
-console.debug(scrollNav);
+new ScrollNav(document.body, '.page');
 //# sourceMappingURL=bundle.js.map
