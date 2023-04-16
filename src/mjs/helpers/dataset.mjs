@@ -1,5 +1,6 @@
+
 import { isNull, isNumeric, isString, isUndef } from "./utils.mjs"
-const { JSON } = globalThis;
+const { JSON } = typeof globalThis !== 'undefined' ? globalThis : window;
 
 
 let api;

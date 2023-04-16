@@ -1,6 +1,7 @@
 /* global unsafeWindow, globalThis */
 
-const global = typeof unsafeWindow !== 'undefined' ? unsafeWindow : globalThis;
+
+const global = typeof unsafeWindow !== 'undefined' ? unsafeWindow : (typeof globalThis !== 'undefined' ? globalThis : window);
 const { document, JSON } = global;
 const RE_NUMERIC = /^-?(?:[\d]+\.)?\d+$/;
 

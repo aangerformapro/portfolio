@@ -166,9 +166,9 @@ export class ScrollNav {
 
 
         addEventListener('resize', onResize);
-        addEventListener('wheel', e => {
-            this.#delta = Math.sign(e.deltaY);
-        });
+        // addEventListener('wheel', e => {
+        //     this.#delta = Math.sign(e.deltaY);
+        // });
         addEventListener('scroll', whichIsIntoView);
 
 
@@ -232,7 +232,7 @@ export class ScrollNav {
 
                 addEventListener('scroll', listener);
 
-                elem.scrollIntoView(true);
+                elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
             } else {
                 reject(new Error('Invalid id'));
             }
