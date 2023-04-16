@@ -95,7 +95,7 @@ export function dataset(elem, attr, value) {
 
     elem = getElem(elem);
 
-    $this = {
+    const $this = {
 
         get(attr) {
             if (elem instanceof NodeList) {
@@ -148,3 +148,4 @@ export function dataset(elem, attr, value) {
 }
 
 
+export default dataset;

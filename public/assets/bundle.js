@@ -1,88 +1,18 @@
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-var dataset_1=dataset;
-
-/*global document*/
-
-
-// replace namesLikeThis with names-like-this
-function toDashed(name) {
-  return name.replace(/([A-Z])/g, function(u) {
-    return "-" + u.toLowerCase();
-  });
-}
-
-var fn;
-
-if (typeof document !== "undefined" && document.head && document.head.dataset) {
-  fn = {
-    set: function(node, attr, value) {
-      node.dataset[attr] = value;
-    },
-    get: function(node, attr) {
-      return node.dataset[attr];
-    },
-    del: function (node, attr) {
-      delete node.dataset[attr];
-    }
-  };
-} else {
-  fn = {
-    set: function(node, attr, value) {
-      node.setAttribute('data-' + toDashed(attr), value);
-    },
-    get: function(node, attr) {
-      return node.getAttribute('data-' + toDashed(attr));
-    },
-    del: function (node, attr) {
-      node.removeAttribute('data-' + toDashed(attr));
-    }
-  };
-}
-
-function dataset(node, attr, value) {
-  var self = {
-    set: set,
-    get: get,
-    del: del
-  };
-
-  function set(attr, value) {
-    fn.set(node, attr, value);
-    return self;
-  }
-
-  function del(attr) {
-    fn.del(node, attr);
-    return self;
-  }
-
-  function get(attr) {
-    return fn.get(node, attr);
-  }
-
-  if (arguments.length === 3) {
-    return set(attr, value);
-  }
-  if (arguments.length == 2) {
-    return get(attr);
-  }
-
-  return self;
-}
-
-var dataset$1 = /*@__PURE__*/getDefaultExportFromCjs(dataset_1);
-
 /* global unsafeWindow, globalThis */
 
 const global = typeof unsafeWindow !== 'undefined' ? unsafeWindow : globalThis;
-const { document: document$1, JSON } = global;
+const { document: document$1, JSON: JSON$1 } = global;
+const RE_NUMERIC = /^-?(?:[\d]+\.)?\d+$/;
 
 const isPlainObject = (param) => param instanceof Object && Object.getPrototypeOf(param) === Object.prototype,
+    isUndef = (param) => typeof param === 'undefined',
     isString = (param) => typeof param === 'string',
-    isArray = (param) => Array.isArray(param);
+    isNumber = (param) => typeof param === 'number',
+    isInt = (param) => Number.isInteger(param),
+    isFloat = (param) => isNumber(param) && parseFloat(param) === param,
+    isNumeric = (param) => isInt(param) || isFloat(param) || RE_NUMERIC.test(param),
+    isArray = (param) => Array.isArray(param),
+    isNull = (param) => param === null;
 
 /**
  * Creates an Element
@@ -148,6 +78,154 @@ function uniqid() {
     return value;
 }
 
+const { JSON } = globalThis;
+
+
+let api;
+
+if (typeof document !== "undefined" && document.head && document.head.dataset) {
+
+    api = {
+        set: function (node, attr, value) {
+            if (isUndef(value) || isNull(value)) {
+                return this.remove(node, attr);
+            }
+            node.dataset[attr] = encode(value);
+        },
+        get: function (node, attr) {
+            return decode(node.dataset[attr]);
+        },
+        remove: function (node, attr) {
+            delete node.dataset[attr];
+        }
+    };
+} else {
+    api = {
+        set: function (node, attr, value) {
+
+            if (isUndef(value) || isNull(value)) {
+                return this.remove(node, attr);
+            }
+            node.setAttribute('data-' + toDashed(attr), encode(value));
+        },
+        get: function (node, attr) {
+            return decode(node.getAttribute('data-' + toDashed(attr)));
+        },
+        remove: function (node, attr) {
+            node.removeAttribute('data-' + toDashed(attr));
+        }
+    };
+}
+
+
+function toDashed(name) {
+    return name.replace(/([A-Z])/g, function (u) {
+        return "-" + u.toLowerCase();
+    });
+}
+
+function getElem(elem) {
+
+    if (isString(elem)) {
+        elem = document.querySelectorAll(elem);
+        if (elem.length === 1) {
+            elem = elem[0];
+        }
+    }
+
+    return elem;
+}
+
+
+function decode(value) {
+
+    //unification
+    if (isUndef(value) || isNull(value) || value === '') {
+        return null;
+    }
+    if (
+        (value.startsWith('{') && value.endsWith('}')) ||
+        (value.startsWith('[') && value.endsWith(']')) ||
+        isNumeric(value) || value === 'true' || value === 'false'
+    ) {
+        return JSON.parse(value);
+    }
+
+    return value;
+}
+
+
+function encode(value) {
+
+    if (!isString(value)) {
+        return JSON.stringify(value);
+    }
+    return value;
+}
+
+
+/**
+ * data-attribute reader/setter
+ * @param {Node|NodeList|String} elem 
+ * @param {String} attr 
+ * @param {Any} [value]
+ */
+function dataset(elem, attr, value) {
+
+    elem = getElem(elem);
+
+    const $this = {
+
+        get(attr) {
+            if (elem instanceof NodeList) {
+                elem = elem[0];
+            }
+            if (elem instanceof HTMLElement) {
+                return api.get(elem, attr);
+            }
+            return null;
+        },
+
+        set(attr, value) {
+
+            if (elem instanceof NodeList) {
+                elem.forEach(el => {
+                    api.set(el, attr, value);
+                });
+            } else if (elem instanceof HTMLElement) {
+                api.set(elem, attr, value);
+            }
+
+
+            return $this;
+        },
+        remove(attr) {
+
+            if (elem instanceof NodeList) {
+                elem.forEach(el => {
+                    api.remove(el, attr);
+                });
+            } else if (elem instanceof HTMLElement) {
+                api.remove(elem, attr);
+            }
+
+            return $this;
+        }
+    };
+
+    switch (arguments.length) {
+        case 2:
+            return $this.get(attr);
+
+        case 3:
+            return $this.set(attr, value);
+
+    }
+
+    return $this;
+
+}
+
 class ScrollNav {
 
 
@@ -156,10 +234,26 @@ class ScrollNav {
     #root
     #nav
     #ids
+    #ready = false;
+    #ignoreScrollEvent = true;
+
 
 
     get ready() {
-        return document.readyState === 'complete';
+        return this.#ready;
+    }
+    onReady() {
+
+        return new Promise(resolve => {
+
+            if (document.readyState === 'complete') {
+                return resolve(this);
+            }
+            addEventListener('load', () => {
+                resolve(this);
+            });
+        });
+
     }
 
 
@@ -232,47 +326,117 @@ class ScrollNav {
         this.#root.addEventListener('click', e => {
             let target = e.target.closest('li');
             if (target) {
+                this.#ignoreScrollEvent = true;
 
-                this.scrollTo(dataset$1.get(target, target));
+                this.setActive(this.#nav.indexOf(target));
 
-
-
-
+                this.scrollTo(dataset(target, 'index')).then(() => this.#ignoreScrollEvent = false);
             }
 
         });
 
+        const onResize = () => {
+
+            let y = 0;
+            targets.forEach(target => {
+
+                const rect = target.getBoundingClientRect();
+                if (y === 0) {
+                    y = innerHeight - rect.height;
+                }
+                dataset(target, 'top', y + 'px');
+                dataset(target, 'bottom', (y + rect.height) + 'px');
+                y += rect.height;
+            });
+
+        }, whichIsIntoView = () => {
+            if (this.#ignoreScrollEvent) {
+                return;
+            }
+
+            for (let i = 0; i < this.#targets.length; i++) {
+
+                let target = this.#targets[i], y = scrollY;
+                let [top, bottom] = [parseInt(dataset(target, 'top')), parseInt(dataset(target, 'bottom'))];
+                if (top <= y && bottom > y) {
+                    this.setActive(i);
+                    return;
+                }
+
+            }
+        };
 
 
+
+        addEventListener('resize', onResize);
+        addEventListener('scroll', whichIsIntoView);
+
+
+        this.onReady().then(() => {
+            this.#ready = true;
+            this.#ignoreScrollEvent = false;
+            onResize();
+            whichIsIntoView();
+
+        });
+
+    }
+
+
+    setActive(id) {
+
+        if (id < this.#nav.length && id >= 0) {
+            this.#nav.concat(this.#targets).forEach(elem => {
+                elem.classList.remove('active', 'complete');
+            });
+            this.#nav[id].classList.add('active');
+
+            this.#targets[id].classList.add('active', 'complete');
+        }
     }
 
 
 
     scrollTo(id) {
 
-        let elem;
 
-        if (isString(id)) {
-            if (id.startsWith('#')) {
-                id = id.slice(1);
+        return new Promise((resolve, reject) => {
+            let elem;
+
+            if (isString(id)) {
+                if (id.startsWith('#')) {
+                    id = id.slice(1);
+                }
+                id = this.#ids[id];
             }
 
-            id = this.#ids[id];
-        }
+            if (isInt(id)) {
+                elem = this.#targets[id];
+            } else if (id instanceof Element) {
+                elem = id;
+                id = this.#targets.indexOf(id);
+            }
+            if (elem) {
 
-        if (isInt(id)) {
-            elem = this.#targets[id];
-        } else if (id instanceof Element) {
-            elem = id;
-        }
+                const [top, bottom] = [parseInt(dataset(elem, 'top')), parseInt(dataset(elem, 'bottom'))];
 
+                const listener = () => {
 
-        if (elem) {
-            elem.scrollTo(0, 0);
-        }
+                    if (bottom > scrollY && top <= scrollY) {
+                        removeEventListener('scroll', listener);
 
+                        elem.classList.add('complete');
+                        resolve(elem);
+                    }
+                };
 
+                addEventListener('scroll', listener);
 
+                elem.scrollIntoView(true);
+            } else {
+                reject(new Error('Invalid id'));
+            }
+        });
 
     }
 }

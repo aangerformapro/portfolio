@@ -6885,7 +6885,7 @@ a {
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   cursor: pointer;
 }
 .nav-pills ul li {
@@ -6899,6 +6899,7 @@ a {
   outline: 0;
   border-color: rgba(123, 123, 123, 0.77);
   padding: 3px;
+  transition: border-color 0.4s ease-in-out;
 }
 .nav-pills ul li.active .pill {
   border-color: rgba(202, 63, 63, 0.94);
@@ -6908,7 +6909,6 @@ a {
 .page {
   min-height: 100vh;
   scroll-snap-align: start;
-  transition: transform 0.5s ease-in-out;
 }
 
 /* Landing Page */

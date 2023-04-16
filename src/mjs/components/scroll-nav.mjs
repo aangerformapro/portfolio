@@ -1,5 +1,8 @@
-import dataset from "dataset";
-import { createElement, isArray, isString, uniqid } from "../helpers/utils.mjs";
+
+import dataset from "../helpers/dataset.mjs";
+import { createElement, isArray, isInt, isString, uniqid } from "../helpers/utils.mjs";
+
+
 
 
 
@@ -11,10 +14,26 @@ export class ScrollNav {
     #root
     #nav
     #ids
+    #ready = false;
+    #ignoreScrollEvent = true;
+
 
 
     get ready() {
-        return document.readyState === 'complete';
+        return this.#ready;
+    }
+    onReady() {
+
+        return new Promise(resolve => {
+
+            if (document.readyState === 'complete') {
+                return resolve(this);
+            }
+            addEventListener('load', () => {
+                resolve(this);
+            });
+        });
+
     }
 
 
@@ -47,6 +66,8 @@ export class ScrollNav {
         this.#nav = [];
 
         this.#ids = {};
+
+        let ignoreScrollEvent = true;
 
         const root = this.#root.firstChild;
 
@@ -87,47 +108,117 @@ export class ScrollNav {
         this.#root.addEventListener('click', e => {
             let target = e.target.closest('li');
             if (target) {
+                this.#ignoreScrollEvent = true;
 
-                this.scrollTo(dataset.get(target, target));
+                this.setActive(this.#nav.indexOf(target));
 
-
-
-
+                this.scrollTo(dataset(target, 'index')).then(() => this.#ignoreScrollEvent = false);
             }
 
         });
 
+        const onResize = () => {
+
+            let y = 0;
+            targets.forEach(target => {
+
+                const rect = target.getBoundingClientRect();
+                if (y === 0) {
+                    y = innerHeight - rect.height;
+                }
+                dataset(target, 'top', y + 'px');
+                dataset(target, 'bottom', (y + rect.height) + 'px');
+                y += rect.height;
+            });
+
+        }, whichIsIntoView = () => {
+            if (this.#ignoreScrollEvent) {
+                return;
+            }
+
+            for (let i = 0; i < this.#targets.length; i++) {
+
+                let target = this.#targets[i], y = scrollY;
+                let [top, bottom] = [parseInt(dataset(target, 'top')), parseInt(dataset(target, 'bottom'))];
+                if (top <= y && bottom > y) {
+                    this.setActive(i);
+                    return;
+                }
+
+            }
+        };
 
 
+
+        addEventListener('resize', onResize);
+        addEventListener('scroll', whichIsIntoView);
+
+
+        this.onReady().then(() => {
+            this.#ready = true;
+            this.#ignoreScrollEvent = false;
+            onResize();
+            whichIsIntoView();
+
+        });
+
+    }
+
+
+    setActive(id) {
+
+        if (id < this.#nav.length && id >= 0) {
+            this.#nav.concat(this.#targets).forEach(elem => {
+                elem.classList.remove('active', 'complete');
+            });
+            this.#nav[id].classList.add('active');
+
+            this.#targets[id].classList.add('active', 'complete');
+        }
     }
 
 
 
     scrollTo(id) {
 
-        let elem;
 
-        if (isString(id)) {
-            if (id.startsWith('#')) {
-                id = id.slice(1);
+        return new Promise((resolve, reject) => {
+            let elem;
+
+            if (isString(id)) {
+                if (id.startsWith('#')) {
+                    id = id.slice(1);
+                }
+                id = this.#ids[id];
             }
 
-            id = this.#ids[id];
-        }
+            if (isInt(id)) {
+                elem = this.#targets[id];
+            } else if (id instanceof Element) {
+                elem = id;
+                id = this.#targets.indexOf(id);
+            }
+            if (elem) {
 
-        if (isInt(id)) {
-            elem = this.#targets[id];
-        } else if (id instanceof Element) {
-            elem = id;
-        }
+                const [top, bottom] = [parseInt(dataset(elem, 'top')), parseInt(dataset(elem, 'bottom'))];
 
+                const listener = () => {
 
-        if (elem) {
-            elem.scrollTo(0, 0);
-        }
+                    if (bottom > scrollY && top <= scrollY) {
+                        removeEventListener('scroll', listener);
 
+                        elem.classList.add('complete');
+                        resolve(elem);
+                    }
+                };
 
+                addEventListener('scroll', listener);
 
+                elem.scrollIntoView(true);
+            } else {
+                reject(new Error('Invalid id'));
+            }
+        });
 
     }
 }
