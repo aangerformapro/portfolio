@@ -6,6 +6,7 @@
 @import 'bootstrap/scss/variables-dark';
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
 
 // css reset
 @import 'bootstrap/scss/root';
@@ -15,7 +16,11 @@
 @import 'bootstrap/scss/containers';
 @import 'bootstrap/scss/grid';
 
+//navbar
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+
 // utilities
-@import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/helpers';
 @import 'bootstrap/scss/utilities/api';

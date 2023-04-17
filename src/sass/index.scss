@@ -12,6 +12,7 @@ html
 {
     font-size: 16px;
     line-height: 1.2;
+    scroll-behavior: smooth;
     /* slide scroll */
     scroll-snap-type: y mandatory;
     scroll-snap-stop: always;
@@ -21,7 +22,8 @@ html
 
 body
 {
-    min-height: 100vw;
+    min-height: 100vh;
+    width: 100vw;
     margin: 0;
 }
 
@@ -134,31 +136,55 @@ a
                 border-color: rgba(123, 123, 123, .77);
                 padding: 3px;
 
-                transition: border-color .4s ease-in-out;
-            }
+                transition: border-color .6s ease-in-out;
 
-            &.active
-            {
-                .pill
+                &.active
                 {
                     border-color: rgba(202, 63, 63, 0.94);
                     padding: 5px;
-
+                    pointer-events: none;
                 }
 
             }
+
+
         }
     }
 }
 
 
 
+header
+{
+    min-height: 64px;
+    background: rgba(var(--bs-light-rgb), .1);
+    backdrop-filter: blur(3px);
+}
+
+
 .page
 {
+    // fixed header size
+    padding-top: 64px;
     min-height: 100vh;
     scroll-snap-align: start;
     transition: transform 1s ease-in-out, visibility 1s ease-in-out;
 
+}
+
+/* Social media icons */
+
+
+.social-media-link
+{
+
+    color: $home-color;
+
+    svg
+    {
+        max-width: 24px;
+        max-height: 24px;
+    }
 }
 
 
