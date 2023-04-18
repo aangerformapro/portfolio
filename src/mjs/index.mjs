@@ -31,7 +31,6 @@ if (typeof globalThis === 'undefined') {
 //const scrollNav = new ScrollNav(document.body, '.page');
 
 
-
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
     const
