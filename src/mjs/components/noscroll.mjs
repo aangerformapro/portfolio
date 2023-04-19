@@ -15,8 +15,6 @@ export default class NoScroll {
     static #getStylesheet() {
 
         if (!this.#stylesheet) {
-
-
             this.#stylesheet = createElement('style', { type: 'text/css', id: 'no-scroll-component' });
             document.getElementsByTagName('head')[0].appendChild(this.#stylesheet);
 
@@ -45,14 +43,14 @@ export default class NoScroll {
 
 
 
-    static async disable() {
+    static async disable(savePosition = true) {
 
         if (!this.enabled) {
             return true;
         }
 
         document.documentElement.classList.remove('noscroll');
-        if (this.#scrollTop > 0) {
+        if (this.#scrollTop > 0 && savePosition) {
             document.documentElement.scrollTo(0, this.#scrollTop);
         }
         this.trigger('disabled');

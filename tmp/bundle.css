@@ -7518,10 +7518,17 @@ a {
   pointer-events: none;
 }
 
-header {
+header.fixed-top {
   min-height: 64px;
   background: rgba(var(--bs-light-rgb), 0.1);
   backdrop-filter: blur(3px);
+}
+
+@media (max-width: 992px) {
+  .navbar-shown header.fixed-top,
+  .navbar-navbar-collapsing header.fixed-top {
+    min-height: 100vw;
+  }
 }
 
 .page {
@@ -7540,6 +7547,42 @@ header {
   max-height: 24px;
 }
 
+/* Logo */
+.navbar-brand svg {
+  color: #404040;
+  min-width: 32px;
+  min-height: 32px;
+  max-width: 40px;
+  max-height: 40px;
+}
+
+/* nav links */
+.navbar .nav-link {
+  position: relative;
+}
+.navbar .nav-link:hover {
+  font-weight: 700;
+  text-shadow: 4px 4px 4px #404040;
+}
+@media (min-width: 992px) {
+  .navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0.125rem;
+    background-color: #404040;
+    border-radius: 50%;
+    height: 0.125rem;
+    left: 50%;
+    right: 50%;
+    transition: left 0.5s ease-in-out, right 0.5s ease-in-out;
+  }
+  .navbar .nav-link:hover::after {
+    left: 5%;
+    right: 5%;
+  }
+}
+
+/* header */
 /* Landing Page */
 #home {
   background: #F5DE7F;

@@ -1,8 +1,11 @@
 import PanelSnap from "panelsnap";
-import ScrollNav from "./components/scroll-nav.mjs";
 
 // bootstrap components
 import { Collapse, ScrollSpy } from "bootstrap";
+import NoScroll from "./components/noscroll.mjs";
+
+
+const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
 
 // old browsers scroll-snap-type nav support
 if (typeof globalThis === 'undefined') {
@@ -48,3 +51,23 @@ addEventListener('activate.bs.scrollspy', e => {
     });
 });
 
+
+addEventListener('show.bs.collapse', () => {
+    body.classList.remove(...navbarEventTypes);
+    body.classList.add('navbar-collapsing');
+
+
+
+    NoScroll.enable(noScrollSavesPosition);
+});
+addEventListener('shown.bs.collapse', () => {
+    body.classList.remove(...navbarEventTypes);
+    body.classList.add('navbar-shown');
+});
+
+
+addEventListener('hidden.bs.collapse', () => {
+    body.classList.remove(...navbarEventTypes);
+
+    NoScroll.disable(noScrollSavesPosition);
+});

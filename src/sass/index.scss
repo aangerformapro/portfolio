@@ -1,15 +1,12 @@
 //@use "bootstrap-utilities";
 
 @use 'components/bootstrap';
-
 @use 'components/gerillass' as g;
-
 @use 'helpers' as *;
 
 
 
-html
-{
+html {
     font-size: 16px;
     line-height: 1.2;
     scroll-behavior: smooth;
@@ -20,8 +17,7 @@ html
 }
 
 
-body
-{
+body {
     min-height: 100vh;
     width: 100vw;
     margin: 0;
@@ -30,8 +26,7 @@ body
 
 *,
 ::before,
-::after
-{
+::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -39,15 +34,13 @@ body
 }
 
 
-a
-{
+a {
     text-decoration: none;
 }
 
 
 /* Text meant only for screen readers. */
-.screen-reader-text
-{
+.screen-reader-text {
     border: 0;
     clip: rect(1px, 1px, 1px, 1px);
     clip-path: inset(50%);
@@ -61,8 +54,7 @@ a
 }
 
 
-.tooltip
-{
+.tooltip {
     @include font-size(g.remify(14px));
 
     display: inline-block;
@@ -83,8 +75,7 @@ a
     transition: opacity .7s ease-in-out;
     text-transform: uppercase;
 
-    &::after
-    {
+    &::after {
         border: .6rem solid transparent;
         border-left-color: #222;
         bottom: 50%;
@@ -98,35 +89,30 @@ a
 
 }
 
-*:hover > .tooltip
-{
+*:hover>.tooltip {
     opacity: 1;
     visibility: visible;
 }
 
-.nav-pills
-{
+.nav-pills {
     position: fixed;
     right: 1vw;
     z-index: 10;
     top: 50vh;
     transform: translateY(-50%);
 
-    ul
-    {
+    ul {
         list-style-type: none;
         display: flex;
         flex-direction: column;
         align-items: center;
         cursor: pointer;
 
-        li
-        {
+        li {
             margin: .125rem 0;
             position: relative;
 
-            .pill
-            {
+            .pill {
 
                 border: 2px solid;
                 border-radius: 50%;
@@ -138,8 +124,7 @@ a
 
                 transition: border-color .6s ease-in-out;
 
-                &.active
-                {
+                &.active {
                     border-color: rgba(202, 63, 63, 0.94);
                     padding: 5px;
                     pointer-events: none;
@@ -154,16 +139,28 @@ a
 
 
 
-header
-{
+header.fixed-top {
     min-height: 64px;
     background: rgba(var(--bs-light-rgb), .1);
     backdrop-filter: blur(3px);
 }
 
 
-.page
-{
+.navbar-shown,
+.navbar-navbar-collapsing {
+    @include lg-down {
+
+        header.fixed-top {
+            min-height: 100vw;
+        }
+
+
+
+    }
+}
+
+
+.page {
     // fixed header size
     padding-top: 64px;
     min-height: 100vh;
@@ -175,24 +172,69 @@ header
 /* Social media icons */
 
 
-.social-media-link
-{
+.social-media-link {
 
     color: $home-color;
 
-    svg
-    {
+    svg {
         max-width: 24px;
         max-height: 24px;
     }
 }
 
 
+/* Logo */
+
+.navbar-brand {
+    svg {
+        color: $home-color;
+        min-width: 32px;
+        min-height: 32px;
+        max-width: 40px;
+        max-height: 40px;
+    }
+}
+
+/* nav links */
+.navbar .nav-link {
+
+    position: relative;
+
+
+    &:hover {
+        font-weight: 700;
+        text-shadow: 4px 4px 4px $home-color;
+    }
+
+
+    @include lg {
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: .125rem;
+            background-color: $home-color;
+            border-radius: 50%;
+            height: .125rem;
+            left: 50%;
+            right: 50%;
+            transition: left .5s ease-in-out, right .5s ease-in-out;
+        }
+
+        &:hover::after {
+            left: 5%;
+            right: 5%;
+        }
+    }
+}
+
+
+/* header */
+
+
 
 /* Landing Page */
 
-#home
-{
+#home {
     background: $home-bg;
     color: $home-color;
 }
