@@ -8632,7 +8632,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n";
+var css_248z = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
 styleInject(css_248z);
 
 var NoScroll = /*#__PURE__*/function () {
@@ -8698,7 +8698,9 @@ var NoScroll = /*#__PURE__*/function () {
             case 3:
               document.documentElement.classList.remove('noscroll');
               if (_classStaticPrivateFieldSpecGet(this, NoScroll, _scrollTop) > 0 && savePosition) {
+                document.documentElement.classList.add('scrollback');
                 document.documentElement.scrollTo(0, _classStaticPrivateFieldSpecGet(this, NoScroll, _scrollTop));
+                document.documentElement.classList.remove('scrollback');
               }
               this.trigger('disabled');
               return _context2.abrupt("return", true);

@@ -51,7 +51,9 @@ export default class NoScroll {
 
         document.documentElement.classList.remove('noscroll');
         if (this.#scrollTop > 0 && savePosition) {
+            document.documentElement.classList.add('scrollback');
             document.documentElement.scrollTo(0, this.#scrollTop);
+            document.documentElement.classList.remove('scrollback');
         }
         this.trigger('disabled');
         return true;
