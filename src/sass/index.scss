@@ -228,7 +228,75 @@ header.fixed-top {
 }
 
 
-/* header */
+/* Hamburger */
+@include lg-down {
+
+
+
+
+    .hamburger {
+
+        width: 40px;
+        position: absolute;
+        height: 3px;
+        background-color: $home-color;
+        right: 0;
+
+        transition: transform .5s ease-in-out;
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+            height: 3px;
+            width: 40px;
+            top: -.75rem;
+            background-color: $home-color;
+            right: 0;
+
+            transition: transform .5s ease-in-out;
+        }
+
+        &::after {
+            top: .75rem;
+
+            transition: width .25s ease-in-out;
+        }
+    }
+
+    .navbar-toggler {
+
+        box-shadow: none !important;
+        border: 0 !important;
+
+        position: relative;
+
+        height: 40px;
+
+        width: 40px;
+
+        &[aria-expanded="true"] {
+
+
+            .hamburger {
+
+                transition: transform .5s ease-in-out;
+                //background-color: $main-bg;
+                transform: rotate(45deg);
+
+                &::after {
+                    width: 0;
+                }
+
+                &::before {
+                    transform: translateY(.75rem) rotate(90deg);
+                    //background-color: $main-bg;
+                    transition: transform .5s ease-in-out;
+                }
+            }
+        }
+    }
+}
 
 
 

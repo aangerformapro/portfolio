@@ -8726,7 +8726,7 @@ function _getStylesheet() {
       type: 'text/css',
       id: 'no-scroll-component'
     }));
-    getElementsByTagName('head')[0].appendChild(_classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet));
+    document.getElementsByTagName('head')[0].appendChild(_classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet));
   }
   return _classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet);
 }
@@ -8744,6 +8744,7 @@ var _document = document,
   body = _document.body,
   navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
   noScrollSavesPosition = true;
+var collapsible;
 
 // old browsers scroll-snap-type nav support
 if (typeof globalThis === 'undefined') {
@@ -8802,5 +8803,29 @@ addEventListener('hidden.bs.collapse', function () {
   var _body$classList3;
   (_body$classList3 = body.classList).remove.apply(_body$classList3, navbarEventTypes);
   NoScroll.disable(noScrollSavesPosition);
+});
+
+// mobile menu disappears when clicked
+
+addEventListener('click', function (e) {
+  var target;
+  if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+    var _collapsible;
+    (_collapsible = collapsible) !== null && _collapsible !== void 0 ? _collapsible : collapsible = new Collapse('#navbarNav', {
+      toggle: false
+    });
+    var id = target.getAttribute('href').slice(1),
+      elem = document.getElementById(id);
+    addEventListener('hidden.bs.collapse', function () {
+      elem.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: 'smooth'
+      });
+    }, {
+      once: true
+    });
+    collapsible.hide();
+  }
 });
 //# sourceMappingURL=bundle.js.map

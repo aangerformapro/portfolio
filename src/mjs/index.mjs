@@ -7,6 +7,8 @@ import NoScroll from "./components/noscroll.mjs";
 
 const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
 
+let collapsible;
+
 // old browsers scroll-snap-type nav support
 if (typeof globalThis === 'undefined') {
     //console.warn('Navigator is too old !!!');
@@ -55,9 +57,6 @@ addEventListener('activate.bs.scrollspy', e => {
 addEventListener('show.bs.collapse', () => {
     body.classList.remove(...navbarEventTypes);
     body.classList.add('navbar-collapsing');
-
-
-
     NoScroll.enable(noScrollSavesPosition);
 });
 addEventListener('shown.bs.collapse', () => {
@@ -68,6 +67,29 @@ addEventListener('shown.bs.collapse', () => {
 
 addEventListener('hidden.bs.collapse', () => {
     body.classList.remove(...navbarEventTypes);
-
     NoScroll.disable(noScrollSavesPosition);
+});
+
+
+// mobile menu disappears when clicked
+
+addEventListener('click', e => {
+
+    let target;
+
+    if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+        collapsible ??= new Collapse('#navbarNav', {
+            toggle: false
+        });
+
+        let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+
+        addEventListener('hidden.bs.collapse', () => {
+            elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
+        }, { once: true });
+
+        collapsible.hide();
+
+    }
+
 });

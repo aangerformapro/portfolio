@@ -18,7 +18,7 @@ export default class NoScroll {
 
         if (!this.#stylesheet) {
             this.#stylesheet = createElement('style', { type: 'text/css', id: 'no-scroll-component' });
-            getElementsByTagName('head')[0].appendChild(this.#stylesheet);
+            document.getElementsByTagName('head')[0].appendChild(this.#stylesheet);
 
         }
         return this.#stylesheet;
