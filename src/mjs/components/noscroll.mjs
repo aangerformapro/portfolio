@@ -2,6 +2,8 @@ import EventManager from "../helpers/event-manager.mjs";
 import { createElement } from "../helpers/utils.mjs";
 import "./noscroll.css";
 
+const { documentElement } = document;
+
 export default class NoScroll {
 
 
@@ -9,14 +11,14 @@ export default class NoScroll {
     static #stylesheet
 
     static get enabled() {
-        return document.documentElement.classList.contains('noscroll');
+        return documentElement.classList.contains('noscroll');
     }
 
     static #getStylesheet() {
 
         if (!this.#stylesheet) {
             this.#stylesheet = createElement('style', { type: 'text/css', id: 'no-scroll-component' });
-            document.getElementsByTagName('head')[0].appendChild(this.#stylesheet);
+            getElementsByTagName('head')[0].appendChild(this.#stylesheet);
 
         }
         return this.#stylesheet;
@@ -30,12 +32,12 @@ export default class NoScroll {
         }
 
 
-        let pos = Math.max(0, document.documentElement.scrollTop);
+        let pos = Math.max(0, documentElement.scrollTop);
         this.#scrollTop = pos;
         if (savePosition) {
             this.#getStylesheet().innerHTML = `html.noscroll{top:-${pos}px;}`;
         }
-        document.documentElement.classList.add('noscroll');
+        documentElement.classList.add('noscroll');
         this.trigger('enabled');
         return true;
     }
@@ -49,11 +51,11 @@ export default class NoScroll {
             return true;
         }
 
-        document.documentElement.classList.remove('noscroll');
+        documentElement.classList.remove('noscroll');
         if (this.#scrollTop > 0 && savePosition) {
-            document.documentElement.classList.add('scrollback');
-            document.documentElement.scrollTo(0, this.#scrollTop);
-            document.documentElement.classList.remove('scrollback');
+            documentElement.classList.add('scrollback');
+            documentElement.scrollTo(0, this.#scrollTop);
+            documentElement.classList.remove('scrollback');
         }
         this.trigger('disabled');
         return true;

@@ -8635,6 +8635,8 @@ function styleInject(css, ref) {
 var css_248z = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
 styleInject(css_248z);
 
+var _document$1 = document,
+  documentElement = _document$1.documentElement;
 var NoScroll = /*#__PURE__*/function () {
   function NoScroll() {
     _classCallCheck(this, NoScroll);
@@ -8642,7 +8644,7 @@ var NoScroll = /*#__PURE__*/function () {
   _createClass(NoScroll, null, [{
     key: "enabled",
     get: function get() {
-      return document.documentElement.classList.contains('noscroll');
+      return documentElement.classList.contains('noscroll');
     }
   }, {
     key: "enable",
@@ -8661,12 +8663,12 @@ var NoScroll = /*#__PURE__*/function () {
               }
               return _context.abrupt("return", true);
             case 3:
-              pos = Math.max(0, document.documentElement.scrollTop);
+              pos = Math.max(0, documentElement.scrollTop);
               _classStaticPrivateFieldSpecSet(this, NoScroll, _scrollTop, pos);
               if (savePosition) {
                 _classStaticPrivateMethodGet(this, NoScroll, _getStylesheet).call(this).innerHTML = "html.noscroll{top:-".concat(pos, "px;}");
               }
-              document.documentElement.classList.add('noscroll');
+              documentElement.classList.add('noscroll');
               this.trigger('enabled');
               return _context.abrupt("return", true);
             case 9:
@@ -8696,11 +8698,11 @@ var NoScroll = /*#__PURE__*/function () {
               }
               return _context2.abrupt("return", true);
             case 3:
-              document.documentElement.classList.remove('noscroll');
+              documentElement.classList.remove('noscroll');
               if (_classStaticPrivateFieldSpecGet(this, NoScroll, _scrollTop) > 0 && savePosition) {
-                document.documentElement.classList.add('scrollback');
-                document.documentElement.scrollTo(0, _classStaticPrivateFieldSpecGet(this, NoScroll, _scrollTop));
-                document.documentElement.classList.remove('scrollback');
+                documentElement.classList.add('scrollback');
+                documentElement.scrollTo(0, _classStaticPrivateFieldSpecGet(this, NoScroll, _scrollTop));
+                documentElement.classList.remove('scrollback');
               }
               this.trigger('disabled');
               return _context2.abrupt("return", true);
@@ -8724,7 +8726,7 @@ function _getStylesheet() {
       type: 'text/css',
       id: 'no-scroll-component'
     }));
-    document.getElementsByTagName('head')[0].appendChild(_classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet));
+    getElementsByTagName('head')[0].appendChild(_classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet));
   }
   return _classStaticPrivateFieldSpecGet(this, NoScroll, _stylesheet);
 }
