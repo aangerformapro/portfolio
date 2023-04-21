@@ -1,0 +1,40 @@
+@use '../animation';
+
+@keyframes fadeInDownBig {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -2000px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+%fadeInDownBig {
+    @include animation.load-animation(fadeInDownBig);
+}
+
+@mixin animated-fadeInDownBig (
+    $duration: null,
+    $delay: null,
+    $function: null,
+    $direction: null,
+    $fill: null,
+    $count: null,
+    $visibility: null,
+    $composition: null
+)
+{
+    @extend %fadeInDownBig;
+    @include set-animation-properties(
+        $duration,
+        $delay,
+        $function,
+        $direction,
+        $fill,
+        $count,
+        $visibility,
+        $composition
+    );    
+}

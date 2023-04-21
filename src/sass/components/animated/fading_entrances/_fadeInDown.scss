@@ -1,0 +1,40 @@
+@use '../animation';
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+%fadeInDown {
+    @include animation.load-animation(fadeInDown);
+}
+
+@mixin animated-fadeInDown (
+    $duration: null,
+    $delay: null,
+    $function: null,
+    $direction: null,
+    $fill: null,
+    $count: null,
+    $visibility: null,
+    $composition: null
+)
+{
+    @extend %fadeInDown;
+    @include set-animation-properties(
+        $duration,
+        $delay,
+        $function,
+        $direction,
+        $fill,
+        $count,
+        $visibility,
+        $composition
+    );    
+}

@@ -1,0 +1,42 @@
+@use '../animation';
+
+@keyframes rotateIn {
+  from {
+    transform: rotate3d(0, 0, 1, -200deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+%rotateIn {
+    @include animation.load-animation(rotateIn) {
+        @include animation.transform(center);
+    }
+}
+
+@mixin animated-rotateIn (
+    $duration: null,
+    $delay: null,
+    $function: null,
+    $direction: null,
+    $fill: null,
+    $count: null,
+    $visibility: null,
+    $composition: null
+)
+{
+    @extend %rotateIn;
+    @include set-animation-properties(
+        $duration,
+        $delay,
+        $function,
+        $direction,
+        $fill,
+        $count,
+        $visibility,
+        $composition
+    );    
+}

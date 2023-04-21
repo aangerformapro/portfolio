@@ -1,0 +1,42 @@
+@use '../animation';
+
+@keyframes rotateInUpLeft {
+  from {
+    transform: rotate3d(0, 0, 1, 45deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+%rotateInUpLeft {
+    @include animation.load-animation(rotateInUpLeft) {
+        @include animation.transform(left bottom);
+    }
+}
+
+@mixin animated-rotateInUpLeft (
+    $duration: null,
+    $delay: null,
+    $function: null,
+    $direction: null,
+    $fill: null,
+    $count: null,
+    $visibility: null,
+    $composition: null
+)
+{
+    @extend %rotateInUpLeft;
+    @include set-animation-properties(
+        $duration,
+        $delay,
+        $function,
+        $direction,
+        $fill,
+        $count,
+        $visibility,
+        $composition
+    );    
+}

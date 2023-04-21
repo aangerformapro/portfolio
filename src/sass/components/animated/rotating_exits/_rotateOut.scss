@@ -1,0 +1,41 @@
+@use '../animation';
+
+@keyframes rotateOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    transform: rotate3d(0, 0, 1, 200deg);
+    opacity: 0;
+  }
+}
+%rotateOut {
+    @include animation.load-animation(rotateOut) {
+        @include animation.transform(center);
+    }
+}
+
+@mixin animated-rotateOut (
+    $duration: null,
+    $delay: null,
+    $function: null,
+    $direction: null,
+    $fill: null,
+    $count: null,
+    $visibility: null,
+    $composition: null
+)
+{
+    @extend %rotateOut;
+    @include set-animation-properties(
+        $duration,
+        $delay,
+        $function,
+        $direction,
+        $fill,
+        $count,
+        $visibility,
+        $composition
+    );    
+}

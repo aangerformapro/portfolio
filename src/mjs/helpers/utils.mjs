@@ -23,7 +23,8 @@ export const
     isObject = (param) => typeof param === 'object' && !isNull(param),
     isCallable = (param) => typeof param === 'function',
     isFunction = isCallable,
-    isScalar = (param) => isNumeric(param) || isString(param) || isBool(param);
+    isScalar = (param) => isNumeric(param) || isString(param) || isBool(param),
+    capitalize = (param) => isString(param) && param.split(/\s+/).map(param => param.charAt(0).toUpperCase() + param.slice(1).toLowerCase()).join(' ');
 
 const
     VALID_REFERERRPOLICY = [

@@ -3,7 +3,9 @@ import PanelSnap from "panelsnap";
 // bootstrap components
 import { Collapse, ScrollSpy } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
-
+import Typed from 'typed.js';
+import dataset from "./helpers/dataset.mjs";
+import { capitalize, createElement } from "./helpers/utils.mjs";
 
 const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
 
@@ -93,3 +95,50 @@ addEventListener('click', e => {
     }
 
 });
+
+
+//title in divs
+
+(() => {
+    let titleElement = document.querySelector('#home h1'), text = titleElement.getAttribute('aria-label'), letters = text.split('');
+    titleElement.innerHTML = '';
+
+    for (let letter of letters) {
+
+        titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
+
+
+    }
+
+
+
+    console.debug(letters);
+})();
+
+
+
+
+
+
+
+
+
+
+
+// typed.js
+
+const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
+
+document.querySelectorAll('.typed-text').forEach(elem => {
+
+
+    let list;
+    if (list = dataset(elem, 'typed')) {
+        list = list.split(',').map(item => item.trim());
+        new Typed(elem, Object.assign({
+            strings: list
+        }, typedOptions));
+    }
+
+})
+

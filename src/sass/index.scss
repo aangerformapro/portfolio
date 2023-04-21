@@ -4,6 +4,8 @@
 @use 'components/gerillass' as g;
 @use 'helpers' as *;
 
+@use './components/animated/attention_seekers/rubberBand' as *;
+
 
 
 html {
@@ -302,7 +304,22 @@ header.fixed-top {
 
 /* Landing Page */
 
+
+.blast:hover {
+    @extend %rubberBand;
+    display: inline-block;
+    //color: #b8fef4;
+}
+
+
 #home {
-    background: $home-bg;
+    // background: $home-bg;
     color: $home-color;
+    position: relative;
+    user-select: none;
+
+
+
+
+
 }

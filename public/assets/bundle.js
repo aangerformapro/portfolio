@@ -1,443 +1,3 @@
-var _createClass$2 = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-function _classCallCheck$2(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-var SingleTweener = function () {
-  function SingleTweener() {
-    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck$2(this, SingleTweener);
-    this.start = opts.start;
-    this.end = opts.end;
-    this.decimal = opts.decimal;
-  }
-  _createClass$2(SingleTweener, [{
-    key: "getIntermediateValue",
-    value: function getIntermediateValue(tick) {
-      if (this.decimal) {
-        return tick;
-      } else {
-        return Math.round(tick);
-      }
-    }
-  }, {
-    key: "getFinalValue",
-    value: function getFinalValue() {
-      return this.end;
-    }
-  }]);
-  return SingleTweener;
-}();
-var _createClass$1$1 = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-function _classCallCheck$1$1(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-var Tweezer = function () {
-  function Tweezer() {
-    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck$1$1(this, Tweezer);
-    this.duration = opts.duration || 1000;
-    this.ease = opts.easing || this._defaultEase;
-    this.tweener = opts.tweener || new SingleTweener(opts);
-    this.start = this.tweener.start;
-    this.end = this.tweener.end;
-    this.frame = null;
-    this.next = null;
-    this.isRunning = false;
-    this.events = {};
-    this.direction = this.start < this.end ? 'up' : 'down';
-  }
-  _createClass$1$1(Tweezer, [{
-    key: 'begin',
-    value: function begin() {
-      if (!this.isRunning && this.next !== this.end) {
-        this.frame = window.requestAnimationFrame(this._tick.bind(this));
-      }
-      return this;
-    }
-  }, {
-    key: 'stop',
-    value: function stop() {
-      window.cancelAnimationFrame(this.frame);
-      this.isRunning = false;
-      this.frame = null;
-      this.timeStart = null;
-      this.next = null;
-      return this;
-    }
-  }, {
-    key: 'on',
-    value: function on(name, handler) {
-      this.events[name] = this.events[name] || [];
-      this.events[name].push(handler);
-      return this;
-    }
-  }, {
-    key: '_emit',
-    value: function _emit(name, val) {
-      var _this = this;
-      var e = this.events[name];
-      e && e.forEach(function (handler) {
-        return handler.call(_this, val);
-      });
-    }
-  }, {
-    key: '_tick',
-    value: function _tick(currentTime) {
-      this.isRunning = true;
-      var lastTick = this.next || this.start;
-      if (!this.timeStart) this.timeStart = currentTime;
-      this.timeElapsed = currentTime - this.timeStart;
-      this.next = this.ease(this.timeElapsed, this.start, this.end - this.start, this.duration);
-      if (this._shouldTick(lastTick)) {
-        this._emit('tick', this.tweener.getIntermediateValue(this.next));
-        this.frame = window.requestAnimationFrame(this._tick.bind(this));
-      } else {
-        this._emit('tick', this.tweener.getFinalValue());
-        this._emit('done', null);
-      }
-    }
-  }, {
-    key: '_shouldTick',
-    value: function _shouldTick(lastTick) {
-      return {
-        up: this.next < this.end && lastTick <= this.next,
-        down: this.next > this.end && lastTick >= this.next
-      }[this.direction];
-    }
-  }, {
-    key: '_defaultEase',
-    value: function _defaultEase(t, b, c, d) {
-      if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-      return -c / 2 * (--t * (t - 2) - 1) + b;
-    }
-  }]);
-  return Tweezer;
-}();
-
-/**
- * PanelSnap.js v1.3.0
- * Copyright (c) 2013-present, Guido Bouman
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-function _classCallCheck$1(t, e) {
-  if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
-}
-function _defineProperties$1(t, e) {
-  for (var n = 0; n < e.length; n++) {
-    var i = e[n];
-    i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
-  }
-}
-function _createClass$1(t, e, n) {
-  return e && _defineProperties$1(t.prototype, e), n && _defineProperties$1(t, n), t;
-}
-function _defineProperty$1(t, e, n) {
-  return e in t ? Object.defineProperty(t, e, {
-    value: n,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : t[e] = n, t;
-}
-function _objectSpread(t) {
-  for (var e = 1; e < arguments.length; e++) {
-    var n = null != arguments[e] ? arguments[e] : {},
-      i = Object.keys(n);
-    "function" == typeof Object.getOwnPropertySymbols && (i = i.concat(Object.getOwnPropertySymbols(n).filter(function (t) {
-      return Object.getOwnPropertyDescriptor(n, t).enumerable;
-    }))), i.forEach(function (e) {
-      _defineProperty$1(t, e, n[e]);
-    });
-  }
-  return t;
-}
-function _toConsumableArray$1(t) {
-  return _arrayWithoutHoles$1(t) || _iterableToArray$1(t) || _nonIterableSpread$1();
-}
-function _arrayWithoutHoles$1(t) {
-  if (Array.isArray(t)) {
-    for (var e = 0, n = new Array(t.length); e < t.length; e++) n[e] = t[e];
-    return n;
-  }
-}
-function _iterableToArray$1(t) {
-  if (Symbol.iterator in Object(t) || "[object Arguments]" === Object.prototype.toString.call(t)) return Array.from(t);
-}
-function _nonIterableSpread$1() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
-}
-function getScrollingElement(t) {
-  return t !== document.body ? t : "scrollingElement" in document ? document.scrollingElement : navigator.userAgent.indexOf("WebKit") > -1 ? document.body : document.documentElement;
-}
-function getScrollEventContainer(t) {
-  return t === document.body ? window : getScrollingElement(t);
-}
-function getContainerRect(t) {
-  if (t === document.body) {
-    var e = document.documentElement;
-    return {
-      top: 0,
-      left: 0,
-      bottom: e.clientHeight,
-      right: e.clientWidth,
-      height: e.clientHeight,
-      width: e.clientWidth
-    };
-  }
-  return t.getBoundingClientRect();
-}
-function getTargetScrollOffset(t, e) {
-  var n = arguments.length > 2 && void 0 !== arguments[2] && arguments[2],
-    i = arguments.length > 3 && void 0 !== arguments[3] && arguments[3],
-    o = getContainerRect(t),
-    r = e.getBoundingClientRect(),
-    s = r.top - o.top,
-    a = r.left - o.left,
-    l = n ? r.height - o.height : 0,
-    c = i ? r.width - o.width : 0,
-    h = getScrollingElement(t);
-  return {
-    top: s + l + h.scrollTop,
-    left: a + c + h.scrollLeft
-  };
-}
-function getElementsInContainerViewport(t, e) {
-  var n = getContainerRect(t);
-  return e.filter(function (t) {
-    var e = t.getBoundingClientRect();
-    return e.top < n.bottom && e.right > n.left && e.bottom > n.top && e.left < n.right;
-  });
-}
-function elementFillsContainer(t, e) {
-  var n = getContainerRect(t),
-    i = e.getBoundingClientRect();
-  return i.top <= n.top && i.bottom >= n.bottom && i.left <= n.left && i.right >= n.right;
-}
-var passiveIsSupported = function () {
-    var t = !1;
-    try {
-      var e = Object.defineProperty({}, "passive", {
-        get: function get() {
-          t = !0;
-        }
-      });
-      window.addEventListener("test", null, e), window.removeEventListener("test", null, e);
-    } catch (t) {}
-    return t;
-  }(),
-  INSTANCE_COUNTER = 0,
-  TWEEN_MAX_VALUE = 1e4,
-  defaultOptions = {
-    container: document.body,
-    panelSelector: "> section",
-    directionThreshold: 50,
-    delay: 0,
-    duration: 300,
-    easing: function easing(t) {
-      return t;
-    }
-  },
-  PanelSnap = function () {
-    function t(e) {
-      if (_classCallCheck$1(this, t), this.options = _objectSpread({}, defaultOptions, e), this.options.container.dataset.panelsnapId) throw new Error("PanelSnap is already initialised on this container, aborting.");
-      this.container = this.options.container, this.scrollContainer = getScrollingElement(this.container), this.scrollEventContainer = getScrollEventContainer(this.container), INSTANCE_COUNTER += 1, this.instanceIndex = INSTANCE_COUNTER, this.container.dataset.panelsnapId = this.instanceIndex;
-      var n = '[data-panelsnap-id="'.concat(this.instanceIndex, '"] ').concat(this.options.panelSelector);
-      this.panelList = Array.from(document.querySelectorAll(n)), this.events = [], this.isEnabled = !0, this.isInteracting = !1, this.scrollTimeout = null, this.resetAnimation(), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onScroll = this.onScroll.bind(this), this.onInteract = this.onInteract.bind(this), this.scrollEventContainer.addEventListener("keydown", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("keyup", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("touchend", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("scroll", this.onScroll, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("wheel", this.onInteract, passiveIsSupported && {
-        passive: !0
-      }), this.findSnapTarget();
-    }
-    return _createClass$1(t, [{
-      key: "destroy",
-      value: function value() {
-        this.stopAnimation(), this.disable(), this.scrollEventContainer.removeEventListener("keydown", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("keyup", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("touchend", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("scroll", this.onScroll, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("wheel", this.onInteract, passiveIsSupported && {
-          passive: !0
-        }), delete this.options.container.dataset.panelsnapId;
-      }
-    }, {
-      key: "enable",
-      value: function value() {
-        this.isEnabled = !0;
-      }
-    }, {
-      key: "disable",
-      value: function value() {
-        this.isEnabled = !1;
-      }
-    }, {
-      key: "on",
-      value: function value(t, e) {
-        var n = this.events[t] || [];
-        this.events[t] = _toConsumableArray$1(n).concat([e]), "activatePanel" === t && e.call(this, this.activePanel);
-      }
-    }, {
-      key: "off",
-      value: function value(t, e) {
-        var n = this.events[t] || [];
-        this.events[t] = n.filter(function (t) {
-          return t !== e;
-        });
-      }
-    }, {
-      key: "emit",
-      value: function value(t, e) {
-        var n = this;
-        (this.events[t] || []).forEach(function (t) {
-          return t.call(n, e);
-        });
-      }
-    }, {
-      key: "onInteractStart",
-      value: function value() {
-        this.stopAnimation(), this.isInteracting = !0;
-      }
-    }, {
-      key: "onInteractStop",
-      value: function value() {
-        this.isInteracting = !1, this.findSnapTarget();
-      }
-    }, {
-      key: "onInteract",
-      value: function value() {
-        this.stopAnimation(), this.onScroll();
-      }
-    }, {
-      key: "onScroll",
-      value: function value() {
-        clearTimeout(this.scrollTimeout), this.isInteracting || this.animation || (this.scrollTimeout = setTimeout(this.findSnapTarget.bind(this), 50 + this.options.delay));
-      }
-    }, {
-      key: "findSnapTarget",
-      value: function value() {
-        var t = this.scrollContainer.scrollTop - this.currentScrollOffset.top,
-          e = this.scrollContainer.scrollLeft - this.currentScrollOffset.left;
-        this.currentScrollOffset = {
-          top: this.scrollContainer.scrollTop,
-          left: this.scrollContainer.scrollLeft
-        };
-        var n = getElementsInContainerViewport(this.container, this.panelList);
-        if (0 === n.length) throw new Error("PanelSnap could not find a snappable panel, aborting.");
-        if (n.length > 1) {
-          if (Math.abs(t) < this.options.directionThreshold && Math.abs(e) < this.options.directionThreshold && this.activePanel) return void this.snapToPanel(this.activePanel, t > 0, e > 0);
-          var i = t > 0 || e > 0 ? 1 : n.length - 2;
-          this.snapToPanel(n[i], t < 0, e < 0);
-        } else {
-          var o = n[0];
-          elementFillsContainer(this.container, o) ? this.activatePanel(o) : (console.error("PanelSnap does not support space between panels, snapping back."), this.snapToPanel(o, t > 0, e > 0));
-        }
-      }
-    }, {
-      key: "snapToPanel",
-      value: function value(t) {
-        var e = this,
-          n = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
-          i = arguments.length > 2 && void 0 !== arguments[2] && arguments[2];
-        this.activatePanel(t), this.isEnabled && (this.animation && this.animation.stop(), this.targetScrollOffset = getTargetScrollOffset(this.container, t, n, i), this.animation = new Tweezer({
-          start: 0,
-          end: TWEEN_MAX_VALUE,
-          duration: this.options.duration
-        }), this.animation.on("tick", this.animationTick.bind(this)), this.animation.on("done", function () {
-          e.emit("snapStop", t), e.resetAnimation();
-        }), this.emit("snapStart", t), this.animation.begin());
-      }
-    }, {
-      key: "animationTick",
-      value: function value(t) {
-        var e = this.targetScrollOffset.top - this.currentScrollOffset.top,
-          n = this.currentScrollOffset.top + e * t / TWEEN_MAX_VALUE;
-        this.scrollContainer.scrollTop = n;
-        var i = this.targetScrollOffset.left - this.currentScrollOffset.left,
-          o = this.currentScrollOffset.left + i * t / TWEEN_MAX_VALUE;
-        this.scrollContainer.scrollLeft = o;
-      }
-    }, {
-      key: "stopAnimation",
-      value: function value() {
-        this.animation && (this.animation.stop(), this.resetAnimation());
-      }
-    }, {
-      key: "resetAnimation",
-      value: function value() {
-        this.currentScrollOffset = {
-          top: this.scrollContainer.scrollTop,
-          left: this.scrollContainer.scrollLeft
-        }, this.targetScrollOffset = {
-          top: 0,
-          left: 0
-        }, this.animation = null;
-      }
-    }, {
-      key: "activatePanel",
-      value: function value(t) {
-        this.activePanel !== t && (this.emit("activatePanel", t), this.activePanel = t);
-      }
-    }]), t;
-  }();
-var PanelSnap$1 = PanelSnap;
-
 function _iterableToArrayLimit(arr, i) {
   var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
   if (null != _i) {
@@ -479,7 +39,7 @@ function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
     i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
+      _defineProperty$1(target, key, source[key]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
       Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
     });
@@ -826,12 +386,12 @@ function _asyncToGenerator(fn) {
     });
   };
 }
-function _classCallCheck(instance, Constructor) {
+function _classCallCheck$2(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties(target, props) {
+function _defineProperties$1(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -840,15 +400,15 @@ function _defineProperties(target, props) {
     Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
   }
 }
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
+function _createClass$2(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$1(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
   return Constructor;
 }
-function _defineProperty(obj, key, value) {
+function _defineProperty$1(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -956,16 +516,16 @@ function _get() {
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+function _toConsumableArray$1(arr) {
+  return _arrayWithoutHoles$1(arr) || _iterableToArray$1(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread$1();
 }
-function _arrayWithoutHoles(arr) {
+function _arrayWithoutHoles$1(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function _iterableToArray(iter) {
+function _iterableToArray$1(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 function _unsupportedIterableToArray(o, minLen) {
@@ -981,7 +541,7 @@ function _arrayLikeToArray(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function _nonIterableSpread() {
+function _nonIterableSpread$1() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _nonIterableRest() {
@@ -1117,6 +677,446 @@ function _classPrivateFieldInitSpec(obj, privateMap, value) {
   _checkPrivateRedeclaration(obj, privateMap);
   privateMap.set(obj, value);
 }
+
+var _createClass$1 = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+function _classCallCheck$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+var SingleTweener = function () {
+  function SingleTweener() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    _classCallCheck$1(this, SingleTweener);
+    this.start = opts.start;
+    this.end = opts.end;
+    this.decimal = opts.decimal;
+  }
+  _createClass$1(SingleTweener, [{
+    key: "getIntermediateValue",
+    value: function getIntermediateValue(tick) {
+      if (this.decimal) {
+        return tick;
+      } else {
+        return Math.round(tick);
+      }
+    }
+  }, {
+    key: "getFinalValue",
+    value: function getFinalValue() {
+      return this.end;
+    }
+  }]);
+  return SingleTweener;
+}();
+var _createClass$1$1 = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+function _classCallCheck$1$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+var Tweezer = function () {
+  function Tweezer() {
+    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    _classCallCheck$1$1(this, Tweezer);
+    this.duration = opts.duration || 1000;
+    this.ease = opts.easing || this._defaultEase;
+    this.tweener = opts.tweener || new SingleTweener(opts);
+    this.start = this.tweener.start;
+    this.end = this.tweener.end;
+    this.frame = null;
+    this.next = null;
+    this.isRunning = false;
+    this.events = {};
+    this.direction = this.start < this.end ? 'up' : 'down';
+  }
+  _createClass$1$1(Tweezer, [{
+    key: 'begin',
+    value: function begin() {
+      if (!this.isRunning && this.next !== this.end) {
+        this.frame = window.requestAnimationFrame(this._tick.bind(this));
+      }
+      return this;
+    }
+  }, {
+    key: 'stop',
+    value: function stop() {
+      window.cancelAnimationFrame(this.frame);
+      this.isRunning = false;
+      this.frame = null;
+      this.timeStart = null;
+      this.next = null;
+      return this;
+    }
+  }, {
+    key: 'on',
+    value: function on(name, handler) {
+      this.events[name] = this.events[name] || [];
+      this.events[name].push(handler);
+      return this;
+    }
+  }, {
+    key: '_emit',
+    value: function _emit(name, val) {
+      var _this = this;
+      var e = this.events[name];
+      e && e.forEach(function (handler) {
+        return handler.call(_this, val);
+      });
+    }
+  }, {
+    key: '_tick',
+    value: function _tick(currentTime) {
+      this.isRunning = true;
+      var lastTick = this.next || this.start;
+      if (!this.timeStart) this.timeStart = currentTime;
+      this.timeElapsed = currentTime - this.timeStart;
+      this.next = this.ease(this.timeElapsed, this.start, this.end - this.start, this.duration);
+      if (this._shouldTick(lastTick)) {
+        this._emit('tick', this.tweener.getIntermediateValue(this.next));
+        this.frame = window.requestAnimationFrame(this._tick.bind(this));
+      } else {
+        this._emit('tick', this.tweener.getFinalValue());
+        this._emit('done', null);
+      }
+    }
+  }, {
+    key: '_shouldTick',
+    value: function _shouldTick(lastTick) {
+      return {
+        up: this.next < this.end && lastTick <= this.next,
+        down: this.next > this.end && lastTick >= this.next
+      }[this.direction];
+    }
+  }, {
+    key: '_defaultEase',
+    value: function _defaultEase(t, b, c, d) {
+      if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+      return -c / 2 * (--t * (t - 2) - 1) + b;
+    }
+  }]);
+  return Tweezer;
+}();
+
+/**
+ * PanelSnap.js v1.3.0
+ * Copyright (c) 2013-present, Guido Bouman
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+function _classCallCheck(t, e) {
+  if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(t, e) {
+  for (var n = 0; n < e.length; n++) {
+    var i = e[n];
+    i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
+  }
+}
+function _createClass(t, e, n) {
+  return e && _defineProperties(t.prototype, e), n && _defineProperties(t, n), t;
+}
+function _defineProperty(t, e, n) {
+  return e in t ? Object.defineProperty(t, e, {
+    value: n,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : t[e] = n, t;
+}
+function _objectSpread(t) {
+  for (var e = 1; e < arguments.length; e++) {
+    var n = null != arguments[e] ? arguments[e] : {},
+      i = Object.keys(n);
+    "function" == typeof Object.getOwnPropertySymbols && (i = i.concat(Object.getOwnPropertySymbols(n).filter(function (t) {
+      return Object.getOwnPropertyDescriptor(n, t).enumerable;
+    }))), i.forEach(function (e) {
+      _defineProperty(t, e, n[e]);
+    });
+  }
+  return t;
+}
+function _toConsumableArray(t) {
+  return _arrayWithoutHoles(t) || _iterableToArray(t) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(t) {
+  if (Array.isArray(t)) {
+    for (var e = 0, n = new Array(t.length); e < t.length; e++) n[e] = t[e];
+    return n;
+  }
+}
+function _iterableToArray(t) {
+  if (Symbol.iterator in Object(t) || "[object Arguments]" === Object.prototype.toString.call(t)) return Array.from(t);
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+function getScrollingElement(t) {
+  return t !== document.body ? t : "scrollingElement" in document ? document.scrollingElement : navigator.userAgent.indexOf("WebKit") > -1 ? document.body : document.documentElement;
+}
+function getScrollEventContainer(t) {
+  return t === document.body ? window : getScrollingElement(t);
+}
+function getContainerRect(t) {
+  if (t === document.body) {
+    var e = document.documentElement;
+    return {
+      top: 0,
+      left: 0,
+      bottom: e.clientHeight,
+      right: e.clientWidth,
+      height: e.clientHeight,
+      width: e.clientWidth
+    };
+  }
+  return t.getBoundingClientRect();
+}
+function getTargetScrollOffset(t, e) {
+  var n = arguments.length > 2 && void 0 !== arguments[2] && arguments[2],
+    i = arguments.length > 3 && void 0 !== arguments[3] && arguments[3],
+    o = getContainerRect(t),
+    r = e.getBoundingClientRect(),
+    s = r.top - o.top,
+    a = r.left - o.left,
+    l = n ? r.height - o.height : 0,
+    c = i ? r.width - o.width : 0,
+    h = getScrollingElement(t);
+  return {
+    top: s + l + h.scrollTop,
+    left: a + c + h.scrollLeft
+  };
+}
+function getElementsInContainerViewport(t, e) {
+  var n = getContainerRect(t);
+  return e.filter(function (t) {
+    var e = t.getBoundingClientRect();
+    return e.top < n.bottom && e.right > n.left && e.bottom > n.top && e.left < n.right;
+  });
+}
+function elementFillsContainer(t, e) {
+  var n = getContainerRect(t),
+    i = e.getBoundingClientRect();
+  return i.top <= n.top && i.bottom >= n.bottom && i.left <= n.left && i.right >= n.right;
+}
+var passiveIsSupported = function () {
+    var t = !1;
+    try {
+      var e = Object.defineProperty({}, "passive", {
+        get: function get() {
+          t = !0;
+        }
+      });
+      window.addEventListener("test", null, e), window.removeEventListener("test", null, e);
+    } catch (t) {}
+    return t;
+  }(),
+  INSTANCE_COUNTER = 0,
+  TWEEN_MAX_VALUE = 1e4,
+  defaultOptions = {
+    container: document.body,
+    panelSelector: "> section",
+    directionThreshold: 50,
+    delay: 0,
+    duration: 300,
+    easing: function easing(t) {
+      return t;
+    }
+  },
+  PanelSnap = function () {
+    function t(e) {
+      if (_classCallCheck(this, t), this.options = _objectSpread({}, defaultOptions, e), this.options.container.dataset.panelsnapId) throw new Error("PanelSnap is already initialised on this container, aborting.");
+      this.container = this.options.container, this.scrollContainer = getScrollingElement(this.container), this.scrollEventContainer = getScrollEventContainer(this.container), INSTANCE_COUNTER += 1, this.instanceIndex = INSTANCE_COUNTER, this.container.dataset.panelsnapId = this.instanceIndex;
+      var n = '[data-panelsnap-id="'.concat(this.instanceIndex, '"] ').concat(this.options.panelSelector);
+      this.panelList = Array.from(document.querySelectorAll(n)), this.events = [], this.isEnabled = !0, this.isInteracting = !1, this.scrollTimeout = null, this.resetAnimation(), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onScroll = this.onScroll.bind(this), this.onInteract = this.onInteract.bind(this), this.scrollEventContainer.addEventListener("keydown", this.onInteractStart, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("keyup", this.onInteractStop, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("touchend", this.onInteractStop, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("scroll", this.onScroll, passiveIsSupported && {
+        passive: !0
+      }), this.scrollEventContainer.addEventListener("wheel", this.onInteract, passiveIsSupported && {
+        passive: !0
+      }), this.findSnapTarget();
+    }
+    return _createClass(t, [{
+      key: "destroy",
+      value: function value() {
+        this.stopAnimation(), this.disable(), this.scrollEventContainer.removeEventListener("keydown", this.onInteractStart, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("keyup", this.onInteractStop, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("touchend", this.onInteractStop, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("scroll", this.onScroll, passiveIsSupported && {
+          passive: !0
+        }), this.scrollEventContainer.removeEventListener("wheel", this.onInteract, passiveIsSupported && {
+          passive: !0
+        }), delete this.options.container.dataset.panelsnapId;
+      }
+    }, {
+      key: "enable",
+      value: function value() {
+        this.isEnabled = !0;
+      }
+    }, {
+      key: "disable",
+      value: function value() {
+        this.isEnabled = !1;
+      }
+    }, {
+      key: "on",
+      value: function value(t, e) {
+        var n = this.events[t] || [];
+        this.events[t] = _toConsumableArray(n).concat([e]), "activatePanel" === t && e.call(this, this.activePanel);
+      }
+    }, {
+      key: "off",
+      value: function value(t, e) {
+        var n = this.events[t] || [];
+        this.events[t] = n.filter(function (t) {
+          return t !== e;
+        });
+      }
+    }, {
+      key: "emit",
+      value: function value(t, e) {
+        var n = this;
+        (this.events[t] || []).forEach(function (t) {
+          return t.call(n, e);
+        });
+      }
+    }, {
+      key: "onInteractStart",
+      value: function value() {
+        this.stopAnimation(), this.isInteracting = !0;
+      }
+    }, {
+      key: "onInteractStop",
+      value: function value() {
+        this.isInteracting = !1, this.findSnapTarget();
+      }
+    }, {
+      key: "onInteract",
+      value: function value() {
+        this.stopAnimation(), this.onScroll();
+      }
+    }, {
+      key: "onScroll",
+      value: function value() {
+        clearTimeout(this.scrollTimeout), this.isInteracting || this.animation || (this.scrollTimeout = setTimeout(this.findSnapTarget.bind(this), 50 + this.options.delay));
+      }
+    }, {
+      key: "findSnapTarget",
+      value: function value() {
+        var t = this.scrollContainer.scrollTop - this.currentScrollOffset.top,
+          e = this.scrollContainer.scrollLeft - this.currentScrollOffset.left;
+        this.currentScrollOffset = {
+          top: this.scrollContainer.scrollTop,
+          left: this.scrollContainer.scrollLeft
+        };
+        var n = getElementsInContainerViewport(this.container, this.panelList);
+        if (0 === n.length) throw new Error("PanelSnap could not find a snappable panel, aborting.");
+        if (n.length > 1) {
+          if (Math.abs(t) < this.options.directionThreshold && Math.abs(e) < this.options.directionThreshold && this.activePanel) return void this.snapToPanel(this.activePanel, t > 0, e > 0);
+          var i = t > 0 || e > 0 ? 1 : n.length - 2;
+          this.snapToPanel(n[i], t < 0, e < 0);
+        } else {
+          var o = n[0];
+          elementFillsContainer(this.container, o) ? this.activatePanel(o) : (console.error("PanelSnap does not support space between panels, snapping back."), this.snapToPanel(o, t > 0, e > 0));
+        }
+      }
+    }, {
+      key: "snapToPanel",
+      value: function value(t) {
+        var e = this,
+          n = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
+          i = arguments.length > 2 && void 0 !== arguments[2] && arguments[2];
+        this.activatePanel(t), this.isEnabled && (this.animation && this.animation.stop(), this.targetScrollOffset = getTargetScrollOffset(this.container, t, n, i), this.animation = new Tweezer({
+          start: 0,
+          end: TWEEN_MAX_VALUE,
+          duration: this.options.duration
+        }), this.animation.on("tick", this.animationTick.bind(this)), this.animation.on("done", function () {
+          e.emit("snapStop", t), e.resetAnimation();
+        }), this.emit("snapStart", t), this.animation.begin());
+      }
+    }, {
+      key: "animationTick",
+      value: function value(t) {
+        var e = this.targetScrollOffset.top - this.currentScrollOffset.top,
+          n = this.currentScrollOffset.top + e * t / TWEEN_MAX_VALUE;
+        this.scrollContainer.scrollTop = n;
+        var i = this.targetScrollOffset.left - this.currentScrollOffset.left,
+          o = this.currentScrollOffset.left + i * t / TWEEN_MAX_VALUE;
+        this.scrollContainer.scrollLeft = o;
+      }
+    }, {
+      key: "stopAnimation",
+      value: function value() {
+        this.animation && (this.animation.stop(), this.resetAnimation());
+      }
+    }, {
+      key: "resetAnimation",
+      value: function value() {
+        this.currentScrollOffset = {
+          top: this.scrollContainer.scrollTop,
+          left: this.scrollContainer.scrollLeft
+        }, this.targetScrollOffset = {
+          top: 0,
+          left: 0
+        }, this.animation = null;
+      }
+    }, {
+      key: "activatePanel",
+      value: function value(t) {
+        this.activePanel !== t && (this.emit("activatePanel", t), this.activePanel = t);
+      }
+    }]), t;
+  }();
+var PanelSnap$1 = PanelSnap;
 
 var top = 'top';
 var bottom = 'bottom';
@@ -3182,7 +3182,7 @@ var defineJQueryPlugin = function defineJQueryPlugin(plugin) {
 var execute = function execute(possibleCallback) {
   var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : possibleCallback;
-  return typeof possibleCallback === 'function' ? possibleCallback.apply(void 0, _toConsumableArray(args)) : defaultValue;
+  return typeof possibleCallback === 'function' ? possibleCallback.apply(void 0, _toConsumableArray$1(args)) : defaultValue;
 };
 var executeAfterTransition = function executeAfterTransition(callback, transitionElement) {
   var waitForTransition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -3570,9 +3570,9 @@ var Manipulator = {
  */
 var Config = /*#__PURE__*/function () {
   function Config() {
-    _classCallCheck(this, Config);
+    _classCallCheck$2(this, Config);
   }
-  _createClass(Config, [{
+  _createClass$2(Config, [{
     key: "_getConfig",
     value: function _getConfig(config) {
       config = this._mergeConfigObj(config);
@@ -3646,7 +3646,7 @@ var BaseComponent = /*#__PURE__*/function (_Config) {
   var _super = _createSuper(BaseComponent);
   function BaseComponent(element, config) {
     var _this;
-    _classCallCheck(this, BaseComponent);
+    _classCallCheck$2(this, BaseComponent);
     _this = _super.call(this);
     element = getElement(element);
     if (!element) {
@@ -3659,7 +3659,7 @@ var BaseComponent = /*#__PURE__*/function (_Config) {
   }
 
   // Public
-  _createClass(BaseComponent, [{
+  _createClass$2(BaseComponent, [{
     key: "dispose",
     value: function dispose() {
       Data.remove(this._element, this.constructor.DATA_KEY);
@@ -3758,7 +3758,7 @@ var SelectorEngine = {
   find: function find(selector) {
     var _ref2;
     var element = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.documentElement;
-    return (_ref2 = []).concat.apply(_ref2, _toConsumableArray(Element.prototype.querySelectorAll.call(element, selector)));
+    return (_ref2 = []).concat.apply(_ref2, _toConsumableArray$1(Element.prototype.querySelectorAll.call(element, selector)));
   },
   findOne: function findOne(selector) {
     var element = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.documentElement;
@@ -3766,7 +3766,7 @@ var SelectorEngine = {
   },
   children: function children(element, selector) {
     var _ref3;
-    return (_ref3 = []).concat.apply(_ref3, _toConsumableArray(element.children)).filter(function (child) {
+    return (_ref3 = []).concat.apply(_ref3, _toConsumableArray$1(element.children)).filter(function (child) {
       return child.matches(selector);
     });
   },
@@ -3876,10 +3876,10 @@ var Alert = /*#__PURE__*/function (_BaseComponent) {
   _inherits(Alert, _BaseComponent);
   var _super2 = _createSuper(Alert);
   function Alert() {
-    _classCallCheck(this, Alert);
+    _classCallCheck$2(this, Alert);
     return _super2.apply(this, arguments);
   }
-  _createClass(Alert, [{
+  _createClass$2(Alert, [{
     key: "close",
     value:
     // Public
@@ -3967,10 +3967,10 @@ var Button = /*#__PURE__*/function (_BaseComponent2) {
   _inherits(Button, _BaseComponent2);
   var _super3 = _createSuper(Button);
   function Button() {
-    _classCallCheck(this, Button);
+    _classCallCheck$2(this, Button);
     return _super3.apply(this, arguments);
   }
-  _createClass(Button, [{
+  _createClass$2(Button, [{
     key: "toggle",
     value:
     // Public
@@ -4057,7 +4057,7 @@ var Swipe = /*#__PURE__*/function (_Config2) {
   var _super4 = _createSuper(Swipe);
   function Swipe(element, config) {
     var _this3;
-    _classCallCheck(this, Swipe);
+    _classCallCheck$2(this, Swipe);
     _this3 = _super4.call(this);
     _this3._element = element;
     if (!element || !Swipe.isSupported()) {
@@ -4071,7 +4071,7 @@ var Swipe = /*#__PURE__*/function (_Config2) {
   }
 
   // Getters
-  _createClass(Swipe, [{
+  _createClass$2(Swipe, [{
     key: "dispose",
     value:
     // Public
@@ -4216,7 +4216,7 @@ var SELECTOR_ITEM_IMG = '.carousel-item img';
 var SELECTOR_INDICATORS = '.carousel-indicators';
 var SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]';
 var SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
-var KEY_TO_DIRECTION = (_KEY_TO_DIRECTION = {}, _defineProperty(_KEY_TO_DIRECTION, ARROW_LEFT_KEY$1, DIRECTION_RIGHT), _defineProperty(_KEY_TO_DIRECTION, ARROW_RIGHT_KEY$1, DIRECTION_LEFT), _KEY_TO_DIRECTION);
+var KEY_TO_DIRECTION = (_KEY_TO_DIRECTION = {}, _defineProperty$1(_KEY_TO_DIRECTION, ARROW_LEFT_KEY$1, DIRECTION_RIGHT), _defineProperty$1(_KEY_TO_DIRECTION, ARROW_RIGHT_KEY$1, DIRECTION_LEFT), _KEY_TO_DIRECTION);
 var Default$b = {
   interval: 5000,
   keyboard: true,
@@ -4243,7 +4243,7 @@ var Carousel = /*#__PURE__*/function (_BaseComponent3) {
   var _super5 = _createSuper(Carousel);
   function Carousel(element, config) {
     var _this5;
-    _classCallCheck(this, Carousel);
+    _classCallCheck$2(this, Carousel);
     _this5 = _super5.call(this, element, config);
     _this5._interval = null;
     _this5._activeElement = null;
@@ -4259,7 +4259,7 @@ var Carousel = /*#__PURE__*/function (_BaseComponent3) {
   }
 
   // Getters
-  _createClass(Carousel, [{
+  _createClass$2(Carousel, [{
     key: "next",
     value:
     // Public
@@ -4688,7 +4688,7 @@ var Collapse = /*#__PURE__*/function (_BaseComponent4) {
   var _super6 = _createSuper(Collapse);
   function Collapse(element, config) {
     var _this12;
-    _classCallCheck(this, Collapse);
+    _classCallCheck$2(this, Collapse);
     _this12 = _super6.call(this, element, config);
     _this12._isTransitioning = false;
     _this12._triggerArray = [];
@@ -4722,7 +4722,7 @@ var Collapse = /*#__PURE__*/function (_BaseComponent4) {
   }
 
   // Getters
-  _createClass(Collapse, [{
+  _createClass$2(Collapse, [{
     key: "toggle",
     value:
     // Public
@@ -5042,7 +5042,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
   var _super7 = _createSuper(Dropdown);
   function Dropdown(element, config) {
     var _this15;
-    _classCallCheck(this, Dropdown);
+    _classCallCheck$2(this, Dropdown);
     _this15 = _super7.call(this, element, config);
     _this15._popper = null;
     _this15._parent = _this15._element.parentNode; // dropdown wrapper
@@ -5053,7 +5053,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
   }
 
   // Getters
-  _createClass(Dropdown, [{
+  _createClass$2(Dropdown, [{
     key: "toggle",
     value:
     // Public
@@ -5081,7 +5081,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement && !this._parent.closest(SELECTOR_NAVBAR_NAV)) {
         var _ref4;
-        var _iterator12 = _createForOfIteratorHelper((_ref4 = []).concat.apply(_ref4, _toConsumableArray(document.body.children))),
+        var _iterator12 = _createForOfIteratorHelper((_ref4 = []).concat.apply(_ref4, _toConsumableArray$1(document.body.children))),
           _step12;
         try {
           for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
@@ -5141,7 +5141,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
         var _ref5;
-        var _iterator13 = _createForOfIteratorHelper((_ref5 = []).concat.apply(_ref5, _toConsumableArray(document.body.children))),
+        var _iterator13 = _createForOfIteratorHelper((_ref5 = []).concat.apply(_ref5, _toConsumableArray$1(document.body.children))),
           _step13;
         try {
           for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
@@ -5450,7 +5450,7 @@ var Backdrop = /*#__PURE__*/function (_Config3) {
   var _super8 = _createSuper(Backdrop);
   function Backdrop(config) {
     var _this17;
-    _classCallCheck(this, Backdrop);
+    _classCallCheck$2(this, Backdrop);
     _this17 = _super8.call(this);
     _this17._config = _this17._getConfig(config);
     _this17._isAppended = false;
@@ -5459,7 +5459,7 @@ var Backdrop = /*#__PURE__*/function (_Config3) {
   }
 
   // Getters
-  _createClass(Backdrop, [{
+  _createClass$2(Backdrop, [{
     key: "show",
     value:
     // Public
@@ -5596,7 +5596,7 @@ var FocusTrap = /*#__PURE__*/function (_Config4) {
   var _super9 = _createSuper(FocusTrap);
   function FocusTrap(config) {
     var _this20;
-    _classCallCheck(this, FocusTrap);
+    _classCallCheck$2(this, FocusTrap);
     _this20 = _super9.call(this);
     _this20._config = _this20._getConfig(config);
     _this20._isActive = false;
@@ -5605,7 +5605,7 @@ var FocusTrap = /*#__PURE__*/function (_Config4) {
   }
 
   // Getters
-  _createClass(FocusTrap, [{
+  _createClass$2(FocusTrap, [{
     key: "activate",
     value:
     // Public
@@ -5698,12 +5698,12 @@ var PROPERTY_MARGIN = 'margin-right';
  */
 var ScrollBarHelper = /*#__PURE__*/function () {
   function ScrollBarHelper() {
-    _classCallCheck(this, ScrollBarHelper);
+    _classCallCheck$2(this, ScrollBarHelper);
     this._element = document.body;
   }
 
   // Public
-  _createClass(ScrollBarHelper, [{
+  _createClass$2(ScrollBarHelper, [{
     key: "getWidth",
     value: function getWidth() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
@@ -5860,7 +5860,7 @@ var Modal = /*#__PURE__*/function (_BaseComponent6) {
   var _super10 = _createSuper(Modal);
   function Modal(element, config) {
     var _this23;
-    _classCallCheck(this, Modal);
+    _classCallCheck$2(this, Modal);
     _this23 = _super10.call(this, element, config);
     _this23._dialog = SelectorEngine.findOne(SELECTOR_DIALOG, _this23._element);
     _this23._backdrop = _this23._initializeBackDrop();
@@ -5873,7 +5873,7 @@ var Modal = /*#__PURE__*/function (_BaseComponent6) {
   }
 
   // Getters
-  _createClass(Modal, [{
+  _createClass$2(Modal, [{
     key: "toggle",
     value:
     // Public
@@ -6211,7 +6211,7 @@ var Offcanvas = /*#__PURE__*/function (_BaseComponent7) {
   var _super11 = _createSuper(Offcanvas);
   function Offcanvas(element, config) {
     var _this31;
-    _classCallCheck(this, Offcanvas);
+    _classCallCheck$2(this, Offcanvas);
     _this31 = _super11.call(this, element, config);
     _this31._isShown = false;
     _this31._backdrop = _this31._initializeBackDrop();
@@ -6221,7 +6221,7 @@ var Offcanvas = /*#__PURE__*/function (_BaseComponent7) {
   }
 
   // Getters
-  _createClass(Offcanvas, [{
+  _createClass$2(Offcanvas, [{
     key: "toggle",
     value:
     // Public
@@ -6526,7 +6526,7 @@ function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
   }
   var domParser = new window.DOMParser();
   var createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
-  var elements = (_ref7 = []).concat.apply(_ref7, _toConsumableArray(createdDocument.body.querySelectorAll('*')));
+  var elements = (_ref7 = []).concat.apply(_ref7, _toConsumableArray$1(createdDocument.body.querySelectorAll('*')));
   var _iterator18 = _createForOfIteratorHelper(elements),
     _step18;
   try {
@@ -6538,7 +6538,7 @@ function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
         element.remove();
         continue;
       }
-      var attributeList = (_ref8 = []).concat.apply(_ref8, _toConsumableArray(element.attributes));
+      var attributeList = (_ref8 = []).concat.apply(_ref8, _toConsumableArray$1(element.attributes));
       var allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || []);
       var _iterator19 = _createForOfIteratorHelper(attributeList),
         _step19;
@@ -6607,14 +6607,14 @@ var TemplateFactory = /*#__PURE__*/function (_Config5) {
   var _super12 = _createSuper(TemplateFactory);
   function TemplateFactory(config) {
     var _this37;
-    _classCallCheck(this, TemplateFactory);
+    _classCallCheck$2(this, TemplateFactory);
     _this37 = _super12.call(this);
     _this37._config = _this37._getConfig(config);
     return _this37;
   }
 
   // Getters
-  _createClass(TemplateFactory, [{
+  _createClass$2(TemplateFactory, [{
     key: "getContent",
     value:
     // Public
@@ -6651,7 +6651,7 @@ var TemplateFactory = /*#__PURE__*/function (_Config5) {
       var extraClass = this._resolvePossibleFunction(this._config.extraClass);
       if (extraClass) {
         var _template$classList;
-        (_template$classList = template.classList).add.apply(_template$classList, _toConsumableArray(extraClass.split(' ')));
+        (_template$classList = template.classList).add.apply(_template$classList, _toConsumableArray$1(extraClass.split(' ')));
       }
       return template;
     }
@@ -6821,7 +6821,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   var _super13 = _createSuper(Tooltip);
   function Tooltip(element, config) {
     var _this39;
-    _classCallCheck(this, Tooltip);
+    _classCallCheck$2(this, Tooltip);
     if (typeof Popper === 'undefined') {
       throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
     }
@@ -6846,7 +6846,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   }
 
   // Getters
-  _createClass(Tooltip, [{
+  _createClass$2(Tooltip, [{
     key: "enable",
     value:
     // Public
@@ -6922,7 +6922,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
         var _ref9;
-        var _iterator20 = _createForOfIteratorHelper((_ref9 = []).concat.apply(_ref9, _toConsumableArray(document.body.children))),
+        var _iterator20 = _createForOfIteratorHelper((_ref9 = []).concat.apply(_ref9, _toConsumableArray$1(document.body.children))),
           _step20;
         try {
           for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
@@ -6962,7 +6962,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
         var _ref10;
-        var _iterator21 = _createForOfIteratorHelper((_ref10 = []).concat.apply(_ref10, _toConsumableArray(document.body.children))),
+        var _iterator21 = _createForOfIteratorHelper((_ref10 = []).concat.apply(_ref10, _toConsumableArray$1(document.body.children))),
           _step21;
         try {
           for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
@@ -7060,7 +7060,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   }, {
     key: "_getContentForTemplate",
     value: function _getContentForTemplate() {
-      return _defineProperty({}, SELECTOR_TOOLTIP_INNER, this._getTitle());
+      return _defineProperty$1({}, SELECTOR_TOOLTIP_INNER, this._getTitle());
     }
   }, {
     key: "_getTitle",
@@ -7384,10 +7384,10 @@ var Popover = /*#__PURE__*/function (_Tooltip) {
   _inherits(Popover, _Tooltip);
   var _super14 = _createSuper(Popover);
   function Popover() {
-    _classCallCheck(this, Popover);
+    _classCallCheck$2(this, Popover);
     return _super14.apply(this, arguments);
   }
-  _createClass(Popover, [{
+  _createClass$2(Popover, [{
     key: "_isWithContent",
     value:
     // Overrides
@@ -7400,7 +7400,7 @@ var Popover = /*#__PURE__*/function (_Tooltip) {
     key: "_getContentForTemplate",
     value: function _getContentForTemplate() {
       var _ref12;
-      return _ref12 = {}, _defineProperty(_ref12, SELECTOR_TITLE, this._getTitle()), _defineProperty(_ref12, SELECTOR_CONTENT, this._getContent()), _ref12;
+      return _ref12 = {}, _defineProperty$1(_ref12, SELECTOR_TITLE, this._getTitle()), _defineProperty$1(_ref12, SELECTOR_CONTENT, this._getContent()), _ref12;
     }
   }, {
     key: "_getContent",
@@ -7502,7 +7502,7 @@ var ScrollSpy = /*#__PURE__*/function (_BaseComponent9) {
   var _super15 = _createSuper(ScrollSpy);
   function ScrollSpy(element, config) {
     var _this47;
-    _classCallCheck(this, ScrollSpy);
+    _classCallCheck$2(this, ScrollSpy);
     _this47 = _super15.call(this, element, config);
 
     // this._element is the observablesContainer and config.target the menu links wrapper
@@ -7520,7 +7520,7 @@ var ScrollSpy = /*#__PURE__*/function (_BaseComponent9) {
   }
 
   // Getters
-  _createClass(ScrollSpy, [{
+  _createClass$2(ScrollSpy, [{
     key: "refresh",
     value:
     // Public
@@ -7858,7 +7858,7 @@ var Tab = /*#__PURE__*/function (_BaseComponent10) {
   var _super16 = _createSuper(Tab);
   function Tab(element) {
     var _this51;
-    _classCallCheck(this, Tab);
+    _classCallCheck$2(this, Tab);
     _this51 = _super16.call(this, element);
     _this51._parent = _this51._element.closest(SELECTOR_TAB_PANEL);
     if (!_this51._parent) {
@@ -7876,7 +7876,7 @@ var Tab = /*#__PURE__*/function (_BaseComponent10) {
   }
 
   // Getters
-  _createClass(Tab, [{
+  _createClass$2(Tab, [{
     key: "show",
     value:
     // Public
@@ -8180,7 +8180,7 @@ var Toast = /*#__PURE__*/function (_BaseComponent11) {
   var _super17 = _createSuper(Toast);
   function Toast(element, config) {
     var _this55;
-    _classCallCheck(this, Toast);
+    _classCallCheck$2(this, Toast);
     _this55 = _super17.call(this, element, config);
     _this55._timeout = null;
     _this55._hasMouseInteraction = false;
@@ -8190,7 +8190,7 @@ var Toast = /*#__PURE__*/function (_BaseComponent11) {
   }
 
   // Getters
-  _createClass(Toast, [{
+  _createClass$2(Toast, [{
     key: "show",
     value:
     // Public
@@ -8362,11 +8362,30 @@ defineJQueryPlugin(Toast);
 var global = typeof unsafeWindow !== 'undefined' ? unsafeWindow : typeof globalThis !== 'undefined' ? globalThis : window;
 var document$1 = global.document;
   global.JSON;
+var RE_NUMERIC = /^-?(?:[\d]+\.)?\d+$/;
 var isPlainObject = function isPlainObject(param) {
     return param instanceof Object && Object.getPrototypeOf(param) === Object.prototype;
   },
+  isUndef = function isUndef(param) {
+    return typeof param === 'undefined';
+  },
   isString = function isString(param) {
     return typeof param === 'string';
+  },
+  isNumber = function isNumber(param) {
+    return typeof param === 'number';
+  },
+  isInt = function isInt(param) {
+    return Number.isInteger(param);
+  },
+  isFloat = function isFloat(param) {
+    return isNumber(param) && parseFloat(param) === param;
+  },
+  isNumeric = function isNumeric(param) {
+    return isInt(param) || isFloat(param) || RE_NUMERIC.test(param);
+  },
+  isNull = function isNull(param) {
+    return param === null;
   },
   isCallable = function isCallable(param) {
     return typeof param === 'function';
@@ -8431,7 +8450,7 @@ var _useasync = /*#__PURE__*/new WeakMap();
 var EventManager = /*#__PURE__*/function () {
   function EventManager() {
     var useasync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    _classCallCheck(this, EventManager);
+    _classCallCheck$2(this, EventManager);
     _classPrivateFieldInitSpec(this, _listeners, {
       writable: true,
       value: void 0
@@ -8443,7 +8462,7 @@ var EventManager = /*#__PURE__*/function () {
     _classPrivateFieldSet(this, _listeners, []);
     _classPrivateFieldSet(this, _useasync, useasync);
   }
-  _createClass(EventManager, [{
+  _createClass$2(EventManager, [{
     key: "getListenersForEvent",
     value: function getListenersForEvent(type) {
       if (!isString(type) || type.includes(' ')) {
@@ -8639,9 +8658,9 @@ var _document$1 = document,
   documentElement = _document$1.documentElement;
 var NoScroll = /*#__PURE__*/function () {
   function NoScroll() {
-    _classCallCheck(this, NoScroll);
+    _classCallCheck$2(this, NoScroll);
   }
-  _createClass(NoScroll, null, [{
+  _createClass$2(NoScroll, null, [{
     key: "enabled",
     get: function get() {
       return documentElement.classList.contains('noscroll');
@@ -8740,6 +8759,318 @@ var _stylesheet = {
 };
 EventManager.mixin(NoScroll);
 
+function t() {
+  return t = Object.assign ? Object.assign.bind() : function (t) {
+    for (var s = 1; s < arguments.length; s++) {
+      var e = arguments[s];
+      for (var n in e) Object.prototype.hasOwnProperty.call(e, n) && (t[n] = e[n]);
+    }
+    return t;
+  }, t.apply(this, arguments);
+}
+var s = {
+    strings: ["These are the default values...", "You know what you should do?", "Use your own!", "Have a great day!"],
+    stringsElement: null,
+    typeSpeed: 0,
+    startDelay: 0,
+    backSpeed: 0,
+    smartBackspace: !0,
+    shuffle: !1,
+    backDelay: 700,
+    fadeOut: !1,
+    fadeOutClass: "typed-fade-out",
+    fadeOutDelay: 500,
+    loop: !1,
+    loopCount: Infinity,
+    showCursor: !0,
+    cursorChar: "|",
+    autoInsertCss: !0,
+    attr: null,
+    bindInputFocusEvents: !1,
+    contentType: "html",
+    onBegin: function onBegin(t) {},
+    onComplete: function onComplete(t) {},
+    preStringTyped: function preStringTyped(t, s) {},
+    onStringTyped: function onStringTyped(t, s) {},
+    onLastStringBackspaced: function onLastStringBackspaced(t) {},
+    onTypingPaused: function onTypingPaused(t, s) {},
+    onTypingResumed: function onTypingResumed(t, s) {},
+    onReset: function onReset(t) {},
+    onStop: function onStop(t, s) {},
+    onStart: function onStart(t, s) {},
+    onDestroy: function onDestroy(t) {}
+  },
+  e = new ( /*#__PURE__*/function () {
+    function e() {}
+    var n = e.prototype;
+    return n.load = function (e, n, i) {
+      if (e.el = "string" == typeof i ? document.querySelector(i) : i, e.options = t({}, s, n), e.isInput = "input" === e.el.tagName.toLowerCase(), e.attr = e.options.attr, e.bindInputFocusEvents = e.options.bindInputFocusEvents, e.showCursor = !e.isInput && e.options.showCursor, e.cursorChar = e.options.cursorChar, e.cursorBlinking = !0, e.elContent = e.attr ? e.el.getAttribute(e.attr) : e.el.textContent, e.contentType = e.options.contentType, e.typeSpeed = e.options.typeSpeed, e.startDelay = e.options.startDelay, e.backSpeed = e.options.backSpeed, e.smartBackspace = e.options.smartBackspace, e.backDelay = e.options.backDelay, e.fadeOut = e.options.fadeOut, e.fadeOutClass = e.options.fadeOutClass, e.fadeOutDelay = e.options.fadeOutDelay, e.isPaused = !1, e.strings = e.options.strings.map(function (t) {
+        return t.trim();
+      }), e.stringsElement = "string" == typeof e.options.stringsElement ? document.querySelector(e.options.stringsElement) : e.options.stringsElement, e.stringsElement) {
+        e.strings = [], e.stringsElement.style.cssText = "clip: rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;";
+        var r = Array.prototype.slice.apply(e.stringsElement.children),
+          o = r.length;
+        if (o) for (var a = 0; a < o; a += 1) e.strings.push(r[a].innerHTML.trim());
+      }
+      for (var u in e.strPos = 0, e.currentElContent = this.getCurrentElContent(e), e.currentElContent && e.currentElContent.length > 0 && (e.strPos = e.currentElContent.length - 1, e.strings.unshift(e.currentElContent)), e.sequence = [], e.strings) e.sequence[u] = u;
+      e.arrayPos = 0, e.stopNum = 0, e.loop = e.options.loop, e.loopCount = e.options.loopCount, e.curLoop = 0, e.shuffle = e.options.shuffle, e.pause = {
+        status: !1,
+        typewrite: !0,
+        curString: "",
+        curStrPos: 0
+      }, e.typingComplete = !1, e.autoInsertCss = e.options.autoInsertCss, e.autoInsertCss && (this.appendCursorAnimationCss(e), this.appendFadeOutAnimationCss(e));
+    }, n.getCurrentElContent = function (t) {
+      return t.attr ? t.el.getAttribute(t.attr) : t.isInput ? t.el.value : "html" === t.contentType ? t.el.innerHTML : t.el.textContent;
+    }, n.appendCursorAnimationCss = function (t) {
+      var s = "data-typed-js-cursor-css";
+      if (t.showCursor && !document.querySelector("[" + s + "]")) {
+        var e = document.createElement("style");
+        e.setAttribute(s, "true"), e.innerHTML = "\n        .typed-cursor{\n          opacity: 1;\n        }\n        .typed-cursor.typed-cursor--blink{\n          animation: typedjsBlink 0.7s infinite;\n          -webkit-animation: typedjsBlink 0.7s infinite;\n                  animation: typedjsBlink 0.7s infinite;\n        }\n        @keyframes typedjsBlink{\n          50% { opacity: 0.0; }\n        }\n        @-webkit-keyframes typedjsBlink{\n          0% { opacity: 1; }\n          50% { opacity: 0.0; }\n          100% { opacity: 1; }\n        }\n      ", document.body.appendChild(e);
+      }
+    }, n.appendFadeOutAnimationCss = function (t) {
+      var s = "data-typed-fadeout-js-css";
+      if (t.fadeOut && !document.querySelector("[" + s + "]")) {
+        var e = document.createElement("style");
+        e.setAttribute(s, "true"), e.innerHTML = "\n        .typed-fade-out{\n          opacity: 0;\n          transition: opacity .25s;\n        }\n        .typed-cursor.typed-cursor--blink.typed-fade-out{\n          -webkit-animation: 0;\n          animation: 0;\n        }\n      ", document.body.appendChild(e);
+      }
+    }, e;
+  }())(),
+  n = new ( /*#__PURE__*/function () {
+    function t() {}
+    var s = t.prototype;
+    return s.typeHtmlChars = function (t, s, e) {
+      if ("html" !== e.contentType) return s;
+      var n = t.substring(s).charAt(0);
+      if ("<" === n || "&" === n) {
+        var i;
+        for (i = "<" === n ? ">" : ";"; t.substring(s + 1).charAt(0) !== i && !(1 + ++s > t.length););
+        s++;
+      }
+      return s;
+    }, s.backSpaceHtmlChars = function (t, s, e) {
+      if ("html" !== e.contentType) return s;
+      var n = t.substring(s).charAt(0);
+      if (">" === n || ";" === n) {
+        var i;
+        for (i = ">" === n ? "<" : "&"; t.substring(s - 1).charAt(0) !== i && !(--s < 0););
+        s--;
+      }
+      return s;
+    }, t;
+  }())(),
+  i = /*#__PURE__*/function () {
+    function t(t, s) {
+      e.load(this, s, t), this.begin();
+    }
+    var s = t.prototype;
+    return s.toggle = function () {
+      this.pause.status ? this.start() : this.stop();
+    }, s.stop = function () {
+      this.typingComplete || this.pause.status || (this.toggleBlinking(!0), this.pause.status = !0, this.options.onStop(this.arrayPos, this));
+    }, s.start = function () {
+      this.typingComplete || this.pause.status && (this.pause.status = !1, this.pause.typewrite ? this.typewrite(this.pause.curString, this.pause.curStrPos) : this.backspace(this.pause.curString, this.pause.curStrPos), this.options.onStart(this.arrayPos, this));
+    }, s.destroy = function () {
+      this.reset(!1), this.options.onDestroy(this);
+    }, s.reset = function (t) {
+      void 0 === t && (t = !0), clearInterval(this.timeout), this.replaceText(""), this.cursor && this.cursor.parentNode && (this.cursor.parentNode.removeChild(this.cursor), this.cursor = null), this.strPos = 0, this.arrayPos = 0, this.curLoop = 0, t && (this.insertCursor(), this.options.onReset(this), this.begin());
+    }, s.begin = function () {
+      var t = this;
+      this.options.onBegin(this), this.typingComplete = !1, this.shuffleStringsIfNeeded(this), this.insertCursor(), this.bindInputFocusEvents && this.bindFocusEvents(), this.timeout = setTimeout(function () {
+        0 === t.strPos ? t.typewrite(t.strings[t.sequence[t.arrayPos]], t.strPos) : t.backspace(t.strings[t.sequence[t.arrayPos]], t.strPos);
+      }, this.startDelay);
+    }, s.typewrite = function (t, s) {
+      var e = this;
+      this.fadeOut && this.el.classList.contains(this.fadeOutClass) && (this.el.classList.remove(this.fadeOutClass), this.cursor && this.cursor.classList.remove(this.fadeOutClass));
+      var i = this.humanizer(this.typeSpeed),
+        r = 1;
+      !0 !== this.pause.status ? this.timeout = setTimeout(function () {
+        s = n.typeHtmlChars(t, s, e);
+        var i = 0,
+          o = t.substring(s);
+        if ("^" === o.charAt(0) && /^\^\d+/.test(o)) {
+          var a = 1;
+          a += (o = /\d+/.exec(o)[0]).length, i = parseInt(o), e.temporaryPause = !0, e.options.onTypingPaused(e.arrayPos, e), t = t.substring(0, s) + t.substring(s + a), e.toggleBlinking(!0);
+        }
+        if ("`" === o.charAt(0)) {
+          for (; "`" !== t.substring(s + r).charAt(0) && (r++, !(s + r > t.length)););
+          var u = t.substring(0, s),
+            p = t.substring(u.length + 1, s + r),
+            c = t.substring(s + r + 1);
+          t = u + p + c, r--;
+        }
+        e.timeout = setTimeout(function () {
+          e.toggleBlinking(!1), s >= t.length ? e.doneTyping(t, s) : e.keepTyping(t, s, r), e.temporaryPause && (e.temporaryPause = !1, e.options.onTypingResumed(e.arrayPos, e));
+        }, i);
+      }, i) : this.setPauseStatus(t, s, !0);
+    }, s.keepTyping = function (t, s, e) {
+      0 === s && (this.toggleBlinking(!1), this.options.preStringTyped(this.arrayPos, this));
+      var n = t.substring(0, s += e);
+      this.replaceText(n), this.typewrite(t, s);
+    }, s.doneTyping = function (t, s) {
+      var e = this;
+      this.options.onStringTyped(this.arrayPos, this), this.toggleBlinking(!0), this.arrayPos === this.strings.length - 1 && (this.complete(), !1 === this.loop || this.curLoop === this.loopCount) || (this.timeout = setTimeout(function () {
+        e.backspace(t, s);
+      }, this.backDelay));
+    }, s.backspace = function (t, s) {
+      var e = this;
+      if (!0 !== this.pause.status) {
+        if (this.fadeOut) return this.initFadeOut();
+        this.toggleBlinking(!1);
+        var i = this.humanizer(this.backSpeed);
+        this.timeout = setTimeout(function () {
+          s = n.backSpaceHtmlChars(t, s, e);
+          var i = t.substring(0, s);
+          if (e.replaceText(i), e.smartBackspace) {
+            var r = e.strings[e.arrayPos + 1];
+            e.stopNum = r && i === r.substring(0, s) ? s : 0;
+          }
+          s > e.stopNum ? (s--, e.backspace(t, s)) : s <= e.stopNum && (e.arrayPos++, e.arrayPos === e.strings.length ? (e.arrayPos = 0, e.options.onLastStringBackspaced(), e.shuffleStringsIfNeeded(), e.begin()) : e.typewrite(e.strings[e.sequence[e.arrayPos]], s));
+        }, i);
+      } else this.setPauseStatus(t, s, !1);
+    }, s.complete = function () {
+      this.options.onComplete(this), this.loop ? this.curLoop++ : this.typingComplete = !0;
+    }, s.setPauseStatus = function (t, s, e) {
+      this.pause.typewrite = e, this.pause.curString = t, this.pause.curStrPos = s;
+    }, s.toggleBlinking = function (t) {
+      this.cursor && (this.pause.status || this.cursorBlinking !== t && (this.cursorBlinking = t, t ? this.cursor.classList.add("typed-cursor--blink") : this.cursor.classList.remove("typed-cursor--blink")));
+    }, s.humanizer = function (t) {
+      return Math.round(Math.random() * t / 2) + t;
+    }, s.shuffleStringsIfNeeded = function () {
+      this.shuffle && (this.sequence = this.sequence.sort(function () {
+        return Math.random() - .5;
+      }));
+    }, s.initFadeOut = function () {
+      var t = this;
+      return this.el.className += " " + this.fadeOutClass, this.cursor && (this.cursor.className += " " + this.fadeOutClass), setTimeout(function () {
+        t.arrayPos++, t.replaceText(""), t.strings.length > t.arrayPos ? t.typewrite(t.strings[t.sequence[t.arrayPos]], 0) : (t.typewrite(t.strings[0], 0), t.arrayPos = 0);
+      }, this.fadeOutDelay);
+    }, s.replaceText = function (t) {
+      this.attr ? this.el.setAttribute(this.attr, t) : this.isInput ? this.el.value = t : "html" === this.contentType ? this.el.innerHTML = t : this.el.textContent = t;
+    }, s.bindFocusEvents = function () {
+      var t = this;
+      this.isInput && (this.el.addEventListener("focus", function (s) {
+        t.stop();
+      }), this.el.addEventListener("blur", function (s) {
+        t.el.value && 0 !== t.el.value.length || t.start();
+      }));
+    }, s.insertCursor = function () {
+      this.showCursor && (this.cursor || (this.cursor = document.createElement("span"), this.cursor.className = "typed-cursor", this.cursor.setAttribute("aria-hidden", !0), this.cursor.innerHTML = this.cursorChar, this.el.parentNode && this.el.parentNode.insertBefore(this.cursor, this.el.nextSibling)));
+    }, t;
+  }();
+
+var _ref = typeof globalThis !== 'undefined' ? globalThis : window,
+  JSON$1 = _ref.JSON;
+var api;
+if (typeof document !== "undefined" && document.head && document.head.dataset) {
+  api = {
+    set: function set(node, attr, value) {
+      if (isUndef(value) || isNull(value)) {
+        return this.remove(node, attr);
+      }
+      node.dataset[attr] = encode(value);
+    },
+    get: function get(node, attr) {
+      return decode(node.dataset[attr]);
+    },
+    remove: function remove(node, attr) {
+      delete node.dataset[attr];
+    }
+  };
+} else {
+  api = {
+    set: function set(node, attr, value) {
+      if (isUndef(value) || isNull(value)) {
+        return this.remove(node, attr);
+      }
+      node.setAttribute('data-' + toDashed(attr), encode(value));
+    },
+    get: function get(node, attr) {
+      return decode(node.getAttribute('data-' + toDashed(attr)));
+    },
+    remove: function remove(node, attr) {
+      node.removeAttribute('data-' + toDashed(attr));
+    }
+  };
+}
+function toDashed(name) {
+  return name.replace(/([A-Z])/g, function (u) {
+    return "-" + u.toLowerCase();
+  });
+}
+function getElem(elem) {
+  if (isString(elem)) {
+    elem = document.querySelectorAll(elem);
+    if (elem.length === 1) {
+      elem = elem[0];
+    }
+  }
+  return elem;
+}
+function decode(value) {
+  //unification
+  if (isUndef(value) || isNull(value) || value === '') {
+    return null;
+  }
+  if (value.startsWith('{') && value.endsWith('}') || value.startsWith('[') && value.endsWith(']') || isNumeric(value) || value === 'true' || value === 'false') {
+    return JSON$1.parse(value);
+  }
+  return value;
+}
+function encode(value) {
+  if (!isString(value)) {
+    return JSON$1.stringify(value);
+  }
+  return value;
+}
+
+/**
+ * data-attribute reader/setter
+ * @param {Node|NodeList|String} elem 
+ * @param {String} attr 
+ * @param {Any} [value]
+ */
+function dataset(elem, attr, value) {
+  elem = getElem(elem);
+  var $this = {
+    get: function get(attr) {
+      if (elem instanceof NodeList) {
+        elem = elem[0];
+      }
+      if (elem instanceof HTMLElement) {
+        return api.get(elem, attr);
+      }
+      return null;
+    },
+    set: function set(attr, value) {
+      if (elem instanceof NodeList) {
+        elem.forEach(function (el) {
+          api.set(el, attr, value);
+        });
+      } else if (elem instanceof HTMLElement) {
+        api.set(elem, attr, value);
+      }
+      return $this;
+    },
+    remove: function remove(attr) {
+      if (elem instanceof NodeList) {
+        elem.forEach(function (el) {
+          api.remove(el, attr);
+        });
+      } else if (elem instanceof HTMLElement) {
+        api.remove(elem, attr);
+      }
+      return $this;
+    }
+  };
+  switch (arguments.length) {
+    case 2:
+      return $this.get(attr);
+    case 3:
+      return $this.set(attr, value);
+  }
+  return $this;
+}
+
 var _document = document,
   body = _document.body,
   navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
@@ -8826,6 +9157,49 @@ addEventListener('click', function (e) {
       once: true
     });
     collapsible.hide();
+  }
+});
+
+//title in divs
+
+(function () {
+  var titleElement = document.querySelector('#home h1'),
+    text = titleElement.getAttribute('aria-label'),
+    letters = text.split('');
+  titleElement.innerHTML = '';
+  var _iterator = _createForOfIteratorHelper(letters),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var letter = _step.value;
+      titleElement.appendChild(createElement('span', {
+        class: 'blast'
+      }, letter));
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  console.debug(letters);
+})();
+
+// typed.js
+
+var typedOptions = {
+  typeSpeed: 100,
+  backSpeed: 100,
+  loop: true
+};
+document.querySelectorAll('.typed-text').forEach(function (elem) {
+  var list;
+  if (list = dataset(elem, 'typed')) {
+    list = list.split(',').map(function (item) {
+      return item.trim();
+    });
+    new i(elem, Object.assign({
+      strings: list
+    }, typedOptions));
   }
 });
 //# sourceMappingURL=bundle.js.map
