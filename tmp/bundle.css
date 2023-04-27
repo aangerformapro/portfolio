@@ -7667,14 +7667,14 @@ a {
 
 header.fixed-top {
   min-height: 64px;
-  background: rgba(var(--bs-light-rgb), 0.1);
+  background: rgba(var(--bs-light-rgb), 0.8);
   backdrop-filter: blur(3px);
 }
 
 @media (max-width: 992px) {
   .navbar-shown header.fixed-top,
-  .navbar-navbar-collapsing header.fixed-top {
-    min-height: 100vw;
+  .navbar-collapsing header.fixed-top {
+    min-height: 100vh;
   }
 }
 
@@ -7781,6 +7781,22 @@ header.fixed-top {
   color: #404040;
   position: relative;
   user-select: none;
+  background: #161616;
+}
+#home h1,
+#home h2 {
+  background-image: linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+  background-clip: text;
+  background-size: 200% auto;
+  color: #fff;
+  -webkit-text-fill-color: transparent;
+  animation: tclip 2s linear infinite;
+}
+
+@keyframes tclip {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /*# sourceMappingURL=bundle.css.map */

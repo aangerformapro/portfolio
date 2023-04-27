@@ -9181,7 +9181,6 @@ addEventListener('click', function (e) {
   } finally {
     _iterator.f();
   }
-  console.debug(letters);
 })();
 
 // typed.js

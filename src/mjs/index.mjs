@@ -104,15 +104,8 @@ addEventListener('click', e => {
     titleElement.innerHTML = '';
 
     for (let letter of letters) {
-
         titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
-
-
     }
-
-
-
-    console.debug(letters);
 })();
 
 

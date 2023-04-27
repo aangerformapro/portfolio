@@ -143,17 +143,18 @@ a {
 
 header.fixed-top {
     min-height: 64px;
-    background: rgba(var(--bs-light-rgb), .1);
+    background: rgba(var(--bs-light-rgb), .8);
     backdrop-filter: blur(3px);
+
 }
 
 
 .navbar-shown,
-.navbar-navbar-collapsing {
+.navbar-collapsing {
     @include lg-down {
 
         header.fixed-top {
-            min-height: 100vw;
+            min-height: 100vh;
         }
 
 
@@ -318,8 +319,24 @@ header.fixed-top {
     position: relative;
     user-select: none;
 
+    background: #161616;
 
 
+    h1,
+    h2 {
+        background-image: linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+        background-clip: text;
+        //--webkit-background-clip: text;
+        background-size: 200% auto;
+        color: #fff;
+        -webkit-text-fill-color: transparent;
+        animation: tclip 2s linear infinite;
+    }
+}
 
 
+@keyframes tclip {
+    to {
+        background-position: 200% center;
+    }
 }
