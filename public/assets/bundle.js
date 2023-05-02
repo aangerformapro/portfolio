@@ -9136,7 +9136,7 @@ addEventListener('hidden.bs.collapse', function () {
   NoScroll.disable(noScrollSavesPosition);
 });
 
-// mobile menu disappears when clicked
+// mobile menu disappears when clicked + scrolldown button clicked
 
 addEventListener('click', function (e) {
   var target;
@@ -9157,6 +9157,17 @@ addEventListener('click', function (e) {
       once: true
     });
     collapsible.hide();
+  } else if (target = e.target.closest('[href^="#"].scroll-down-button')) {
+    var _id = target.getAttribute('href').slice(1),
+      _elem = document.getElementById(_id);
+    if (_elem) {
+      e.preventDefault();
+      _elem.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: 'smooth'
+      });
+    }
   }
 });
 
@@ -9201,4 +9212,11 @@ document.querySelectorAll('.typed-text').forEach(function (elem) {
     }, typedOptions));
   }
 });
+
+// let elem = createElement('a', {
+//     class: 'col-6 d-flex flex-column',
+//     href: 'https://google.com',
+//     target: '_blank'
+// }, 'demande a google'),
+//     elem2 = html2element('<div class="col-6 d-flex flex-column"><a href="/">gfkgfolgjf</a></div>');
 //# sourceMappingURL=bundle.js.map

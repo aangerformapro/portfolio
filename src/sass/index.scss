@@ -165,7 +165,7 @@ header.fixed-top {
 
 .page {
     // fixed header size
-    padding-top: 64px;
+    padding-top: 80px;
     min-height: 100vh;
     scroll-snap-align: start;
     transition: transform 1s ease-in-out, visibility 1s ease-in-out;
@@ -206,7 +206,6 @@ header.fixed-top {
 
     &:hover {
         font-weight: 700;
-        text-shadow: 4px 4px 4px $home-color;
     }
 
 
@@ -309,6 +308,8 @@ header.fixed-top {
 .blast:hover {
     @extend %rubberBand;
     display: inline-block;
+
+    //font-size: ;
     //color: #b8fef4;
 }
 
@@ -324,13 +325,38 @@ header.fixed-top {
 
     h1,
     h2 {
-        background-image: linear-gradient(-225deg, #231557 0%, #44107a 29%, #ff1361 67%, #fff800 100%);
+        // background-image: linear-gradient(-225deg,
+        //         #231557 0%,
+        //         #44107a 29%,
+        //         #ff1361 67%,
+        //         #fff800 100%);
+        cursor: pointer;
+        background-image: linear-gradient(-225deg,
+                $cyberpunk-cyan 0%,
+                $cyberpunk-yellow 29%,
+                $cyberpunk-blue 67%,
+                $cyberpunk-red 100%);
+
         background-clip: text;
         //--webkit-background-clip: text;
         background-size: 200% auto;
         color: #fff;
         -webkit-text-fill-color: transparent;
-        animation: tclip 2s linear infinite;
+        animation: tclip 5s linear infinite;
+    }
+
+    .row {
+        min-height: 100%;
+    }
+
+    @include lg-down {
+        h1 {
+            font-size: calc(1.325rem + 0.9vw);
+        }
+
+        h2 {
+            font-size: calc(1.3rem + 0.6vw);
+        }
     }
 }
 
@@ -338,5 +364,59 @@ header.fixed-top {
 @keyframes tclip {
     to {
         background-position: 200% center;
+    }
+}
+
+
+// scroll down button
+
+.scroll-down-button {
+    padding-top: 60px;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 30px;
+        height: 50px;
+        margin-left: -15px;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        box-sizing: border-box;
+
+        &:before {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            content: '';
+            width: 6px;
+            height: 6px;
+            margin-left: -3px;
+            background-color: #fff;
+            border-radius: 100%;
+            animation: scrollDownButton 2s infinite;
+            box-sizing: border-box;
+        }
+    }
+
+}
+
+@keyframes scrollDownButton {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    80% {
+        transform: translate(0, 20px);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
     }
 }

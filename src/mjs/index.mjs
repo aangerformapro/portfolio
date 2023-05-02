@@ -5,7 +5,7 @@ import { Collapse, ScrollSpy } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
-import { capitalize, createElement } from "./helpers/utils.mjs";
+import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
 
 const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
 
@@ -73,7 +73,7 @@ addEventListener('hidden.bs.collapse', () => {
 });
 
 
-// mobile menu disappears when clicked
+// mobile menu disappears when clicked + scrolldown button clicked
 
 addEventListener('click', e => {
 
@@ -91,6 +91,15 @@ addEventListener('click', e => {
         }, { once: true });
 
         collapsible.hide();
+
+    } else if (target = e.target.closest('[href^="#"].scroll-down-button')) {
+        let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+
+        if (elem) {
+            e.preventDefault();
+            elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
+        }
+
 
     }
 
@@ -135,3 +144,9 @@ document.querySelectorAll('.typed-text').forEach(elem => {
 
 })
 
+// let elem = createElement('a', {
+//     class: 'col-6 d-flex flex-column',
+//     href: 'https://google.com',
+//     target: '_blank'
+// }, 'demande a google'),
+//     elem2 = html2element('<div class="col-6 d-flex flex-column"><a href="/">gfkgfolgjf</a></div>');
