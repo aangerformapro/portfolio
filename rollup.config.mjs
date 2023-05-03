@@ -8,6 +8,7 @@ import { babel } from '@rollup/plugin-babel';
 export default {
 
     input: path.resolve('src/mjs/index.mjs'),
+    context: 'globalThis',
     output: [
         {
             format: 'es',

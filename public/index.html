@@ -148,26 +148,33 @@
     <div class="page" id="about" title="Contact">
         <h1>Contact</h1>
         <div class="container">
-            <form action="" method="post">
+            <form action="" method="post" class="needs-validation" novalidate>
 
                 <div class="form-floating mb-3">
-                    <input class="form-control" id="name" name="name" type="text" placeholder="Votre Nom">
+                    <input class="form-control" id="name" name="name" type="text" placeholder="Votre Nom" required>
+
                     <label for="name">Votre Nom</label>
                 </div>
 
                 <div class="form-floating mb-3">
                     <input class="form-control" id="email" name="email" type="email"
-                        placeholder="Veuiller entrer votre adresse email">
+                        placeholder="Veuiller entrer votre adresse email" required>
+
                     <label for="email">Votre Email</label>
                 </div>
 
                 <div class="form-floating mb-3">
                     <textarea name="message" id="message" cols="30" rows="10" class="form-control"
-                        placeholder="Veuiller entrer votre message"></textarea>
+                        placeholder="Veuiller entrer votre message" required></textarea>
+
                     <label for="message">Votre Message:</label>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Envoyer</button>
+                <div class="text-end pt-3">
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+
+
 
             </form>
         </div>

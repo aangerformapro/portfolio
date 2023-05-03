@@ -1,6 +1,7 @@
 //@use "bootstrap-utilities";
 
 @use 'components/bootstrap';
+@use 'components/izitoast';
 @use 'components/gerillass' as g;
 @use 'helpers' as *;
 
@@ -369,6 +370,25 @@ header.fixed-top {
 
 
 // scroll down button
+@keyframes scrollDownButton {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    80% {
+        transform: translate(0, 20px);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
 
 .scroll-down-button {
     padding-top: 60px;
@@ -401,22 +421,11 @@ header.fixed-top {
 
 }
 
-@keyframes scrollDownButton {
-    0% {
-        transform: translate(0, 0);
-        opacity: 0;
-    }
+// Contact page
 
-    40% {
-        opacity: 1;
-    }
+#about {
+    #message {
+        height: 128px;
 
-    80% {
-        transform: translate(0, 20px);
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 0;
     }
 }

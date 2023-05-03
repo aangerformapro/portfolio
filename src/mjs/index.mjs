@@ -6,6 +6,11 @@ import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
 import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
+import toast from "./components/notifications.mjs";
+
+
+
+
 
 const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
 
@@ -144,9 +149,49 @@ document.querySelectorAll('.typed-text').forEach(elem => {
 
 })
 
-// let elem = createElement('a', {
-//     class: 'col-6 d-flex flex-column',
-//     href: 'https://google.com',
-//     target: '_blank'
-// }, 'demande a google'),
-//     elem2 = html2element('<div class="col-6 d-flex flex-column"><a href="/">gfkgfolgjf</a></div>');
+// contact form
+
+addEventListener('submit', e => {
+
+    const form = e.target.closest('form.needs-validation');
+
+    if (e.target.closest('#about form')) {
+        e.preventDefault();
+
+        if (form) {
+            form.classList.add('was-validated');
+            if (form.checkValidity()) {
+
+                toast.success('votre message à été envoyé.').then(() => {
+                    form.classList.remove('was-validated');
+                    form.reset();
+                });
+
+
+            }
+
+        }
+
+
+
+    }
+
+});
+
+addEventListener('change', e => {
+    const
+        input = e.target.closest('input, textarea');
+
+    if (input && e.target.closest('#about form')) {
+        e.preventDefault();
+    }
+
+
+    //console.debug(e, e.target.closest('input, textarea').form.elements);
+    //console.debug(e.target.closest('form').elements);
+});
+
+
+
+
+
