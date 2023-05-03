@@ -24,6 +24,16 @@ body {
     min-height: 100vh;
     width: 100vw;
     margin: 0;
+
+    background: #f8f9fa;
+
+    &[data-bs-theme=dark] {
+        background: #212529;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        background: #212529;
+    }
 }
 
 
@@ -147,6 +157,11 @@ header.fixed-top {
     background: rgba(var(--bs-light-rgb), .8);
     backdrop-filter: blur(3px);
 
+
+    @media (prefers-color-scheme: dark) {
+        background: rgba(var(--bs-dark-rgb), .8);
+    }
+
 }
 
 
@@ -177,13 +192,17 @@ header.fixed-top {
 
 
 .social-media-link {
-
-    color: $home-color;
-
     svg {
         max-width: 24px;
         max-height: 24px;
     }
+
+    color: $home-color;
+
+    @media (prefers-color-scheme: dark) {
+        color: var(--bs-light);
+    }
+
 }
 
 
@@ -191,12 +210,18 @@ header.fixed-top {
 
 .navbar-brand {
     svg {
-        color: $home-color;
         min-width: 32px;
         min-height: 32px;
         max-width: 40px;
         max-height: 40px;
     }
+
+    color: $home-color;
+
+    @media (prefers-color-scheme: dark) {
+        color: var(--bs-light);
+    }
+
 }
 
 /* nav links */
@@ -242,10 +267,16 @@ header.fixed-top {
         width: 40px;
         position: absolute;
         height: 3px;
-        background-color: $home-color;
+
         right: 0;
 
         transition: transform .5s ease-in-out;
+
+        background-color: $home-color;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--bs-light);
+        }
 
         &::before,
         &::after {
@@ -254,15 +285,19 @@ header.fixed-top {
             height: 3px;
             width: 40px;
             top: -.75rem;
-            background-color: $home-color;
-            right: 0;
 
+            right: 0;
             transition: transform .5s ease-in-out;
+
+            background-color: $home-color;
+
+            @media (prefers-color-scheme: dark) {
+                background-color: var(--bs-light);
+            }
         }
 
         &::after {
             top: .75rem;
-
             transition: width .25s ease-in-out;
         }
     }
@@ -271,11 +306,8 @@ header.fixed-top {
 
         box-shadow: none !important;
         border: 0 !important;
-
         position: relative;
-
         height: 40px;
-
         width: 40px;
 
         &[aria-expanded="true"] {
@@ -284,7 +316,6 @@ header.fixed-top {
             .hamburger {
 
                 transition: transform .5s ease-in-out;
-                //background-color: $main-bg;
                 transform: rotate(45deg);
 
                 &::after {
@@ -293,7 +324,6 @@ header.fixed-top {
 
                 &::before {
                     transform: translateY(.75rem) rotate(90deg);
-                    //background-color: $main-bg;
                     transition: transform .5s ease-in-out;
                 }
             }
@@ -424,6 +454,7 @@ header.fixed-top {
 // Contact page
 
 #about {
+
     #message {
         height: 128px;
 

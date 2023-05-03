@@ -1,4 +1,4 @@
-$home-bg: #F5DE7F;
+$home-bg: #f8f9fa;
 $home-color: #404040;
 $font-family: 'Poppins';
 
@@ -15,3 +15,4 @@ $cyberpunk-red: #ff1111;
 // bootstrap overrides
 $include-column-box-sizing: true;
 $font-family-sans-serif: $font-family, sans-serif;
+$color-mode-type: media-query;

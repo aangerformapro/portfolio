@@ -111,7 +111,7 @@
 
 
 
-    <div class="page d-flex flex-column justify-content-end" id="home" title="Accueil">
+    <div class="page d-flex flex-column justify-content-center" id="home" title="Accueil">
         <div class="container-fluid h-100 ">
             <div class="row h-100 overflow-hidden flex-column flex-lg-row align-items-center">
                 <div class="col-lg-6 offset-lg-1 d-flex flex-column my-5 align-items-center align-items-lg-start">
@@ -146,43 +146,47 @@
     </div>
 
     <div class="page" id="about" title="Contact">
-        <h1>Contact</h1>
-        <div class="container">
-            <form action="" method="post" class="needs-validation" novalidate>
-
-                <div class="form-floating mb-3">
-                    <input class="form-control" id="name" name="name" type="text" placeholder="Votre Nom" required>
-
-                    <label for="name">Votre Nom</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input class="form-control" id="email" name="email" type="email"
-                        placeholder="Veuiller entrer votre adresse email" required>
-
-                    <label for="email">Votre Email</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <textarea name="message" id="message" cols="30" rows="10" class="form-control"
-                        placeholder="Veuiller entrer votre message" required></textarea>
-
-                    <label for="message">Votre Message:</label>
-                </div>
-
-                <div class="text-end pt-3">
-                    <button type="submit" class="btn btn-primary">Envoyer</button>
-                </div>
 
 
 
-            </form>
+        <div class="container py-5">
+            <h1 class="display-5 fw-bold">Contact</h1>
+            <p class="col-md-8 fs-4">
+                Vous pouvez utiliser ce formulaire de contact pour me contacter.
+            </p>
+
+            <hr class="my-4">
+            <div class="container">
+
+                <form action="" method="post" class="needs-validation" novalidate>
+
+                    <div class="form-floating my-3">
+                        <input class="form-control" id="name" name="name" type="text" placeholder="Nom *" required>
+
+                        <label for="name">Votre Nom</label>
+                    </div>
+
+                    <div class="form-floating my-3">
+                        <input class="form-control" id="email" name="email" type="email" placeholder="Email *" required>
+
+                        <label for="email">Votre Email</label>
+                    </div>
+
+                    <div class="form-floating my-3">
+                        <textarea name="message" id="message" cols="30" rows="10" class="form-control"
+                            placeholder="Message *" required></textarea>
+
+                        <label for="message">Votre Message:</label>
+                    </div>
+
+                    <div class="text-end pt-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill">Envoyer</button>
+                    </div>
+                </form>
+
+            </div>
+
         </div>
-
-
-
-
-
 
     </div>
     <div class="nav-pills">

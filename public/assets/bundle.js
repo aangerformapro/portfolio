@@ -10443,4 +10443,8 @@ addEventListener('change', function (e) {
   //console.debug(e, e.target.closest('input, textarea').form.elements);
   //console.debug(e.target.closest('form').elements);
 });
+
+//document.body.setAttribute('data-bs-theme', 'dark');
+
+//document.body['data-bs-theme'] = "dark";
 //# sourceMappingURL=bundle.js.map
