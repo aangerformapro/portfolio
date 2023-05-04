@@ -7,9 +7,11 @@ import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
 import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
 import toast from "./components/notifications.mjs";
+import { tooltip } from 'tooltip';
 
 
 
+console.debug(tooltip);
 
 
 const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
@@ -39,6 +41,9 @@ if (typeof globalThis === 'undefined') {
 
 
 }
+
+//enable tooltips
+
 
 //const scrollNav = new ScrollNav(document.body, '.page');
 
@@ -196,3 +201,6 @@ addEventListener('change', e => {
 //document.body.setAttribute('data-bs-theme', 'dark');
 
 //document.body['data-bs-theme'] = "dark";
+
+
+//document.body.dataset.bsTheme = "dark";

@@ -19,9 +19,11 @@ export default {
     plugins: [
         babel({ presets: ['@babel/preset-env'], babelHelpers: 'bundled' }),
         postcss(),
+
         resolve({
             moduleDirectories: ['node_modules'],
-            extensions: ['.js', '.mjs', '.cjs']
+            extensions: ['.js', '.mjs', '.cjs'],
+            // preferBuiltins: false,
         }),
         commonjs(),
 

@@ -156,25 +156,20 @@ header.fixed-top {
     min-height: 64px;
     background: rgba(var(--bs-light-rgb), .8);
     backdrop-filter: blur(3px);
-
-
-    @media (prefers-color-scheme: dark) {
-        background: rgba(var(--bs-dark-rgb), .8);
-    }
-
 }
 
+@include bootstrap.color-mode('dark') {
+    header.fixed-top {
+        background: rgba(var(--bs-dark-rgb), .8);
+    }
+}
 
 .navbar-shown,
 .navbar-collapsing {
     @include lg-down {
-
         header.fixed-top {
             min-height: 100vh;
         }
-
-
-
     }
 }
 
@@ -197,13 +192,16 @@ header.fixed-top {
         max-height: 24px;
     }
 
-    color: $home-color;
-
-    @media (prefers-color-scheme: dark) {
-        color: var(--bs-light);
-    }
-
+    // color: $home-color;
 }
+
+
+@include bootstrap.color-mode('dark') {
+    .social-media-link {
+        //color: rgba(var(--bs-light-rgb), .8);
+    }
+}
+
 
 
 /* Logo */
@@ -216,11 +214,11 @@ header.fixed-top {
         max-height: 40px;
     }
 
-    color: $home-color;
+    // color: $home-color;
 
-    @media (prefers-color-scheme: dark) {
-        color: var(--bs-light);
-    }
+    // @media (prefers-color-scheme: dark) {
+    //     color: var(--bs-light);
+    // }
 
 }
 
@@ -255,12 +253,33 @@ header.fixed-top {
     }
 }
 
+.navbar .navbar-brand,
+.navbar .nav-link,
+.social-media-link svg {
+    color: rgba(var(--bs-dark-rgb), .8);
+
+    &:hover {
+        color: rgba(var(--bs-dark-rgb), 1);
+    }
+}
+
+
+@include bootstrap.color-mode('dark') {
+
+    .navbar .navbar-brand,
+    .navbar .nav-link,
+    .social-media-link svg {
+        color: rgba(var(--bs-light-rgb), .8);
+
+        &:hover {
+            color: rgba(var(--bs-light-rgb), 1);
+        }
+    }
+}
+
 
 /* Hamburger */
 @include lg-down {
-
-
-
 
     .hamburger {
 
@@ -272,11 +291,11 @@ header.fixed-top {
 
         transition: transform .5s ease-in-out;
 
-        background-color: $home-color;
+        // background-color: $home-color;
 
-        @media (prefers-color-scheme: dark) {
-            background-color: var(--bs-light);
-        }
+        // @media (prefers-color-scheme: dark) {
+        //     background-color: var(--bs-light);
+        // }
 
         &::before,
         &::after {
@@ -289,11 +308,11 @@ header.fixed-top {
             right: 0;
             transition: transform .5s ease-in-out;
 
-            background-color: $home-color;
+            // background-color: $home-color;
 
-            @media (prefers-color-scheme: dark) {
-                background-color: var(--bs-light);
-            }
+            // @media (prefers-color-scheme: dark) {
+            //     background-color: var(--bs-light);
+            // }
         }
 
         &::after {
@@ -332,6 +351,46 @@ header.fixed-top {
 }
 
 
+.navbar-toggler {
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+        background: rgba(var(--bs-dark-rgb), .8);
+    }
+
+    &:hover {
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after {
+            background: rgba(var(--bs-dark-rgb), 1);
+        }
+    }
+}
+
+
+
+@include bootstrap.color-mode('dark') {
+    .navbar-toggler {
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after {
+            background: rgba(var(--bs-light-rgb), .8);
+        }
+
+        &:hover {
+
+            .hamburger,
+            .hamburger::before,
+            .hamburger::after {
+                background: rgba(var(--bs-light-rgb), 1);
+            }
+        }
+    }
+}
+
 
 /* Landing Page */
 
@@ -350,17 +409,11 @@ header.fixed-top {
     color: $home-color;
     position: relative;
     user-select: none;
-
     background: #161616;
 
 
     h1,
     h2 {
-        // background-image: linear-gradient(-225deg,
-        //         #231557 0%,
-        //         #44107a 29%,
-        //         #ff1361 67%,
-        //         #fff800 100%);
         cursor: pointer;
         background-image: linear-gradient(-225deg,
                 $cyberpunk-cyan 0%,
