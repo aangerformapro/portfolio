@@ -13,10 +13,6 @@ html {
     font-size: 16px;
     line-height: 1.2;
     scroll-behavior: smooth;
-    /* slide scroll */
-    scroll-snap-type: y mandatory;
-    scroll-snap-stop: always;
-
 }
 
 
@@ -178,7 +174,7 @@ header.fixed-top {
     // fixed header size
     padding-top: 80px;
     min-height: 100vh;
-    scroll-snap-align: start;
+    //scroll-snap-align: end;
     transition: transform 1s ease-in-out, visibility 1s ease-in-out;
 
 }
@@ -190,15 +186,6 @@ header.fixed-top {
     svg {
         max-width: 24px;
         max-height: 24px;
-    }
-
-    // color: $home-color;
-}
-
-
-@include bootstrap.color-mode('dark') {
-    .social-media-link {
-        //color: rgba(var(--bs-light-rgb), .8);
     }
 }
 
@@ -214,11 +201,6 @@ header.fixed-top {
         max-height: 40px;
     }
 
-    // color: $home-color;
-
-    // @media (prefers-color-scheme: dark) {
-    //     color: var(--bs-light);
-    // }
 
 }
 
@@ -291,11 +273,6 @@ header.fixed-top {
 
         transition: transform .5s ease-in-out;
 
-        // background-color: $home-color;
-
-        // @media (prefers-color-scheme: dark) {
-        //     background-color: var(--bs-light);
-        // }
 
         &::before,
         &::after {
@@ -307,12 +284,6 @@ header.fixed-top {
 
             right: 0;
             transition: transform .5s ease-in-out;
-
-            // background-color: $home-color;
-
-            // @media (prefers-color-scheme: dark) {
-            //     background-color: var(--bs-light);
-            // }
         }
 
         &::after {
@@ -398,9 +369,6 @@ header.fixed-top {
 .blast:hover {
     @extend %rubberBand;
     display: inline-block;
-
-    //font-size: ;
-    //color: #b8fef4;
 }
 
 

@@ -10751,9 +10751,6 @@ html {
   font-size: 16px;
   line-height: 1.2;
   scroll-behavior: smooth;
-  /* slide scroll */
-  scroll-snap-type: y mandatory;
-  scroll-snap-stop: always;
 }
 
 body {
@@ -10889,7 +10886,6 @@ header.fixed-top {
 .page {
   padding-top: 80px;
   min-height: 100vh;
-  scroll-snap-align: start;
   transition: transform 1s ease-in-out, visibility 1s ease-in-out;
 }
 

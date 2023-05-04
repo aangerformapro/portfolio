@@ -1,5 +1,3 @@
-import require$$3 from 'events';
-
 function _iterableToArrayLimit(arr, i) {
   var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
   if (null != _i) {
@@ -41,7 +39,7 @@ function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
     i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty$1(target, key, source[key]);
+      _defineProperty(target, key, source[key]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
       Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
     });
@@ -388,12 +386,12 @@ function _asyncToGenerator(fn) {
     });
   };
 }
-function _classCallCheck$2(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function _defineProperties$1(target, props) {
+function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -402,15 +400,15 @@ function _defineProperties$1(target, props) {
     Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
   }
 }
-function _createClass$2(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$1(Constructor, staticProps);
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
   return Constructor;
 }
-function _defineProperty$1(obj, key, value) {
+function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -518,16 +516,16 @@ function _get() {
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
-function _toConsumableArray$1(arr) {
-  return _arrayWithoutHoles$1(arr) || _iterableToArray$1(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread$1();
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
-function _arrayWithoutHoles$1(arr) {
+function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
-function _iterableToArray$1(iter) {
+function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 function _unsupportedIterableToArray(o, minLen) {
@@ -543,7 +541,7 @@ function _arrayLikeToArray(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function _nonIterableSpread$1() {
+function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _nonIterableRest() {
@@ -679,446 +677,6 @@ function _classPrivateFieldInitSpec(obj, privateMap, value) {
   _checkPrivateRedeclaration(obj, privateMap);
   privateMap.set(obj, value);
 }
-
-var _createClass$1 = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-function _classCallCheck$1(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-var SingleTweener = function () {
-  function SingleTweener() {
-    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck$1(this, SingleTweener);
-    this.start = opts.start;
-    this.end = opts.end;
-    this.decimal = opts.decimal;
-  }
-  _createClass$1(SingleTweener, [{
-    key: "getIntermediateValue",
-    value: function getIntermediateValue(tick) {
-      if (this.decimal) {
-        return tick;
-      } else {
-        return Math.round(tick);
-      }
-    }
-  }, {
-    key: "getFinalValue",
-    value: function getFinalValue() {
-      return this.end;
-    }
-  }]);
-  return SingleTweener;
-}();
-var _createClass$1$1 = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-function _classCallCheck$1$1(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-var Tweezer = function () {
-  function Tweezer() {
-    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    _classCallCheck$1$1(this, Tweezer);
-    this.duration = opts.duration || 1000;
-    this.ease = opts.easing || this._defaultEase;
-    this.tweener = opts.tweener || new SingleTweener(opts);
-    this.start = this.tweener.start;
-    this.end = this.tweener.end;
-    this.frame = null;
-    this.next = null;
-    this.isRunning = false;
-    this.events = {};
-    this.direction = this.start < this.end ? 'up' : 'down';
-  }
-  _createClass$1$1(Tweezer, [{
-    key: 'begin',
-    value: function begin() {
-      if (!this.isRunning && this.next !== this.end) {
-        this.frame = window.requestAnimationFrame(this._tick.bind(this));
-      }
-      return this;
-    }
-  }, {
-    key: 'stop',
-    value: function stop() {
-      window.cancelAnimationFrame(this.frame);
-      this.isRunning = false;
-      this.frame = null;
-      this.timeStart = null;
-      this.next = null;
-      return this;
-    }
-  }, {
-    key: 'on',
-    value: function on(name, handler) {
-      this.events[name] = this.events[name] || [];
-      this.events[name].push(handler);
-      return this;
-    }
-  }, {
-    key: '_emit',
-    value: function _emit(name, val) {
-      var _this = this;
-      var e = this.events[name];
-      e && e.forEach(function (handler) {
-        return handler.call(_this, val);
-      });
-    }
-  }, {
-    key: '_tick',
-    value: function _tick(currentTime) {
-      this.isRunning = true;
-      var lastTick = this.next || this.start;
-      if (!this.timeStart) this.timeStart = currentTime;
-      this.timeElapsed = currentTime - this.timeStart;
-      this.next = this.ease(this.timeElapsed, this.start, this.end - this.start, this.duration);
-      if (this._shouldTick(lastTick)) {
-        this._emit('tick', this.tweener.getIntermediateValue(this.next));
-        this.frame = window.requestAnimationFrame(this._tick.bind(this));
-      } else {
-        this._emit('tick', this.tweener.getFinalValue());
-        this._emit('done', null);
-      }
-    }
-  }, {
-    key: '_shouldTick',
-    value: function _shouldTick(lastTick) {
-      return {
-        up: this.next < this.end && lastTick <= this.next,
-        down: this.next > this.end && lastTick >= this.next
-      }[this.direction];
-    }
-  }, {
-    key: '_defaultEase',
-    value: function _defaultEase(t, b, c, d) {
-      if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-      return -c / 2 * (--t * (t - 2) - 1) + b;
-    }
-  }]);
-  return Tweezer;
-}();
-
-/**
- * PanelSnap.js v1.3.0
- * Copyright (c) 2013-present, Guido Bouman
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-function _classCallCheck(t, e) {
-  if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
-}
-function _defineProperties(t, e) {
-  for (var n = 0; n < e.length; n++) {
-    var i = e[n];
-    i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(t, i.key, i);
-  }
-}
-function _createClass(t, e, n) {
-  return e && _defineProperties(t.prototype, e), n && _defineProperties(t, n), t;
-}
-function _defineProperty(t, e, n) {
-  return e in t ? Object.defineProperty(t, e, {
-    value: n,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : t[e] = n, t;
-}
-function _objectSpread(t) {
-  for (var e = 1; e < arguments.length; e++) {
-    var n = null != arguments[e] ? arguments[e] : {},
-      i = Object.keys(n);
-    "function" == typeof Object.getOwnPropertySymbols && (i = i.concat(Object.getOwnPropertySymbols(n).filter(function (t) {
-      return Object.getOwnPropertyDescriptor(n, t).enumerable;
-    }))), i.forEach(function (e) {
-      _defineProperty(t, e, n[e]);
-    });
-  }
-  return t;
-}
-function _toConsumableArray(t) {
-  return _arrayWithoutHoles(t) || _iterableToArray(t) || _nonIterableSpread();
-}
-function _arrayWithoutHoles(t) {
-  if (Array.isArray(t)) {
-    for (var e = 0, n = new Array(t.length); e < t.length; e++) n[e] = t[e];
-    return n;
-  }
-}
-function _iterableToArray(t) {
-  if (Symbol.iterator in Object(t) || "[object Arguments]" === Object.prototype.toString.call(t)) return Array.from(t);
-}
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
-}
-function getScrollingElement(t) {
-  return t !== document.body ? t : "scrollingElement" in document ? document.scrollingElement : navigator.userAgent.indexOf("WebKit") > -1 ? document.body : document.documentElement;
-}
-function getScrollEventContainer(t) {
-  return t === document.body ? window : getScrollingElement(t);
-}
-function getContainerRect(t) {
-  if (t === document.body) {
-    var e = document.documentElement;
-    return {
-      top: 0,
-      left: 0,
-      bottom: e.clientHeight,
-      right: e.clientWidth,
-      height: e.clientHeight,
-      width: e.clientWidth
-    };
-  }
-  return t.getBoundingClientRect();
-}
-function getTargetScrollOffset(t, e) {
-  var n = arguments.length > 2 && void 0 !== arguments[2] && arguments[2],
-    i = arguments.length > 3 && void 0 !== arguments[3] && arguments[3],
-    o = getContainerRect(t),
-    r = e.getBoundingClientRect(),
-    s = r.top - o.top,
-    a = r.left - o.left,
-    l = n ? r.height - o.height : 0,
-    c = i ? r.width - o.width : 0,
-    h = getScrollingElement(t);
-  return {
-    top: s + l + h.scrollTop,
-    left: a + c + h.scrollLeft
-  };
-}
-function getElementsInContainerViewport(t, e) {
-  var n = getContainerRect(t);
-  return e.filter(function (t) {
-    var e = t.getBoundingClientRect();
-    return e.top < n.bottom && e.right > n.left && e.bottom > n.top && e.left < n.right;
-  });
-}
-function elementFillsContainer(t, e) {
-  var n = getContainerRect(t),
-    i = e.getBoundingClientRect();
-  return i.top <= n.top && i.bottom >= n.bottom && i.left <= n.left && i.right >= n.right;
-}
-var passiveIsSupported = function () {
-    var t = !1;
-    try {
-      var e = Object.defineProperty({}, "passive", {
-        get: function get() {
-          t = !0;
-        }
-      });
-      window.addEventListener("test", null, e), window.removeEventListener("test", null, e);
-    } catch (t) {}
-    return t;
-  }(),
-  INSTANCE_COUNTER = 0,
-  TWEEN_MAX_VALUE = 1e4,
-  defaultOptions = {
-    container: document.body,
-    panelSelector: "> section",
-    directionThreshold: 50,
-    delay: 0,
-    duration: 300,
-    easing: function easing(t) {
-      return t;
-    }
-  },
-  PanelSnap = function () {
-    function t(e) {
-      if (_classCallCheck(this, t), this.options = _objectSpread({}, defaultOptions, e), this.options.container.dataset.panelsnapId) throw new Error("PanelSnap is already initialised on this container, aborting.");
-      this.container = this.options.container, this.scrollContainer = getScrollingElement(this.container), this.scrollEventContainer = getScrollEventContainer(this.container), INSTANCE_COUNTER += 1, this.instanceIndex = INSTANCE_COUNTER, this.container.dataset.panelsnapId = this.instanceIndex;
-      var n = '[data-panelsnap-id="'.concat(this.instanceIndex, '"] ').concat(this.options.panelSelector);
-      this.panelList = Array.from(document.querySelectorAll(n)), this.events = [], this.isEnabled = !0, this.isInteracting = !1, this.scrollTimeout = null, this.resetAnimation(), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onInteractStart = this.onInteractStart.bind(this), this.onInteractStop = this.onInteractStop.bind(this), this.onScroll = this.onScroll.bind(this), this.onInteract = this.onInteract.bind(this), this.scrollEventContainer.addEventListener("keydown", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("keyup", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("touchend", this.onInteractStop, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("scroll", this.onScroll, passiveIsSupported && {
-        passive: !0
-      }), this.scrollEventContainer.addEventListener("wheel", this.onInteract, passiveIsSupported && {
-        passive: !0
-      }), this.findSnapTarget();
-    }
-    return _createClass(t, [{
-      key: "destroy",
-      value: function value() {
-        this.stopAnimation(), this.disable(), this.scrollEventContainer.removeEventListener("keydown", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("keyup", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("mousedown", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("mouseup", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("touchstart", this.onInteractStart, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("touchend", this.onInteractStop, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("scroll", this.onScroll, passiveIsSupported && {
-          passive: !0
-        }), this.scrollEventContainer.removeEventListener("wheel", this.onInteract, passiveIsSupported && {
-          passive: !0
-        }), delete this.options.container.dataset.panelsnapId;
-      }
-    }, {
-      key: "enable",
-      value: function value() {
-        this.isEnabled = !0;
-      }
-    }, {
-      key: "disable",
-      value: function value() {
-        this.isEnabled = !1;
-      }
-    }, {
-      key: "on",
-      value: function value(t, e) {
-        var n = this.events[t] || [];
-        this.events[t] = _toConsumableArray(n).concat([e]), "activatePanel" === t && e.call(this, this.activePanel);
-      }
-    }, {
-      key: "off",
-      value: function value(t, e) {
-        var n = this.events[t] || [];
-        this.events[t] = n.filter(function (t) {
-          return t !== e;
-        });
-      }
-    }, {
-      key: "emit",
-      value: function value(t, e) {
-        var n = this;
-        (this.events[t] || []).forEach(function (t) {
-          return t.call(n, e);
-        });
-      }
-    }, {
-      key: "onInteractStart",
-      value: function value() {
-        this.stopAnimation(), this.isInteracting = !0;
-      }
-    }, {
-      key: "onInteractStop",
-      value: function value() {
-        this.isInteracting = !1, this.findSnapTarget();
-      }
-    }, {
-      key: "onInteract",
-      value: function value() {
-        this.stopAnimation(), this.onScroll();
-      }
-    }, {
-      key: "onScroll",
-      value: function value() {
-        clearTimeout(this.scrollTimeout), this.isInteracting || this.animation || (this.scrollTimeout = setTimeout(this.findSnapTarget.bind(this), 50 + this.options.delay));
-      }
-    }, {
-      key: "findSnapTarget",
-      value: function value() {
-        var t = this.scrollContainer.scrollTop - this.currentScrollOffset.top,
-          e = this.scrollContainer.scrollLeft - this.currentScrollOffset.left;
-        this.currentScrollOffset = {
-          top: this.scrollContainer.scrollTop,
-          left: this.scrollContainer.scrollLeft
-        };
-        var n = getElementsInContainerViewport(this.container, this.panelList);
-        if (0 === n.length) throw new Error("PanelSnap could not find a snappable panel, aborting.");
-        if (n.length > 1) {
-          if (Math.abs(t) < this.options.directionThreshold && Math.abs(e) < this.options.directionThreshold && this.activePanel) return void this.snapToPanel(this.activePanel, t > 0, e > 0);
-          var i = t > 0 || e > 0 ? 1 : n.length - 2;
-          this.snapToPanel(n[i], t < 0, e < 0);
-        } else {
-          var o = n[0];
-          elementFillsContainer(this.container, o) ? this.activatePanel(o) : (console.error("PanelSnap does not support space between panels, snapping back."), this.snapToPanel(o, t > 0, e > 0));
-        }
-      }
-    }, {
-      key: "snapToPanel",
-      value: function value(t) {
-        var e = this,
-          n = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
-          i = arguments.length > 2 && void 0 !== arguments[2] && arguments[2];
-        this.activatePanel(t), this.isEnabled && (this.animation && this.animation.stop(), this.targetScrollOffset = getTargetScrollOffset(this.container, t, n, i), this.animation = new Tweezer({
-          start: 0,
-          end: TWEEN_MAX_VALUE,
-          duration: this.options.duration
-        }), this.animation.on("tick", this.animationTick.bind(this)), this.animation.on("done", function () {
-          e.emit("snapStop", t), e.resetAnimation();
-        }), this.emit("snapStart", t), this.animation.begin());
-      }
-    }, {
-      key: "animationTick",
-      value: function value(t) {
-        var e = this.targetScrollOffset.top - this.currentScrollOffset.top,
-          n = this.currentScrollOffset.top + e * t / TWEEN_MAX_VALUE;
-        this.scrollContainer.scrollTop = n;
-        var i = this.targetScrollOffset.left - this.currentScrollOffset.left,
-          o = this.currentScrollOffset.left + i * t / TWEEN_MAX_VALUE;
-        this.scrollContainer.scrollLeft = o;
-      }
-    }, {
-      key: "stopAnimation",
-      value: function value() {
-        this.animation && (this.animation.stop(), this.resetAnimation());
-      }
-    }, {
-      key: "resetAnimation",
-      value: function value() {
-        this.currentScrollOffset = {
-          top: this.scrollContainer.scrollTop,
-          left: this.scrollContainer.scrollLeft
-        }, this.targetScrollOffset = {
-          top: 0,
-          left: 0
-        }, this.animation = null;
-      }
-    }, {
-      key: "activatePanel",
-      value: function value(t) {
-        this.activePanel !== t && (this.emit("activatePanel", t), this.activePanel = t);
-      }
-    }]), t;
-  }();
-var PanelSnap$1 = PanelSnap;
 
 var top = 'top';
 var bottom = 'bottom';
@@ -1337,7 +895,7 @@ function getLayoutRect(element) {
   };
 }
 
-function contains$3(parent, child) {
+function contains(parent, child) {
   var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
 
   if (parent.contains(child)) {
@@ -1533,7 +1091,7 @@ function effect$1(_ref2) {
       console.error(['Popper: "arrow" element must be an HTMLElement (not an SVGElement).', 'To use an SVG arrow, wrap it in an HTMLElement that will be used as', 'the arrow.'].join(' '));
     }
   }
-  if (!contains$3(state.elements.popper, arrowElement)) {
+  if (!contains(state.elements.popper, arrowElement)) {
     if (process.env.NODE_ENV !== "production") {
       console.error(['Popper: "arrow" modifier\'s `element` must be a child of the popper', 'element.'].join(' '));
     }
@@ -1916,7 +1474,7 @@ function getClippingParents(element) {
   } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
 
   return clippingParents.filter(function (clippingParent) {
-    return isElement$1(clippingParent) && contains$3(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
+    return isElement$1(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
   });
 } // Gets the maximum area that the element is visible in due to any number of
 // clipping parents
@@ -3184,7 +2742,7 @@ var defineJQueryPlugin = function defineJQueryPlugin(plugin) {
 var execute = function execute(possibleCallback) {
   var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : possibleCallback;
-  return typeof possibleCallback === 'function' ? possibleCallback.apply(void 0, _toConsumableArray$1(args)) : defaultValue;
+  return typeof possibleCallback === 'function' ? possibleCallback.apply(void 0, _toConsumableArray(args)) : defaultValue;
 };
 var executeAfterTransition = function executeAfterTransition(callback, transitionElement) {
   var waitForTransition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
@@ -3572,9 +3130,9 @@ var Manipulator = {
  */
 var Config = /*#__PURE__*/function () {
   function Config() {
-    _classCallCheck$2(this, Config);
+    _classCallCheck(this, Config);
   }
-  _createClass$2(Config, [{
+  _createClass(Config, [{
     key: "_getConfig",
     value: function _getConfig(config) {
       config = this._mergeConfigObj(config);
@@ -3648,7 +3206,7 @@ var BaseComponent = /*#__PURE__*/function (_Config) {
   var _super = _createSuper(BaseComponent);
   function BaseComponent(element, config) {
     var _this;
-    _classCallCheck$2(this, BaseComponent);
+    _classCallCheck(this, BaseComponent);
     _this = _super.call(this);
     element = getElement(element);
     if (!element) {
@@ -3661,7 +3219,7 @@ var BaseComponent = /*#__PURE__*/function (_Config) {
   }
 
   // Public
-  _createClass$2(BaseComponent, [{
+  _createClass(BaseComponent, [{
     key: "dispose",
     value: function dispose() {
       Data.remove(this._element, this.constructor.DATA_KEY);
@@ -3760,7 +3318,7 @@ var SelectorEngine = {
   find: function find(selector) {
     var _ref2;
     var element = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.documentElement;
-    return (_ref2 = []).concat.apply(_ref2, _toConsumableArray$1(Element.prototype.querySelectorAll.call(element, selector)));
+    return (_ref2 = []).concat.apply(_ref2, _toConsumableArray(Element.prototype.querySelectorAll.call(element, selector)));
   },
   findOne: function findOne(selector) {
     var element = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document.documentElement;
@@ -3768,7 +3326,7 @@ var SelectorEngine = {
   },
   children: function children(element, selector) {
     var _ref3;
-    return (_ref3 = []).concat.apply(_ref3, _toConsumableArray$1(element.children)).filter(function (child) {
+    return (_ref3 = []).concat.apply(_ref3, _toConsumableArray(element.children)).filter(function (child) {
       return child.matches(selector);
     });
   },
@@ -3878,10 +3436,10 @@ var Alert = /*#__PURE__*/function (_BaseComponent) {
   _inherits(Alert, _BaseComponent);
   var _super2 = _createSuper(Alert);
   function Alert() {
-    _classCallCheck$2(this, Alert);
+    _classCallCheck(this, Alert);
     return _super2.apply(this, arguments);
   }
-  _createClass$2(Alert, [{
+  _createClass(Alert, [{
     key: "close",
     value:
     // Public
@@ -3969,10 +3527,10 @@ var Button = /*#__PURE__*/function (_BaseComponent2) {
   _inherits(Button, _BaseComponent2);
   var _super3 = _createSuper(Button);
   function Button() {
-    _classCallCheck$2(this, Button);
+    _classCallCheck(this, Button);
     return _super3.apply(this, arguments);
   }
-  _createClass$2(Button, [{
+  _createClass(Button, [{
     key: "toggle",
     value:
     // Public
@@ -4059,7 +3617,7 @@ var Swipe = /*#__PURE__*/function (_Config2) {
   var _super4 = _createSuper(Swipe);
   function Swipe(element, config) {
     var _this3;
-    _classCallCheck$2(this, Swipe);
+    _classCallCheck(this, Swipe);
     _this3 = _super4.call(this);
     _this3._element = element;
     if (!element || !Swipe.isSupported()) {
@@ -4073,7 +3631,7 @@ var Swipe = /*#__PURE__*/function (_Config2) {
   }
 
   // Getters
-  _createClass$2(Swipe, [{
+  _createClass(Swipe, [{
     key: "dispose",
     value:
     // Public
@@ -4218,7 +3776,7 @@ var SELECTOR_ITEM_IMG = '.carousel-item img';
 var SELECTOR_INDICATORS = '.carousel-indicators';
 var SELECTOR_DATA_SLIDE = '[data-bs-slide], [data-bs-slide-to]';
 var SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
-var KEY_TO_DIRECTION = (_KEY_TO_DIRECTION = {}, _defineProperty$1(_KEY_TO_DIRECTION, ARROW_LEFT_KEY$1, DIRECTION_RIGHT), _defineProperty$1(_KEY_TO_DIRECTION, ARROW_RIGHT_KEY$1, DIRECTION_LEFT), _KEY_TO_DIRECTION);
+var KEY_TO_DIRECTION = (_KEY_TO_DIRECTION = {}, _defineProperty(_KEY_TO_DIRECTION, ARROW_LEFT_KEY$1, DIRECTION_RIGHT), _defineProperty(_KEY_TO_DIRECTION, ARROW_RIGHT_KEY$1, DIRECTION_LEFT), _KEY_TO_DIRECTION);
 var Default$b = {
   interval: 5000,
   keyboard: true,
@@ -4245,7 +3803,7 @@ var Carousel = /*#__PURE__*/function (_BaseComponent3) {
   var _super5 = _createSuper(Carousel);
   function Carousel(element, config) {
     var _this5;
-    _classCallCheck$2(this, Carousel);
+    _classCallCheck(this, Carousel);
     _this5 = _super5.call(this, element, config);
     _this5._interval = null;
     _this5._activeElement = null;
@@ -4261,7 +3819,7 @@ var Carousel = /*#__PURE__*/function (_BaseComponent3) {
   }
 
   // Getters
-  _createClass$2(Carousel, [{
+  _createClass(Carousel, [{
     key: "next",
     value:
     // Public
@@ -4690,7 +4248,7 @@ var Collapse = /*#__PURE__*/function (_BaseComponent4) {
   var _super6 = _createSuper(Collapse);
   function Collapse(element, config) {
     var _this12;
-    _classCallCheck$2(this, Collapse);
+    _classCallCheck(this, Collapse);
     _this12 = _super6.call(this, element, config);
     _this12._isTransitioning = false;
     _this12._triggerArray = [];
@@ -4724,7 +4282,7 @@ var Collapse = /*#__PURE__*/function (_BaseComponent4) {
   }
 
   // Getters
-  _createClass$2(Collapse, [{
+  _createClass(Collapse, [{
     key: "toggle",
     value:
     // Public
@@ -5044,7 +4602,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
   var _super7 = _createSuper(Dropdown);
   function Dropdown(element, config) {
     var _this15;
-    _classCallCheck$2(this, Dropdown);
+    _classCallCheck(this, Dropdown);
     _this15 = _super7.call(this, element, config);
     _this15._popper = null;
     _this15._parent = _this15._element.parentNode; // dropdown wrapper
@@ -5055,7 +4613,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
   }
 
   // Getters
-  _createClass$2(Dropdown, [{
+  _createClass(Dropdown, [{
     key: "toggle",
     value:
     // Public
@@ -5083,7 +4641,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement && !this._parent.closest(SELECTOR_NAVBAR_NAV)) {
         var _ref4;
-        var _iterator12 = _createForOfIteratorHelper((_ref4 = []).concat.apply(_ref4, _toConsumableArray$1(document.body.children))),
+        var _iterator12 = _createForOfIteratorHelper((_ref4 = []).concat.apply(_ref4, _toConsumableArray(document.body.children))),
           _step12;
         try {
           for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
@@ -5143,7 +4701,7 @@ var Dropdown = /*#__PURE__*/function (_BaseComponent5) {
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
         var _ref5;
-        var _iterator13 = _createForOfIteratorHelper((_ref5 = []).concat.apply(_ref5, _toConsumableArray$1(document.body.children))),
+        var _iterator13 = _createForOfIteratorHelper((_ref5 = []).concat.apply(_ref5, _toConsumableArray(document.body.children))),
           _step13;
         try {
           for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
@@ -5452,7 +5010,7 @@ var Backdrop = /*#__PURE__*/function (_Config3) {
   var _super8 = _createSuper(Backdrop);
   function Backdrop(config) {
     var _this17;
-    _classCallCheck$2(this, Backdrop);
+    _classCallCheck(this, Backdrop);
     _this17 = _super8.call(this);
     _this17._config = _this17._getConfig(config);
     _this17._isAppended = false;
@@ -5461,7 +5019,7 @@ var Backdrop = /*#__PURE__*/function (_Config3) {
   }
 
   // Getters
-  _createClass$2(Backdrop, [{
+  _createClass(Backdrop, [{
     key: "show",
     value:
     // Public
@@ -5598,7 +5156,7 @@ var FocusTrap = /*#__PURE__*/function (_Config4) {
   var _super9 = _createSuper(FocusTrap);
   function FocusTrap(config) {
     var _this20;
-    _classCallCheck$2(this, FocusTrap);
+    _classCallCheck(this, FocusTrap);
     _this20 = _super9.call(this);
     _this20._config = _this20._getConfig(config);
     _this20._isActive = false;
@@ -5607,7 +5165,7 @@ var FocusTrap = /*#__PURE__*/function (_Config4) {
   }
 
   // Getters
-  _createClass$2(FocusTrap, [{
+  _createClass(FocusTrap, [{
     key: "activate",
     value:
     // Public
@@ -5700,12 +5258,12 @@ var PROPERTY_MARGIN = 'margin-right';
  */
 var ScrollBarHelper = /*#__PURE__*/function () {
   function ScrollBarHelper() {
-    _classCallCheck$2(this, ScrollBarHelper);
+    _classCallCheck(this, ScrollBarHelper);
     this._element = document.body;
   }
 
   // Public
-  _createClass$2(ScrollBarHelper, [{
+  _createClass(ScrollBarHelper, [{
     key: "getWidth",
     value: function getWidth() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
@@ -5862,7 +5420,7 @@ var Modal = /*#__PURE__*/function (_BaseComponent6) {
   var _super10 = _createSuper(Modal);
   function Modal(element, config) {
     var _this23;
-    _classCallCheck$2(this, Modal);
+    _classCallCheck(this, Modal);
     _this23 = _super10.call(this, element, config);
     _this23._dialog = SelectorEngine.findOne(SELECTOR_DIALOG, _this23._element);
     _this23._backdrop = _this23._initializeBackDrop();
@@ -5875,7 +5433,7 @@ var Modal = /*#__PURE__*/function (_BaseComponent6) {
   }
 
   // Getters
-  _createClass$2(Modal, [{
+  _createClass(Modal, [{
     key: "toggle",
     value:
     // Public
@@ -6213,7 +5771,7 @@ var Offcanvas = /*#__PURE__*/function (_BaseComponent7) {
   var _super11 = _createSuper(Offcanvas);
   function Offcanvas(element, config) {
     var _this31;
-    _classCallCheck$2(this, Offcanvas);
+    _classCallCheck(this, Offcanvas);
     _this31 = _super11.call(this, element, config);
     _this31._isShown = false;
     _this31._backdrop = _this31._initializeBackDrop();
@@ -6223,7 +5781,7 @@ var Offcanvas = /*#__PURE__*/function (_BaseComponent7) {
   }
 
   // Getters
-  _createClass$2(Offcanvas, [{
+  _createClass(Offcanvas, [{
     key: "toggle",
     value:
     // Public
@@ -6528,7 +6086,7 @@ function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
   }
   var domParser = new window.DOMParser();
   var createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
-  var elements = (_ref7 = []).concat.apply(_ref7, _toConsumableArray$1(createdDocument.body.querySelectorAll('*')));
+  var elements = (_ref7 = []).concat.apply(_ref7, _toConsumableArray(createdDocument.body.querySelectorAll('*')));
   var _iterator18 = _createForOfIteratorHelper(elements),
     _step18;
   try {
@@ -6540,7 +6098,7 @@ function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
         element.remove();
         continue;
       }
-      var attributeList = (_ref8 = []).concat.apply(_ref8, _toConsumableArray$1(element.attributes));
+      var attributeList = (_ref8 = []).concat.apply(_ref8, _toConsumableArray(element.attributes));
       var allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || []);
       var _iterator19 = _createForOfIteratorHelper(attributeList),
         _step19;
@@ -6609,14 +6167,14 @@ var TemplateFactory = /*#__PURE__*/function (_Config5) {
   var _super12 = _createSuper(TemplateFactory);
   function TemplateFactory(config) {
     var _this37;
-    _classCallCheck$2(this, TemplateFactory);
+    _classCallCheck(this, TemplateFactory);
     _this37 = _super12.call(this);
     _this37._config = _this37._getConfig(config);
     return _this37;
   }
 
   // Getters
-  _createClass$2(TemplateFactory, [{
+  _createClass(TemplateFactory, [{
     key: "getContent",
     value:
     // Public
@@ -6653,7 +6211,7 @@ var TemplateFactory = /*#__PURE__*/function (_Config5) {
       var extraClass = this._resolvePossibleFunction(this._config.extraClass);
       if (extraClass) {
         var _template$classList;
-        (_template$classList = template.classList).add.apply(_template$classList, _toConsumableArray$1(extraClass.split(' ')));
+        (_template$classList = template.classList).add.apply(_template$classList, _toConsumableArray(extraClass.split(' ')));
       }
       return template;
     }
@@ -6823,7 +6381,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   var _super13 = _createSuper(Tooltip);
   function Tooltip(element, config) {
     var _this39;
-    _classCallCheck$2(this, Tooltip);
+    _classCallCheck(this, Tooltip);
     if (typeof Popper === 'undefined') {
       throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
     }
@@ -6848,7 +6406,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   }
 
   // Getters
-  _createClass$2(Tooltip, [{
+  _createClass(Tooltip, [{
     key: "enable",
     value:
     // Public
@@ -6924,7 +6482,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
       // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
       if ('ontouchstart' in document.documentElement) {
         var _ref9;
-        var _iterator20 = _createForOfIteratorHelper((_ref9 = []).concat.apply(_ref9, _toConsumableArray$1(document.body.children))),
+        var _iterator20 = _createForOfIteratorHelper((_ref9 = []).concat.apply(_ref9, _toConsumableArray(document.body.children))),
           _step20;
         try {
           for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
@@ -6964,7 +6522,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
       // empty mouseover listeners we added for iOS support
       if ('ontouchstart' in document.documentElement) {
         var _ref10;
-        var _iterator21 = _createForOfIteratorHelper((_ref10 = []).concat.apply(_ref10, _toConsumableArray$1(document.body.children))),
+        var _iterator21 = _createForOfIteratorHelper((_ref10 = []).concat.apply(_ref10, _toConsumableArray(document.body.children))),
           _step21;
         try {
           for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
@@ -7062,7 +6620,7 @@ var Tooltip = /*#__PURE__*/function (_BaseComponent8) {
   }, {
     key: "_getContentForTemplate",
     value: function _getContentForTemplate() {
-      return _defineProperty$1({}, SELECTOR_TOOLTIP_INNER, this._getTitle());
+      return _defineProperty({}, SELECTOR_TOOLTIP_INNER, this._getTitle());
     }
   }, {
     key: "_getTitle",
@@ -7386,10 +6944,10 @@ var Popover = /*#__PURE__*/function (_Tooltip) {
   _inherits(Popover, _Tooltip);
   var _super14 = _createSuper(Popover);
   function Popover() {
-    _classCallCheck$2(this, Popover);
+    _classCallCheck(this, Popover);
     return _super14.apply(this, arguments);
   }
-  _createClass$2(Popover, [{
+  _createClass(Popover, [{
     key: "_isWithContent",
     value:
     // Overrides
@@ -7402,7 +6960,7 @@ var Popover = /*#__PURE__*/function (_Tooltip) {
     key: "_getContentForTemplate",
     value: function _getContentForTemplate() {
       var _ref12;
-      return _ref12 = {}, _defineProperty$1(_ref12, SELECTOR_TITLE, this._getTitle()), _defineProperty$1(_ref12, SELECTOR_CONTENT, this._getContent()), _ref12;
+      return _ref12 = {}, _defineProperty(_ref12, SELECTOR_TITLE, this._getTitle()), _defineProperty(_ref12, SELECTOR_CONTENT, this._getContent()), _ref12;
     }
   }, {
     key: "_getContent",
@@ -7504,7 +7062,7 @@ var ScrollSpy = /*#__PURE__*/function (_BaseComponent9) {
   var _super15 = _createSuper(ScrollSpy);
   function ScrollSpy(element, config) {
     var _this47;
-    _classCallCheck$2(this, ScrollSpy);
+    _classCallCheck(this, ScrollSpy);
     _this47 = _super15.call(this, element, config);
 
     // this._element is the observablesContainer and config.target the menu links wrapper
@@ -7522,7 +7080,7 @@ var ScrollSpy = /*#__PURE__*/function (_BaseComponent9) {
   }
 
   // Getters
-  _createClass$2(ScrollSpy, [{
+  _createClass(ScrollSpy, [{
     key: "refresh",
     value:
     // Public
@@ -7860,7 +7418,7 @@ var Tab = /*#__PURE__*/function (_BaseComponent10) {
   var _super16 = _createSuper(Tab);
   function Tab(element) {
     var _this51;
-    _classCallCheck$2(this, Tab);
+    _classCallCheck(this, Tab);
     _this51 = _super16.call(this, element);
     _this51._parent = _this51._element.closest(SELECTOR_TAB_PANEL);
     if (!_this51._parent) {
@@ -7878,7 +7436,7 @@ var Tab = /*#__PURE__*/function (_BaseComponent10) {
   }
 
   // Getters
-  _createClass$2(Tab, [{
+  _createClass(Tab, [{
     key: "show",
     value:
     // Public
@@ -8182,7 +7740,7 @@ var Toast = /*#__PURE__*/function (_BaseComponent11) {
   var _super17 = _createSuper(Toast);
   function Toast(element, config) {
     var _this55;
-    _classCallCheck$2(this, Toast);
+    _classCallCheck(this, Toast);
     _this55 = _super17.call(this, element, config);
     _this55._timeout = null;
     _this55._hasMouseInteraction = false;
@@ -8192,7 +7750,7 @@ var Toast = /*#__PURE__*/function (_BaseComponent11) {
   }
 
   // Getters
-  _createClass$2(Toast, [{
+  _createClass(Toast, [{
     key: "show",
     value:
     // Public
@@ -8452,7 +8010,7 @@ var _useasync = /*#__PURE__*/new WeakMap();
 var EventManager = /*#__PURE__*/function () {
   function EventManager() {
     var useasync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    _classCallCheck$2(this, EventManager);
+    _classCallCheck(this, EventManager);
     _classPrivateFieldInitSpec(this, _listeners, {
       writable: true,
       value: void 0
@@ -8464,7 +8022,7 @@ var EventManager = /*#__PURE__*/function () {
     _classPrivateFieldSet(this, _listeners, []);
     _classPrivateFieldSet(this, _useasync, useasync);
   }
-  _createClass$2(EventManager, [{
+  _createClass(EventManager, [{
     key: "getListenersForEvent",
     value: function getListenersForEvent(type) {
       if (!isString(type) || type.includes(' ')) {
@@ -8660,9 +8218,9 @@ var _document$1 = document,
   documentElement = _document$1.documentElement;
 var NoScroll = /*#__PURE__*/function () {
   function NoScroll() {
-    _classCallCheck$2(this, NoScroll);
+    _classCallCheck(this, NoScroll);
   }
-  _createClass$2(NoScroll, null, [{
+  _createClass(NoScroll, null, [{
     key: "enabled",
     get: function get() {
       return documentElement.classList.contains('noscroll');
@@ -10277,3076 +9835,12 @@ Object.assign(toast, {
   warn: warn
 });
 
-var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-function getAugmentedNamespace(n) {
-  if (n.__esModule) return n;
-  var f = n.default;
-	if (typeof f == "function") {
-		var a = function a () {
-			if (this instanceof a) {
-				var args = [null];
-				args.push.apply(args, arguments);
-				var Ctor = Function.bind.apply(f, args);
-				return new Ctor();
-			}
-			return f.apply(this, arguments);
-		};
-		a.prototype = f.prototype;
-  } else a = {};
-  Object.defineProperty(a, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
-}
-
-var throttle$1 = function (fn, delay, scope) {
-  var timeoutId = -1;
-  var self;
-  var args;
-  if (delay === undefined) {
-    delay = 0;
-  }
-  if (delay < 0) {
-    return fn;
-  }
-  return function () {
-    self = scope || this;
-    args = arguments;
-    if (timeoutId !== -1) ; else {
-      timeoutId = setTimeout(function () {
-        fn.apply(self, args);
-        self = null;
-        timeoutId = -1;
-      }, delay);
-    }
-  };
-};
-
-var hasOwn$5 = Object.prototype.hasOwnProperty;
-function curry(fn, n) {
-  if (typeof n !== 'number') {
-    n = fn.length;
-  }
-  function getCurryClosure(prevArgs) {
-    function curryClosure() {
-      var len = arguments.length;
-      var args = [].concat(prevArgs);
-      if (len) {
-        args.push.apply(args, arguments);
-      }
-      if (args.length < n) {
-        return getCurryClosure(args);
-      }
-      return fn.apply(this, args);
-    }
-    return curryClosure;
-  }
-  return getCurryClosure([]);
-}
-var hasown = curry(function (object, property) {
-  return hasOwn$5.call(object, property);
-});
-
-var getInstantiatorFunction$1 = function () {
-
-  var fns = {};
-  return function (len) {
-    if (!fns[len]) {
-      var args = [];
-      var i = 0;
-      for (; i < len; i++) {
-        args.push('a[' + i + ']');
-      }
-      fns[len] = new Function('c', 'a', 'return new c(' + args.join(',') + ')');
-    }
-    return fns[len];
-  };
-}();
-
-var getInstantiatorFunction = getInstantiatorFunction$1;
-var newify$1 = function (fn, args) {
-  return getInstantiatorFunction(args.length)(fn, args);
-};
-
-function ToObject$1(val) {
-  if (val == null) {
-    throw new TypeError('Object.assign cannot be called with null or undefined');
-  }
-  return Object(val);
-}
-var objectAssign$1 = Object.assign || function (target, source) {
-  var from;
-  var keys;
-  var to = ToObject$1(target);
-  for (var s = 1; s < arguments.length; s++) {
-    from = arguments[s];
-    keys = Object.keys(Object(from));
-    for (var i = 0; i < keys.length; i++) {
-      to[keys[i]] = from[keys[i]];
-    }
-  }
-  return to;
-};
-
-var inherits$1 = function (ctor, superCtor) {
-  ctor.super_ = superCtor;
-  ctor.prototype = Object.create(superCtor.prototype, {
-    constructor: {
-      value: ctor,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-};
-
-/**
- * @static
- * Returns true if the given region is valid, false otherwise.
- * @param  {Region} region The region to check
- * @return {Boolean}        True, if the region is valid, false otherwise.
- * A region is valid if
- *  * left <= right  &&
- *  * top  <= bottom
- */
-var validate = function validate(region) {
-  var isValid = true;
-  if (region.right < region.left) {
-    isValid = false;
-    region.right = region.left;
-  }
-  if (region.bottom < region.top) {
-    isValid = false;
-    region.bottom = region.top;
-  }
-  return isValid;
-};
-
-var statics;
-var hasRequiredStatics;
-
-function requireStatics () {
-	if (hasRequiredStatics) return statics;
-	hasRequiredStatics = 1;
-
-	var hasOwn = hasown;
-	var VALIDATE = validate;
-	statics = function (REGION) {
-	  var MAX = Math.max;
-	  var MIN = Math.min;
-	  var statics = {
-	    init: function init() {
-	      var exportAsNonStatic = {
-	        getIntersection: true,
-	        getIntersectionArea: true,
-	        getIntersectionHeight: true,
-	        getIntersectionWidth: true,
-	        getUnion: true
-	      };
-	      var thisProto = REGION.prototype;
-	      var newName;
-	      var exportHasOwn = hasOwn(exportAsNonStatic);
-	      var methodName;
-	      for (methodName in exportAsNonStatic) if (exportHasOwn(methodName)) {
-	        newName = exportAsNonStatic[methodName];
-	        if (typeof newName != 'string') {
-	          newName = methodName;
-	        }
-	        (function (proto, methodName, protoMethodName) {
-	          proto[methodName] = function (region) {
-	            //<debug>
-	            if (!REGION[protoMethodName]) {
-	              console.warn('cannot find method ', protoMethodName, ' on ', REGION);
-	            }
-	            //</debug>
-	            return REGION[protoMethodName](this, region);
-	          };
-	        })(thisProto, newName, methodName);
-	      }
-	    },
-	    validate: VALIDATE,
-	    /**
-	     * Returns the region corresponding to the documentElement
-	     * @return {Region} The region corresponding to the documentElement. This region is the maximum region visible on the screen.
-	     */
-	    getDocRegion: function getDocRegion() {
-	      return REGION.fromDOM(document.documentElement);
-	    },
-	    from: function from(reg) {
-	      if (reg.__IS_REGION) {
-	        return reg;
-	      }
-	      if (typeof document != 'undefined') {
-	        if (typeof HTMLElement != 'undefined' && reg instanceof HTMLElement) {
-	          return REGION.fromDOM(reg);
-	        }
-	        if (reg.type && typeof reg.pageX !== 'undefined' && typeof reg.pageY !== 'undefined') {
-	          return REGION.fromEvent(reg);
-	        }
-	      }
-	      return REGION(reg);
-	    },
-	    fromEvent: function fromEvent(event) {
-	      return REGION.fromPoint({
-	        x: event.pageX,
-	        y: event.pageY
-	      });
-	    },
-	    fromDOM: function fromDOM(dom) {
-	      var rect = dom.getBoundingClientRect();
-	      // var docElem = document.documentElement
-	      // var win     = window
-
-	      // var top  = rect.top + win.pageYOffset - docElem.clientTop
-	      // var left = rect.left + win.pageXOffset - docElem.clientLeft
-
-	      return new REGION({
-	        top: rect.top,
-	        left: rect.left,
-	        bottom: rect.bottom,
-	        right: rect.right
-	      });
-	    },
-	    /**
-	     * @static
-	     * Returns a region that is the intersection of the given two regions
-	     * @param  {Region} first  The first region
-	     * @param  {Region} second The second region
-	     * @return {Region/Boolean}        The intersection region or false if no intersection found
-	     */
-	    getIntersection: function getIntersection(first, second) {
-	      var area = this.getIntersectionArea(first, second);
-	      if (area) {
-	        return new REGION(area);
-	      }
-	      return false;
-	    },
-	    getIntersectionWidth: function getIntersectionWidth(first, second) {
-	      var minRight = MIN(first.right, second.right);
-	      var maxLeft = MAX(first.left, second.left);
-	      if (maxLeft < minRight) {
-	        return minRight - maxLeft;
-	      }
-	      return 0;
-	    },
-	    getIntersectionHeight: function getIntersectionHeight(first, second) {
-	      var maxTop = MAX(first.top, second.top);
-	      var minBottom = MIN(first.bottom, second.bottom);
-	      if (maxTop < minBottom) {
-	        return minBottom - maxTop;
-	      }
-	      return 0;
-	    },
-	    getIntersectionArea: function getIntersectionArea(first, second) {
-	      var maxTop = MAX(first.top, second.top);
-	      var minRight = MIN(first.right, second.right);
-	      var minBottom = MIN(first.bottom, second.bottom);
-	      var maxLeft = MAX(first.left, second.left);
-	      if (maxTop < minBottom && maxLeft < minRight) {
-	        return {
-	          top: maxTop,
-	          right: minRight,
-	          bottom: minBottom,
-	          left: maxLeft,
-	          width: minRight - maxLeft,
-	          height: minBottom - maxTop
-	        };
-	      }
-	      return false;
-	    },
-	    /**
-	     * @static
-	     * Returns a region that is the union of the given two regions
-	     * @param  {Region} first  The first region
-	     * @param  {Region} second The second region
-	     * @return {Region}        The union region. The smallest region that contains both given regions.
-	     */
-	    getUnion: function getUnion(first, second) {
-	      var top = MIN(first.top, second.top);
-	      var right = MAX(first.right, second.right);
-	      var bottom = MAX(first.bottom, second.bottom);
-	      var left = MIN(first.left, second.left);
-	      return new REGION(top, right, bottom, left);
-	    },
-	    /**
-	     * @static
-	     * Returns a region. If the reg argument is a region, returns it, otherwise return a new region built from the reg object.
-	     *
-	     * @param  {Region} reg A region or an object with either top, left, bottom, right or
-	     * with top, left, width, height
-	     * @return {Region} A region
-	     */
-	    getRegion: function getRegion(reg) {
-	      return REGION.from(reg);
-	    },
-	    /**
-	     * Creates a region that corresponds to a point.
-	     *
-	     * @param  {Object} xy The point
-	     * @param  {Number} xy.x
-	     * @param  {Number} xy.y
-	     *
-	     * @return {Region}    The new region, with top==xy.y, bottom = xy.y and left==xy.x, right==xy.x
-	     */
-	    fromPoint: function fromPoint(xy) {
-	      return new REGION({
-	        top: xy.y,
-	        bottom: xy.y,
-	        left: xy.x,
-	        right: xy.x
-	      });
-	    }
-	  };
-	  Object.keys(statics).forEach(function (key) {
-	    REGION[key] = statics[key];
-	  });
-	  REGION.init();
-	};
-	return statics;
-}
-
-var hasOwn$4 = hasown;
-var newify = newify$1;
-var assign$3 = objectAssign$1;
-var EventEmitter = require$$3.EventEmitter;
-var inherits = inherits$1;
-var VALIDATE = validate;
-var objectToString = Object.prototype.toString;
-var isObject = function isObject(value) {
-  return objectToString.apply(value) === '[object Object]';
-};
-function copyList(source, target, list) {
-  if (source) {
-    list.forEach(function (key) {
-      if (hasOwn$4(source, key)) {
-        target[key] = source[key];
-      }
-    });
-  }
-  return target;
-}
-
-/**
- * @class Region
- *
- * The Region is an abstraction that allows the developer to refer to rectangles on the screen,
- * and move them around, make diffs and unions, detect intersections, compute areas, etc.
- *
- * ## Creating a region
- *      var region = require('region')({
- *          top  : 10,
- *          left : 10,
- *          bottom: 100,
- *          right : 100
- *      })
- *      //this region is a square, 90x90, starting from (10,10) to (100,100)
- *
- *      var second = require('region')({ top: 10, left: 100, right: 200, bottom: 60})
- *      var union  = region.getUnion(second)
- *
- *      //the "union" region is a union between "region" and "second"
- */
-
-var POINT_POSITIONS = {
-  cy: 'YCenter',
-  cx: 'XCenter',
-  t: 'Top',
-  tc: 'TopCenter',
-  tl: 'TopLeft',
-  tr: 'TopRight',
-  b: 'Bottom',
-  bc: 'BottomCenter',
-  bl: 'BottomLeft',
-  br: 'BottomRight',
-  l: 'Left',
-  lc: 'LeftCenter',
-  r: 'Right',
-  rc: 'RightCenter',
-  c: 'Center'
-};
-
-/**
- * @constructor
- *
- * Construct a new Region.
- *
- * Example:
- *
- *      var r = new Region({ top: 10, left: 20, bottom: 100, right: 200 })
- *
- *      //or, the same, but with numbers (can be used with new or without)
- *
- *      r = Region(10, 200, 100, 20)
- *
- *      //or, with width and height
- *
- *      r = Region({ top: 10, left: 20, width: 180, height: 90})
- *
- * @param {Number|Object} top The top pixel position, or an object with top, left, bottom, right properties. If an object is passed,
- * instead of having bottom and right, it can have width and height.
- *
- * @param {Number} right The right pixel position
- * @param {Number} bottom The bottom pixel position
- * @param {Number} left The left pixel position
- *
- * @return {Region} this
- */
-var REGION = function REGION(top, right, bottom, left) {
-  if (!(this instanceof REGION)) {
-    return newify(REGION, arguments);
-  }
-  EventEmitter.call(this);
-  if (isObject(top)) {
-    copyList(top, this, ['top', 'right', 'bottom', 'left']);
-    if (top.bottom == null && top.height != null) {
-      this.bottom = this.top + top.height;
-    }
-    if (top.right == null && top.width != null) {
-      this.right = this.left + top.width;
-    }
-    if (top.emitChangeEvents) {
-      this.emitChangeEvents = top.emitChangeEvents;
-    }
-  } else {
-    this.top = top;
-    this.right = right;
-    this.bottom = bottom;
-    this.left = left;
-  }
-  this[0] = this.left;
-  this[1] = this.top;
-  VALIDATE(this);
-};
-inherits(REGION, EventEmitter);
-assign$3(REGION.prototype, {
-  /**
-   * @cfg {Boolean} emitChangeEvents If this is set to true, the region
-   * will emit 'changesize' and 'changeposition' whenever the size or the position changs
-   */
-  emitChangeEvents: false,
-  /**
-   * Returns this region, or a clone of this region
-   * @param  {Boolean} [clone] If true, this method will return a clone of this region
-   * @return {Region}       This region, or a clone of this
-   */
-  getRegion: function getRegion(clone) {
-    return clone ? this.clone() : this;
-  },
-  /**
-   * Sets the properties of this region to those of the given region
-   * @param {Region/Object} reg The region or object to use for setting properties of this region
-   * @return {Region} this
-   */
-  setRegion: function setRegion(reg) {
-    if (reg instanceof REGION) {
-      this.set(reg.get());
-    } else {
-      this.set(reg);
-    }
-    return this;
-  },
-  /**
-   * Returns true if this region is valid, false otherwise
-   *
-   * @param  {Region} region The region to check
-   * @return {Boolean}        True, if the region is valid, false otherwise.
-   * A region is valid if
-   *  * left <= right  &&
-   *  * top  <= bottom
-   */
-  validate: function validate() {
-    return REGION.validate(this);
-  },
-  _before: function _before() {
-    if (this.emitChangeEvents) {
-      return copyList(this, {}, ['left', 'top', 'bottom', 'right']);
-    }
-  },
-  _after: function _after(before) {
-    if (this.emitChangeEvents) {
-      if (this.top != before.top || this.left != before.left) {
-        this.emitPositionChange();
-      }
-      if (this.right != before.right || this.bottom != before.bottom) {
-        this.emitSizeChange();
-      }
-    }
-  },
-  notifyPositionChange: function notifyPositionChange() {
-    this.emit('changeposition', this);
-  },
-  emitPositionChange: function emitPositionChange() {
-    this.notifyPositionChange();
-  },
-  notifySizeChange: function notifySizeChange() {
-    this.emit('changesize', this);
-  },
-  emitSizeChange: function emitSizeChange() {
-    this.notifySizeChange();
-  },
-  /**
-   * Add the given amounts to each specified side. Example
-   *
-   *      region.add({
-   *          top: 50,    //add 50 px to the top side
-   *          bottom: -100    //substract 100 px from the bottom side
-   *      })
-   *
-   * @param {Object} directions
-   * @param {Number} [directions.top]
-   * @param {Number} [directions.left]
-   * @param {Number} [directions.bottom]
-   * @param {Number} [directions.right]
-   *
-   * @return {Region} this
-   */
-  add: function add(directions) {
-    var before = this._before();
-    var direction;
-    for (direction in directions) if (hasOwn$4(directions, direction)) {
-      this[direction] += directions[direction];
-    }
-    this[0] = this.left;
-    this[1] = this.top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * The same as {@link #add}, but substracts the given values
-   * @param {Object} directions
-   * @param {Number} [directions.top]
-   * @param {Number} [directions.left]
-   * @param {Number} [directions.bottom]
-   * @param {Number} [directions.right]
-   *
-   * @return {Region} this
-   */
-  substract: function substract(directions) {
-    var before = this._before();
-    var direction;
-    for (direction in directions) if (hasOwn$4(directions, direction)) {
-      this[direction] -= directions[direction];
-    }
-    this[0] = this.left;
-    this[1] = this.top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Retrieves the size of the region.
-   * @return {Object} An object with {width, height}, corresponding to the width and height of the region
-   */
-  getSize: function getSize() {
-    return {
-      width: this.width,
-      height: this.height
-    };
-  },
-  /**
-   * Move the region to the given position and keeps the region width and height.
-   *
-   * @param {Object} position An object with {top, left} properties. The values in {top,left} are used to move the region by the given amounts.
-   * @param {Number} [position.left]
-   * @param {Number} [position.top]
-   *
-   * @return {Region} this
-   */
-  setPosition: function setPosition(position) {
-    var width = this.width;
-    var height = this.height;
-    if (position.left != undefined) {
-      position.right = position.left + width;
-    }
-    if (position.top != undefined) {
-      position.bottom = position.top + height;
-    }
-    return this.set(position);
-  },
-  /**
-   * Sets both the height and the width of this region to the given size.
-   *
-   * @param {Number} size The new size for the region
-   * @return {Region} this
-   */
-  setSize: function setSize(size) {
-    if (size.height != undefined && size.width != undefined) {
-      return this.set({
-        right: this.left + size.width,
-        bottom: this.top + size.height
-      });
-    }
-    if (size.width != undefined) {
-      this.setWidth(size.width);
-    }
-    if (size.height != undefined) {
-      this.setHeight(size.height);
-    }
-    return this;
-  },
-  /**
-   * @chainable
-   *
-   * Sets the width of this region
-   * @param {Number} width The new width for this region
-   * @return {Region} this
-   */
-  setWidth: function setWidth(width) {
-    return this.set({
-      right: this.left + width
-    });
-  },
-  /**
-   * @chainable
-   *
-   * Sets the height of this region
-   * @param {Number} height The new height for this region
-   * @return {Region} this
-   */
-  setHeight: function setHeight(height) {
-    return this.set({
-      bottom: this.top + height
-    });
-  },
-  /**
-   * Sets the given properties on this region
-   *
-   * @param {Object} directions an object containing top, left, and EITHER bottom, right OR width, height
-   * @param {Number} [directions.top]
-   * @param {Number} [directions.left]
-   *
-   * @param {Number} [directions.bottom]
-   * @param {Number} [directions.right]
-   *
-   * @param {Number} [directions.width]
-   * @param {Number} [directions.height]
-   *
-   *
-   * @return {Region} this
-   */
-  set: function set(directions) {
-    var before = this._before();
-    copyList(directions, this, ['left', 'top', 'bottom', 'right']);
-    if (directions.bottom == null && directions.height != null) {
-      this.bottom = this.top + directions.height;
-    }
-    if (directions.right == null && directions.width != null) {
-      this.right = this.left + directions.width;
-    }
-    this[0] = this.left;
-    this[1] = this.top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Retrieves the given property from this region. If no property is given, return an object
-   * with {left, top, right, bottom}
-   *
-   * @param {String} [dir] the property to retrieve from this region
-   * @return {Number/Object}
-   */
-  get: function get(dir) {
-    return dir ? this[dir] : copyList(this, {}, ['left', 'right', 'top', 'bottom']);
-  },
-  /**
-   * Shifts this region to either top, or left or both.
-   * Shift is similar to {@link #add} by the fact that it adds the given dimensions to top/left sides, but also adds the given dimensions
-   * to bottom and right
-   *
-   * @param {Object} directions
-   * @param {Number} [directions.top]
-   * @param {Number} [directions.left]
-   *
-   * @return {Region} this
-   */
-  shift: function shift(directions) {
-    var before = this._before();
-    if (directions.top) {
-      this.top += directions.top;
-      this.bottom += directions.top;
-    }
-    if (directions.left) {
-      this.left += directions.left;
-      this.right += directions.left;
-    }
-    this[0] = this.left;
-    this[1] = this.top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Same as {@link #shift}, but substracts the given values
-   * @chainable
-   *
-   * @param {Object} directions
-   * @param {Number} [directions.top]
-   * @param {Number} [directions.left]
-   *
-   * @return {Region} this
-   */
-  unshift: function unshift(directions) {
-    if (directions.top) {
-      directions.top *= -1;
-    }
-    if (directions.left) {
-      directions.left *= -1;
-    }
-    return this.shift(directions);
-  },
-  /**
-   * Compare this region and the given region. Return true if they have all the same size and position
-   * @param  {Region} region The region to compare with
-   * @return {Boolean}       True if this and region have same size and position
-   */
-  equals: function equals(region) {
-    return this.equalsPosition(region) && this.equalsSize(region);
-  },
-  /**
-   * Returns true if this region has the same bottom,right properties as the given region
-   * @param  {Region/Object} size The region to compare against
-   * @return {Boolean}       true if this region is the same size as the given size
-   */
-  equalsSize: function equalsSize(size) {
-    var isInstance = size instanceof REGION;
-    var s = {
-      width: size.width == null && isInstance ? size.getWidth() : size.width,
-      height: size.height == null && isInstance ? size.getHeight() : size.height
-    };
-    return this.getWidth() == s.width && this.getHeight() == s.height;
-  },
-  /**
-   * Returns true if this region has the same top,left properties as the given region
-   * @param  {Region} region The region to compare against
-   * @return {Boolean}       true if this.top == region.top and this.left == region.left
-   */
-  equalsPosition: function equalsPosition(region) {
-    return this.top == region.top && this.left == region.left;
-  },
-  /**
-   * Adds the given ammount to the left side of this region
-   * @param {Number} left The ammount to add
-   * @return {Region} this
-   */
-  addLeft: function addLeft(left) {
-    var before = this._before();
-    this.left = this[0] = this.left + left;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Adds the given ammount to the top side of this region
-   * @param {Number} top The ammount to add
-   * @return {Region} this
-   */
-  addTop: function addTop(top) {
-    var before = this._before();
-    this.top = this[1] = this.top + top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Adds the given ammount to the bottom side of this region
-   * @param {Number} bottom The ammount to add
-   * @return {Region} this
-   */
-  addBottom: function addBottom(bottom) {
-    var before = this._before();
-    this.bottom += bottom;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Adds the given ammount to the right side of this region
-   * @param {Number} right The ammount to add
-   * @return {Region} this
-   */
-  addRight: function addRight(right) {
-    var before = this._before();
-    this.right += right;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Minimize the top side.
-   * @return {Region} this
-   */
-  minTop: function minTop() {
-    return this.expand({
-      top: 1
-    });
-  },
-  /**
-   * Minimize the bottom side.
-   * @return {Region} this
-   */
-  maxBottom: function maxBottom() {
-    return this.expand({
-      bottom: 1
-    });
-  },
-  /**
-   * Minimize the left side.
-   * @return {Region} this
-   */
-  minLeft: function minLeft() {
-    return this.expand({
-      left: 1
-    });
-  },
-  /**
-   * Maximize the right side.
-   * @return {Region} this
-   */
-  maxRight: function maxRight() {
-    return this.expand({
-      right: 1
-    });
-  },
-  /**
-   * Expands this region to the dimensions of the given region, or the document region, if no region is expanded.
-   * But only expand the given sides (any of the four can be expanded).
-   *
-   * @param {Object} directions
-   * @param {Boolean} [directions.top]
-   * @param {Boolean} [directions.bottom]
-   * @param {Boolean} [directions.left]
-   * @param {Boolean} [directions.right]
-   *
-   * @param {Region} [region] the region to expand to, defaults to the document region
-   * @return {Region} this region
-   */
-  expand: function expand(directions, region) {
-    var docRegion = region || REGION.getDocRegion();
-    var list = [];
-    var direction;
-    var before = this._before();
-    for (direction in directions) if (hasOwn$4(directions, direction)) {
-      list.push(direction);
-    }
-    copyList(docRegion, this, list);
-    this[0] = this.left;
-    this[1] = this.top;
-    this._after(before);
-    return this;
-  },
-  /**
-   * Returns a clone of this region
-   * @return {Region} A new region, with the same position and dimension as this region
-   */
-  clone: function clone() {
-    return new REGION({
-      top: this.top,
-      left: this.left,
-      right: this.right,
-      bottom: this.bottom
-    });
-  },
-  /**
-   * Returns true if this region contains the given point
-   * @param {Number/Object} x the x coordinate of the point
-   * @param {Number} [y] the y coordinate of the point
-   *
-   * @return {Boolean} true if this region constains the given point, false otherwise
-   */
-  containsPoint: function containsPoint(x, y) {
-    if (arguments.length == 1) {
-      y = x.y;
-      x = x.x;
-    }
-    return this.left <= x && x <= this.right && this.top <= y && y <= this.bottom;
-  },
-  /**
-   *
-   * @param region
-   *
-   * @return {Boolean} true if this region contains the given region, false otherwise
-   */
-  containsRegion: function containsRegion(region) {
-    return this.containsPoint(region.left, region.top) && this.containsPoint(region.right, region.bottom);
-  },
-  /**
-   * Returns an object with the difference for {top, bottom} positions betwen this and the given region,
-   *
-   * See {@link #diff}
-   * @param  {Region} region The region to use for diff
-   * @return {Object}        {top,bottom}
-   */
-  diffHeight: function diffHeight(region) {
-    return this.diff(region, {
-      top: true,
-      bottom: true
-    });
-  },
-  /**
-   * Returns an object with the difference for {left, right} positions betwen this and the given region,
-   *
-   * See {@link #diff}
-   * @param  {Region} region The region to use for diff
-   * @return {Object}        {left,right}
-   */
-  diffWidth: function diffWidth(region) {
-    return this.diff(region, {
-      left: true,
-      right: true
-    });
-  },
-  /**
-   * Returns an object with the difference in sizes for the given directions, between this and region
-   *
-   * @param  {Region} region     The region to use for diff
-   * @param  {Object} directions An object with the directions to diff. Can have any of the following keys:
-   *  * left
-   *  * right
-   *  * top
-   *  * bottom
-   *
-   * @return {Object} and object with the same keys as the directions object, but the values being the
-   * differences between this region and the given region
-   */
-  diff: function diff(region, directions) {
-    var result = {};
-    var dirName;
-    for (dirName in directions) if (hasOwn$4(directions, dirName)) {
-      result[dirName] = this[dirName] - region[dirName];
-    }
-    return result;
-  },
-  /**
-   * Returns the position, in {left,top} properties, of this region
-   *
-   * @return {Object} {left,top}
-   */
-  getPosition: function getPosition() {
-    return {
-      left: this.left,
-      top: this.top
-    };
-  },
-  /**
-   * Returns the point at the given position from this region.
-   *
-   * @param {String} position Any of:
-   *
-   *  * 'cx' - See {@link #getPointXCenter}
-   *  * 'cy' - See {@link #getPointYCenter}
-   *  * 'b'  - See {@link #getPointBottom}
-   *  * 'bc' - See {@link #getPointBottomCenter}
-   *  * 'l'  - See {@link #getPointLeft}F
-   *  * 'lc' - See {@link #getPointLeftCenter}
-   *  * 't'  - See {@link #getPointTop}
-   *  * 'tc' - See {@link #getPointTopCenter}
-   *  * 'r'  - See {@link #getPointRight}
-   *  * 'rc' - See {@link #getPointRightCenter}
-   *  * 'c'  - See {@link #getPointCenter}
-   *  * 'tl' - See {@link #getPointTopLeft}
-   *  * 'bl' - See {@link #getPointBottomLeft}
-   *  * 'br' - See {@link #getPointBottomRight}
-   *  * 'tr' - See {@link #getPointTopRight}
-   *
-   * @param {Boolean} asLeftTop
-   *
-   * @return {Object} either an object with {x,y} or {left,top} if asLeftTop is true
-   */
-  getPoint: function getPoint(position, asLeftTop) {
-    //<debug>
-    if (!POINT_POSITIONS[position]) {
-      console.warn('The position ', position, ' could not be found! Available options are tl, bl, tr, br, l, r, t, b.');
-    }
-    //</debug>
-
-    var method = 'getPoint' + POINT_POSITIONS[position],
-      result = this[method]();
-    if (asLeftTop) {
-      return {
-        left: result.x,
-        top: result.y
-      };
-    }
-    return result;
-  },
-  /**
-   * Returns a point with x = null and y being the middle of the left region segment
-   * @return {Object} {x,y}
-   */
-  getPointYCenter: function getPointYCenter() {
-    return {
-      x: null,
-      y: this.top + this.getHeight() / 2
-    };
-  },
-  /**
-   * Returns a point with y = null and x being the middle of the top region segment
-   * @return {Object} {x,y}
-   */
-  getPointXCenter: function getPointXCenter() {
-    return {
-      x: this.left + this.getWidth() / 2,
-      y: null
-    };
-  },
-  /**
-   * Returns a point with x = null and y the region top position on the y axis
-   * @return {Object} {x,y}
-   */
-  getPointTop: function getPointTop() {
-    return {
-      x: null,
-      y: this.top
-    };
-  },
-  /**
-   * Returns a point that is the middle point of the region top segment
-   * @return {Object} {x,y}
-   */
-  getPointTopCenter: function getPointTopCenter() {
-    return {
-      x: this.left + this.getWidth() / 2,
-      y: this.top
-    };
-  },
-  /**
-   * Returns a point that is the top-left point of the region
-   * @return {Object} {x,y}
-   */
-  getPointTopLeft: function getPointTopLeft() {
-    return {
-      x: this.left,
-      y: this.top
-    };
-  },
-  /**
-   * Returns a point that is the top-right point of the region
-   * @return {Object} {x,y}
-   */
-  getPointTopRight: function getPointTopRight() {
-    return {
-      x: this.right,
-      y: this.top
-    };
-  },
-  /**
-   * Returns a point with x = null and y the region bottom position on the y axis
-   * @return {Object} {x,y}
-   */
-  getPointBottom: function getPointBottom() {
-    return {
-      x: null,
-      y: this.bottom
-    };
-  },
-  /**
-   * Returns a point that is the middle point of the region bottom segment
-   * @return {Object} {x,y}
-   */
-  getPointBottomCenter: function getPointBottomCenter() {
-    return {
-      x: this.left + this.getWidth() / 2,
-      y: this.bottom
-    };
-  },
-  /**
-   * Returns a point that is the bottom-left point of the region
-   * @return {Object} {x,y}
-   */
-  getPointBottomLeft: function getPointBottomLeft() {
-    return {
-      x: this.left,
-      y: this.bottom
-    };
-  },
-  /**
-   * Returns a point that is the bottom-right point of the region
-   * @return {Object} {x,y}
-   */
-  getPointBottomRight: function getPointBottomRight() {
-    return {
-      x: this.right,
-      y: this.bottom
-    };
-  },
-  /**
-   * Returns a point with y = null and x the region left position on the x axis
-   * @return {Object} {x,y}
-   */
-  getPointLeft: function getPointLeft() {
-    return {
-      x: this.left,
-      y: null
-    };
-  },
-  /**
-   * Returns a point that is the middle point of the region left segment
-   * @return {Object} {x,y}
-   */
-  getPointLeftCenter: function getPointLeftCenter() {
-    return {
-      x: this.left,
-      y: this.top + this.getHeight() / 2
-    };
-  },
-  /**
-   * Returns a point with y = null and x the region right position on the x axis
-   * @return {Object} {x,y}
-   */
-  getPointRight: function getPointRight() {
-    return {
-      x: this.right,
-      y: null
-    };
-  },
-  /**
-   * Returns a point that is the middle point of the region right segment
-   * @return {Object} {x,y}
-   */
-  getPointRightCenter: function getPointRightCenter() {
-    return {
-      x: this.right,
-      y: this.top + this.getHeight() / 2
-    };
-  },
-  /**
-   * Returns a point that is the center of the region
-   * @return {Object} {x,y}
-   */
-  getPointCenter: function getPointCenter() {
-    return {
-      x: this.left + this.getWidth() / 2,
-      y: this.top + this.getHeight() / 2
-    };
-  },
-  /**
-   * @return {Number} returns the height of the region
-   */
-  getHeight: function getHeight() {
-    return this.bottom - this.top;
-  },
-  /**
-   * @return {Number} returns the width of the region
-   */
-  getWidth: function getWidth() {
-    return this.right - this.left;
-  },
-  /**
-   * @return {Number} returns the top property of the region
-   */
-  getTop: function getTop() {
-    return this.top;
-  },
-  /**
-   * @return {Number} returns the left property of the region
-   */
-  getLeft: function getLeft() {
-    return this.left;
-  },
-  /**
-   * @return {Number} returns the bottom property of the region
-   */
-  getBottom: function getBottom() {
-    return this.bottom;
-  },
-  /**
-   * @return {Number} returns the right property of the region
-   */
-  getRight: function getRight() {
-    return this.right;
-  },
-  /**
-   * Returns the area of the region
-   * @return {Number} the computed area
-   */
-  getArea: function getArea() {
-    return this.getWidth() * this.getHeight();
-  },
-  constrainTo: function constrainTo(contrain) {
-    var intersect = this.getIntersection(contrain);
-    var shift;
-    if (!intersect || !intersect.equals(this)) {
-      var contrainWidth = contrain.getWidth(),
-        contrainHeight = contrain.getHeight();
-      if (this.getWidth() > contrainWidth) {
-        this.left = contrain.left;
-        this.setWidth(contrainWidth);
-      }
-      if (this.getHeight() > contrainHeight) {
-        this.top = contrain.top;
-        this.setHeight(contrainHeight);
-      }
-      shift = {};
-      if (this.right > contrain.right) {
-        shift.left = contrain.right - this.right;
-      }
-      if (this.bottom > contrain.bottom) {
-        shift.top = contrain.bottom - this.bottom;
-      }
-      if (this.left < contrain.left) {
-        shift.left = contrain.left - this.left;
-      }
-      if (this.top < contrain.top) {
-        shift.top = contrain.top - this.top;
-      }
-      this.shift(shift);
-      return true;
-    }
-    return false;
-  },
-  __IS_REGION: true
-
-  /**
-   * @property {Number} top
-   */
-
-  /**
-   * @property {Number} right
-   */
-
-  /**
-   * @property {Number} bottom
-   */
-
-  /**
-   * @property {Number} left
-   */
-
-  /**
-   * @property {Number} [0] the top property
-   */
-
-  /**
-   * @property {Number} [1] the left property
-   */
-
-  /**
-   * @method getIntersection
-   * Returns a region that is the intersection of this region and the given region
-   * @param  {Region} region The region to intersect with
-   * @return {Region}        The intersection region
-   */
-
-  /**
-   * @method getUnion
-   * Returns a region that is the union of this region with the given region
-   * @param  {Region} region  The region to make union with
-   * @return {Region}        The union region. The smallest region that contains both this and the given region.
-   */
-});
-
-Object.defineProperties(REGION.prototype, {
-  width: {
-    get: function get() {
-      return this.getWidth();
-    },
-    set: function set(width) {
-      return this.setWidth(width);
-    }
-  },
-  height: {
-    get: function get() {
-      return this.getHeight();
-    },
-    set: function set(height) {
-      return this.setHeight(height);
-    }
-  }
-});
-requireStatics()(REGION);
-var src$2 = REGION;
-
-var region = src$2;
-
-var Region$5 = region;
-
-/**
- * @static
- * Aligns the source region to the target region, so as to correspond to the given alignment.
- *
- * NOTE that this method makes changes on the sourceRegion in order for it to be aligned as specified.
- *
- * @param {Region} sourceRegion
- * @param {Region} targetRegion
- *
- * @param {String} align A string with 2 valid align positions, eg: 'tr-bl'.
- * For valid positions, see {@link Region#getPoint}
- *
- * Having 2 regions, we need to be able to align them as we wish:
- *
- * for example, if we have
- *
- *       source    target
- *       ________________
- *       ____
- *      |    |     ________
- *      |____|    |        |
- *                |        |
- *                |________|
- *
- * and we align 't-t', we get:
- *
- *       source    target
- *       _________________
- *
- *       ____      ________
- *      |    |    |        |
- *      |____|    |        |
- *                |________|
- *
- *  In this case, the source was moved down to be aligned to the top of the target
- *
- *
- * and if we align 'tc-tc' we get
- *
- *       source     target
- *       __________________
- *
- *                 ________
- *                | |    | |
- *                | |____| |
- *                |________|
- *
- *  Since the source was moved to have the top-center point to be the same with target top-center
- *
- *
- *
- * @return {RegionClass} The Region class
- */
-Region$5.align = function (sourceRegion, targetRegion, align) {
-  targetRegion = Region$5.from(targetRegion);
-  align = (align || 'c-c').split('-');
-
-  //<debug>
-  if (align.length != 2) {
-    console.warn('Incorrect region alignment! The align parameter need to be in the form \'br-c\', that is, a - separated string!', align);
-  }
-  //</debug>
-
-  return Region$5.alignToPoint(sourceRegion, targetRegion.getPoint(align[1]), align[0]);
-};
-
-/**
- * Modifies the given region to be aligned to the point, as specified by anchor
- *
- * @param {Region} region The region to align to the point
- * @param {Object} point The point to be used as a reference
- * @param {Number} point.x
- * @param {Number} point.y
- * @param {String} anchor The position where to anchor the region to the point. See {@link #getPoint} for available options/
- *
- * @return {Region} the given region
- */
-Region$5.alignToPoint = function (region, point, anchor) {
-  region = Region$5.from(region);
-  var sourcePoint = region.getPoint(anchor);
-  var count = 0;
-  var shiftObj = {};
-  if (sourcePoint.x != null && point.x != null) {
-    count++;
-    shiftObj.left = point.x - sourcePoint.x;
-  }
-  if (sourcePoint.y != null && point.y != null) {
-    count++;
-    shiftObj.top = point.y - sourcePoint.y;
-  }
-  if (count) {
-    region.shift(shiftObj);
-  }
-  return region;
-};
-
-var Region$4 = region;
-
-/**
- *
- * Aligns this region to the given region
- * @param {Region} region
- * @param {String} alignPositions For available positions, see {@link #getPoint}
- *
- *     eg: 'tr-bl'
- *
- * @return this
- */
-Region$4.prototype.alignToRegion = function (region, alignPositions) {
-  Region$4.align(this, region, alignPositions);
-  return this;
-};
-
-/**
- * Aligns this region to the given point, in the anchor position
- * @param {Object} point eg: {x: 20, y: 600}
- * @param {Number} point.x
- * @param {Number} point.y
- *
- * @param {String} anchor For available positions, see {@link #getPoint}
- *
- *     eg: 'bl'
- *
- * @return this
- */
-Region$4.prototype.alignToPoint = function (point, anchor) {
-  Region$4.alignToPoint(this, point, anchor);
-  return this;
-};
-
-var Region$3 = region;
-
-/**
- *
- * This method is trying to align the sourceRegion to the targetRegion, given the alignment positions
- * and the offsets. It only modifies the sourceRegion
- *
- * This is all well and easy, but if there is a constrainTo region, the algorithm has to take it into account.
- * In this case, it works as follows.
- *
- *  * start with the first alignment position. Aligns the region, adds the offset and then check for the constraint.
- *  * if the constraint condition is ok, return the position.
- *  * otherwise, remember the intersection area, if the regions are intersecting.
- *  * then go to the next specified align position, and so on, computing the maximum intersection area.
- *
- * If no alignment fits the constrainRegion, the sourceRegion will be resized to match it,
- * using the position with the maximum intersection area.
- *
- * Since we have computed the index of the position with the max intersection area, take that position,
- * and align the sourceRegion accordingly. Then resize the sourceRegion to the intersection, and reposition
- * it again, since resizing it might have destroyed the alignment.
- *
- * Return the position.
- *
- * @param {Region} sourceRegion
- * @param {Region} targetRegion
- * @param {String[]} positions
- * @param {Object} config
- * @param {Array} config.offset
- * @param {Region} config.constrain
- * @param {Boolean/Object} config.sync
- *
- * @return {String/Undefined} the chosen position for the alignment, or undefined if no position found
- */
-function ALIGN_TO_NORMALIZED$1(sourceRegion, targetRegion, positions, config) {
-  targetRegion = Region$3.from(targetRegion);
-  config = config || {};
-  var constrainTo = config.constrain,
-    syncOption = config.sync,
-    offsets = config.offset || [],
-    syncWidth = false,
-    syncHeight = false,
-    sourceClone = sourceRegion.clone();
-
-  /*
-   * Prepare the method arguments: positions, offsets, constrain and sync options
-   */
-  if (!Array.isArray(positions)) {
-    positions = positions ? [positions] : [];
-  }
-  if (!Array.isArray(offsets)) {
-    offsets = offsets ? [offsets] : [];
-  }
-  if (constrainTo) {
-    constrainTo = constrainTo === true ? Region$3.getDocRegion() : constrainTo.getRegion();
-  }
-  if (syncOption) {
-    if (syncOption.size) {
-      syncWidth = true;
-      syncHeight = true;
-    } else {
-      syncWidth = syncOption === true ? true : syncOption.width || false;
-      syncHeight = syncOption === true ? true : syncOption.height || false;
-    }
-  }
-  if (syncWidth) {
-    sourceClone.setWidth(targetRegion.getWidth());
-  }
-  if (syncHeight) {
-    sourceClone.setHeight(targetRegion.getHeight());
-  }
-  var offset,
-    i = 0,
-    len = positions.length,
-    pos,
-    intersection,
-    itArea,
-    maxArea = -1,
-    maxAreaIndex = -1;
-  for (; i < len; i++) {
-    pos = positions[i];
-    offset = offsets[i];
-    sourceClone.alignToRegion(targetRegion, pos);
-    if (offset) {
-      if (!Array.isArray(offset)) {
-        offset = offsets[i] = [offset.x || offset.left, offset.y || offset.top];
-      }
-      sourceClone.shift({
-        left: offset[0],
-        top: offset[1]
-      });
-    }
-
-    //the source region is already aligned in the correct position
-
-    if (constrainTo) {
-      //if we have a constrain region, test for the constrain
-      intersection = sourceClone.getIntersection(constrainTo);
-      if (intersection && intersection.equals(sourceClone)) {
-        //constrain respected, so return (the aligned position)
-
-        sourceRegion.set(sourceClone);
-        return pos;
-      } else {
-        //the constrain was not respected, so continue trying
-        if (intersection && (itArea = intersection.getArea()) > maxArea) {
-          maxArea = itArea;
-          maxAreaIndex = i;
-        }
-      }
-    } else {
-      sourceRegion.set(sourceClone);
-      return pos;
-    }
-  }
-
-  //no alignment respected the constraints
-  if (~maxAreaIndex) {
-    pos = positions[maxAreaIndex];
-    offset = offsets[maxAreaIndex];
-    sourceClone.alignToRegion(targetRegion, pos);
-    if (offset) {
-      sourceClone.shift({
-        left: offset[0],
-        top: offset[1]
-      });
-    }
-
-    //we are sure an intersection exists, because of the way the maxAreaIndex was computed
-    intersection = sourceClone.getIntersection(constrainTo);
-    sourceClone.setRegion(intersection);
-    sourceClone.alignToRegion(targetRegion, pos);
-    if (offset) {
-      sourceClone.shift({
-        left: offset[0],
-        top: offset[1]
-      });
-    }
-    sourceRegion.set(sourceClone);
-    return pos;
-  }
-}
-var alignToNormalized = ALIGN_TO_NORMALIZED$1;
-
-var ALIGN_TO_NORMALIZED = alignToNormalized;
-var Region$2 = region;
-
-/**
- * @localdoc Given source and target regions, and the given alignments required, returns a region that is the resulting allignment.
- * Does not modify the sourceRegion.
- *
- * Example
- *
- *      var sourceRegion = zippy.getInstance({
- *          alias  : 'z.region',
- *          top    : 10,
- *          left   : 10,
- *          bottom : 40,
- *          right  : 100
- *      })
- *
- *      var targetRegion = zippy.getInstance({
- *          alias  : 'z.region',
- *          top    : 10,
- *          left   : 10,
- *          bottom : 40,
- *          right  : 100
- *      })
- *      //has top-left at (10,10)
- *      //and bottom-right at (40, 100)
- *
- *      var alignRegion = alignable.COMPUTE_ALIGN_REGION(sourceRegion, targetRegion, 'tl-br')
- *
- *      //alignRegion will be a clone of sourceRegion, but will have the
- *      //top-left corner aligned with bottom-right of targetRegion
- *
- *      alignRegion.get() // => { top: 40, left: 100, bottom: 70, right: 190 }
- *
- * @param  {Region} sourceRegion The source region to align to targetRegion
- * @param  {Region} targetRegion The target region to which to align the sourceRegion
- * @param  {String/String[]} positions    A string ( delimited by "-" characters ) or an array of strings with the position to try, in the order of their priority.
- * See Region#getPoint for a list of available positions. They can be combined in any way.
- * @param  {Object} config      A config object with other configuration for the alignment
- * @param  {Object/Object[]} config.offset      Optional offsets. Either an object or an array with a different offset for each position
- * @param  {Element/Region/Boolean} config.constrain  The constrain to region or element. If the boolean true, Region.getDocRegion() will be used
- * @param  {Object/Boolean} config.sync   A boolean object that indicates whether to sync sourceRegion and targetRegion sizes (width/height or both). Can be
- *
- *  * true - in order to sync both width and height
- *  * { width: true }  - to only sync width
- *  * { height: true } - to only sync height
- *  * { size: true }   - to sync both width and height
- *
- * @return {Object} an object with the following keys:
- *
- *  * position - the position where the alignment was made. One of the given positions
- *  * region   - the region where the alignment is in place
- *  * positionChanged - boolean value indicating if the position of the returned region is different from the position of sourceRegion
- *  * widthChanged    - boolean value indicating if the width of the returned region is different from the width of sourceRegion
- *  * heightChanged   - boolean value indicating if the height of the returned region is different from the height of sourceRegion
- */
-function COMPUTE_ALIGN_REGION$1(sourceRegion, targetRegion, positions, config) {
-  sourceRegion = Region$2.from(sourceRegion);
-  var sourceClone = sourceRegion.clone();
-  var position = ALIGN_TO_NORMALIZED(sourceClone, targetRegion, positions, config);
-  return {
-    position: position,
-    region: sourceClone,
-    widthChanged: sourceClone.getWidth() != sourceRegion.getWidth(),
-    heightChanged: sourceClone.getHeight() != sourceRegion.getHeight(),
-    positionChanged: sourceClone.equalsPosition(sourceRegion)
-  };
-}
-var computeAlignRegion = COMPUTE_ALIGN_REGION$1;
-
-var Region$1 = region;
-
-
-var COMPUTE_ALIGN_REGION = computeAlignRegion;
-
-/**
- * region-align module exposes methods for aligning {@link Element} and {@link Region} instances
- *
- * The #alignTo method aligns this to the target element/region using the specified positions. See #alignTo for a graphical example.
- *
- *
- *      var div = Element.select('div.first')
- *
- *      div.alignTo(Element.select('body') , 'br-br')
- *
- *      //aligns the div to be in the bottom-right corner of the body
- *
- * Other useful methods
- *
- *  * {@link #alignRegions} - aligns a given source region to a target region
- *  * {@link #COMPUTE_ALIGN_REGION} - given a source region and a target region, and alignment positions, returns a clone of the source region, but aligned to satisfy the given alignments
- */
-
-/**
- * Aligns sourceRegion to targetRegion. It modifies the sourceRegion in order to perform the correct alignment.
- * See #COMPUTE_ALIGN_REGION for details and examples.
- *
- * This method calls #COMPUTE_ALIGN_REGION passing to it all its arguments. The #COMPUTE_ALIGN_REGION method returns a region that is properly aligned.
- * If this returned region position/size differs from sourceRegion, then the sourceRegion is modified to be an exact copy of the aligned region.
- *
- * @inheritdoc #COMPUTE_ALIGN_REGION
- * @return {String} the position used for alignment
- */
-Region$1.alignRegions = function (sourceRegion, targetRegion, positions, config) {
-  var result = COMPUTE_ALIGN_REGION(sourceRegion, targetRegion, positions, config);
-  var alignedRegion = result.region;
-  if (!alignedRegion.equals(sourceRegion)) {
-    sourceRegion.setRegion(alignedRegion);
-  }
-  return result.position;
-};
-
-/**
- *
- * The #alignTo method aligns this to the given target region, using the specified alignment position(s).
- * You can also specify a constrain for the alignment.
- *
- * Example
- *
- *      BIG
- *      ________________________
- *      |  _______              |
- *      | |       |             |
- *      | |   A   |             |
- *      | |       |      _____  |
- *      | |_______|     |     | |
- *      |               |  B  | |
- *      |               |     | |
- *      |_______________|_____|_|
- *
- * Assume the *BIG* outside rectangle is our constrain region, and you want to align the *A* rectangle
- * to the *B* rectangle. Ideally, you'll want their tops to be aligned, and *A* to be placed at the right side of *B*
- *
- *
- *      //so we would align them using
- *
- *      A.alignTo(B, 'tl-tr', { constrain: BIG })
- *
- * But this would result in
- *
- *       BIG
- *      ________________________
- *      |                       |
- *      |                       |
- *      |                       |
- *      |                _____ _|_____
- *      |               |     | .     |
- *      |               |  B  | . A   |
- *      |               |     | .     |
- *      |_______________|_____|_._____|
- *
- *
- * Which is not what we want. So we specify an array of options to try
- *
- *      A.alignTo(B, ['tl-tr', 'tr-tl'], { constrain: BIG })
- *
- * So by this we mean: try to align A(top,left) with B(top,right) and stick to the BIG constrain. If this is not possible,
- * try the next option: align A(top,right) with B(top,left)
- *
- * So this is what we end up with
- *
- *      BIG
- *      ________________________
- *      |                       |
- *      |                       |
- *      |                       |
- *      |        _______ _____  |
- *      |       |       |     | |
- *      |       |   A   |  B  | |
- *      |       |       |     | |
- *      |_______|_______|_____|_|
- *
- *
- * Which is a lot better!
- *
- * @param {Element/Region} target The target to which to align this alignable.
- *
- * @param {String[]/String} positions The positions for the alignment.
- *
- * Example:
- *
- *      'br-tl'
- *      ['br-tl','br-tr','cx-tc']
- *
- * This method will try to align using the first position. But if there is a constrain region, that position might not satisfy the constrain.
- * If this is the case, the next positions will be tried. If one of them satifies the constrain, it will be used for aligning and it will be returned from this method.
- *
- * If no position matches the contrain, the one with the largest intersection of the source region with the constrain will be used, and this alignable will be resized to fit the constrain region.
- *
- * @param {Object} config A config object with other configuration for this method
- *
- * @param {Array[]/Object[]/Object} config.offset The offset to use for aligning. If more that one offset is specified, then offset at a given index is used with the position at the same index.
- *
- * An offset can have the following form:
- *
- *      [left_offset, top_offset]
- *      {left: left_offset, top: top_offset}
- *      {x: left_offset, y: top_offset}
- *
- * You can pass one offset or an array of offsets. In case you pass just one offset,
- * it cannot have the array form, so you cannot call
- *
- *      this.alignTo(target, positions, [10, 20])
- *
- * If you do, it will not be considered. Instead, please use
- *
- *      this.alignTo(target, positions, {x: 10, y: 20})
- *
- * Or
- *
- *      this.alignTo(target, positions, [[10, 20]] )
- *
- * @param {Boolean/Element/Region} config.constrain If boolean, target will be constrained to the document region, otherwise,
- * getRegion will be called on this argument to determine the region we need to constrain to.
- *
- * @param {Boolean/Object} config.sync Either boolean or an object with {width, height}. If it is boolean,
- * both width and height will be synced. If directions are specified, will only sync the direction which is specified as true
- *
- * @return {String}
- *
- */
-Region$1.prototype.alignTo = function (target, positions, config) {
-  config = config || {};
-  var sourceRegion = this;
-  var targetRegion = Region$1.from(target);
-  var result = COMPUTE_ALIGN_REGION(sourceRegion, targetRegion, positions, config);
-  var resultRegion = result.region;
-  if (!resultRegion.equalsSize(sourceRegion)) {
-    this.setSize(resultRegion.getSize());
-  }
-  if (!resultRegion.equalsPosition(sourceRegion)) {
-    this.setPosition(resultRegion.getPosition(), {
-      absolute: !!config.absolute
-    });
-  }
-  return result.position;
-};
-var regionAlign = Region$1;
-
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-function ToObject(val) {
-  if (val == null) {
-    throw new TypeError('Object.assign cannot be called with null or undefined');
-  }
-  return Object(val);
-}
-function ownEnumerableKeys(obj) {
-  var keys = Object.getOwnPropertyNames(obj);
-  if (Object.getOwnPropertySymbols) {
-    keys = keys.concat(Object.getOwnPropertySymbols(obj));
-  }
-  return keys.filter(function (key) {
-    return propIsEnumerable.call(obj, key);
-  });
-}
-var objectAssign = Object.assign || function (target, source) {
-  var from;
-  var keys;
-  var to = ToObject(target);
-  for (var s = 1; s < arguments.length; s++) {
-    from = arguments[s];
-    keys = ownEnumerableKeys(Object(from));
-    for (var i = 0; i < keys.length; i++) {
-      to[keys[i]] = from[keys[i]];
-    }
-  }
-  return to;
-};
-
-/*!
- * escape-html
- * Copyright(c) 2012-2013 TJ Holowaychuk
- * Copyright(c) 2015 Andreas Lubbe
- * Copyright(c) 2015 Tiancheng "Timothy" Gu
- * MIT Licensed
- */
-
-/**
- * Module variables.
- * @private
- */
-var matchHtmlRegExp = /["'&<>]/;
-
-/**
- * Module exports.
- * @public
- */
-
-var escapeHtml_1 = escapeHtml;
-
-/**
- * Escape special characters in the given string of html.
- *
- * @param  {string} string The string to escape for inserting into HTML
- * @return {string}
- * @public
- */
-
-function escapeHtml(string) {
-  var str = '' + string;
-  var match = matchHtmlRegExp.exec(str);
-  if (!match) {
-    return str;
-  }
-  var escape;
-  var html = '';
-  var index = 0;
-  var lastIndex = 0;
-  for (index = match.index; index < str.length; index++) {
-    switch (str.charCodeAt(index)) {
-      case 34:
-        // "
-        escape = '&quot;';
-        break;
-      case 38:
-        // &
-        escape = '&amp;';
-        break;
-      case 39:
-        // '
-        escape = '&#39;';
-        break;
-      case 60:
-        // <
-        escape = '&lt;';
-        break;
-      case 62:
-        // >
-        escape = '&gt;';
-        break;
-      default:
-        continue;
-    }
-    if (lastIndex !== index) {
-      html += str.substring(lastIndex, index);
-    }
-    lastIndex = index + 1;
-    html += escape;
-  }
-  return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
-}
-
-var prefixProperties = {
-  'border-radius': 1,
-  'border-top-left-radius': 1,
-  'border-top-right-radius': 1,
-  'border-bottom-left-radius': 1,
-  'border-bottom-right-radius': 1,
-  'box-shadow': 1,
-  'order': 1,
-  'flex': function flex(name, prefix) {
-    return [prefix + 'box-flex'];
-  },
-  'box-flex': 1,
-  'box-align': 1,
-  'animation': 1,
-  'animation-duration': 1,
-  'animation-name': 1,
-  'transition': 1,
-  'transition-duration': 1,
-  'transform': 1,
-  'transform-style': 1,
-  'transform-origin': 1,
-  'backface-visibility': 1,
-  'perspective': 1,
-  'box-pack': 1
-};
-
-//make sure properties are in hyphenated form
-var cssUnitless = {
-  'animation': 1,
-  'column-count': 1,
-  'columns': 1,
-  'font-weight': 1,
-  'opacity': 1,
-  'order  ': 1,
-  'z-index': 1,
-  'zoom': 1,
-  'flex': 1,
-  'box-flex': 1,
-  'transform': 1,
-  'perspective': 1,
-  'box-pack': 1,
-  'box-align': 1,
-  'colspan': 1,
-  'rowspan': 1
-};
-
-require('./prefixInfo');
-var cssPrefixFn = require('./cssPrefix');
-var HYPHENATE = require('./stringUtils/hyphenate');
-var CAMELIZE = require('./stringUtils/camelize');
-var HAS_OWN = require('./hasOwn');
-var IS_OBJECT = require('./isObject');
-var IS_FUNCTION = require('./isFunction');
-var applyPrefix = function applyPrefix(target, property, value, normalizeFn) {
-  cssPrefixFn(property).forEach(function (p) {
-    target[normalizeFn ? normalizeFn(p) : p] = value;
-  });
-};
-var toObject = function toObject(str) {
-  str = (str || '').split(';');
-  var result = {};
-  str.forEach(function (item) {
-    var split = item.split(':');
-    if (split.length == 2) {
-      result[split[0].trim()] = split[1].trim();
-    }
-  });
-  return result;
-};
-var CONFIG = {
-  cssUnitless: require('./cssUnitless')
-};
-
-/**
- * @ignore
- * @method toStyleObject
- *
- * @param  {Object} styles The object to convert to a style object.
- * @param  {Object} [config]
- * @param  {Boolean} [config.addUnits=true] True if you want to add units when numerical values are encountered.
- * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
- * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
- * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
- * @param  {String}  config.normalizeName A function that normalizes a name to a valid css property name
- * @param  {String}  config.scope
- *
- * @return {Object} The object, normalized with css style names
- */
-var TO_STYLE_OBJECT = function TO_STYLE_OBJECT(styles, config, prepend, result) {
-  if (typeof styles == 'string') {
-    styles = toObject(styles);
-  }
-  config = config || CONFIG;
-  config.cssUnitless = config.cssUnitless || CONFIG.cssUnitless;
-  result = result || {};
-  var scope = config.scope || {},
-    //configs
-    addUnits = config.addUnits != null ? config.addUnits : scope && scope.addUnits != null ? scope.addUnits : true,
-    cssUnitless = (config.cssUnitless != null ? config.cssUnitless : scope ? scope.cssUnitless : null) || {},
-    cssUnit = (config.cssUnit || scope ? scope.cssUnit : null) || 'px',
-    prefixProperties = config.prefixProperties || (scope ? scope.prefixProperties : null) || {},
-    camelize = config.camelize,
-    normalizeFn = camelize ? CAMELIZE : HYPHENATE;
-
-  // Object.keys(cssUnitless).forEach(function(key){
-  //     cssUnitless[normalizeFn(key)] = 1
-  // })
-
-  var processed, styleName, propName, propValue, propType, propIsNumber, fnPropValue, prefix;
-  for (propName in styles) if (HAS_OWN(styles, propName)) {
-    propValue = styles[propName];
-
-    //the hyphenated style name (css property name)
-    styleName = HYPHENATE(prepend ? prepend + propName : propName);
-    processed = false;
-    prefix = false;
-    if (IS_FUNCTION(propValue)) {
-      //a function can either return a css value
-      //or an object with { value, prefix, name }
-      fnPropValue = propValue.call(scope || styles, propValue, propName, styleName, styles);
-      if (IS_OBJECT(fnPropValue) && fnPropValue.value != null) {
-        propValue = fnPropValue.value;
-        prefix = fnPropValue.prefix;
-        styleName = fnPropValue.name ? HYPHENATE(fnPropValue.name) : styleName;
-      } else {
-        propValue = fnPropValue;
-      }
-    }
-    propType = _typeof(propValue);
-    propIsNumber = propType == 'number' || propType == 'string' && propValue != '' && propValue * 1 == propValue;
-    if (propValue == null || styleName == null || styleName === '') {
-      continue;
-    }
-    if (propIsNumber || propType == 'string') {
-      processed = true;
-    }
-    if (!processed && propValue.value != null && propValue.prefix) {
-      processed = true;
-      prefix = propValue.prefix;
-      propValue = propValue.value;
-    }
-
-    // hyphenStyleName = camelize? HYPHENATE(styleName): styleName
-
-    if (processed) {
-      prefix = prefix || !!prefixProperties[styleName];
-      if (propIsNumber) {
-        propValue = addUnits && !(styleName in cssUnitless) ? propValue + cssUnit : propValue + ''; //change it to a string, so that jquery does not append px or other units
-      }
-
-      //special border treatment
-      if ((styleName == 'border' || !styleName.indexOf('border') && !~styleName.indexOf('radius') && !~styleName.indexOf('width')) && propIsNumber) {
-        styleName = styleName + '-width';
-      }
-
-      //special border radius treatment
-      if (!styleName.indexOf('border-radius-')) {
-        styleName.replace(/border(-radius)(-(.*))/, function (str, radius, theRest) {
-          var positions = {
-            '-top': ['-top-left', '-top-right'],
-            '-left': ['-top-left', '-bottom-left'],
-            '-right': ['-top-right', '-bottom-right'],
-            '-bottom': ['-bottom-left', '-bottom-right']
-          };
-          if (theRest in positions) {
-            styleName = [];
-            positions[theRest].forEach(function (pos) {
-              styleName.push('border' + pos + radius);
-            });
-          } else {
-            styleName = 'border' + theRest + radius;
-          }
-        });
-        if (Array.isArray(styleName)) {
-          styleName.forEach(function (styleName) {
-            if (prefix) {
-              applyPrefix(result, styleName, propValue, normalizeFn);
-            } else {
-              result[normalizeFn(styleName)] = propValue;
-            }
-          });
-          continue;
-        }
-      }
-      if (prefix) {
-        applyPrefix(result, styleName, propValue, normalizeFn);
-      } else {
-        result[normalizeFn(styleName)] = propValue;
-      }
-    } else {
-      //the propValue must be an object, so go down the hierarchy
-      TO_STYLE_OBJECT(propValue, config, styleName + '-', result);
-    }
-  }
-  return result;
-};
-module.exports = TO_STYLE_OBJECT;
-
-var toStyleObject$2 = /*#__PURE__*/Object.freeze({
-  __proto__: null
-});
-
-var require$$2 = /*@__PURE__*/getAugmentedNamespace(toStyleObject$2);
-
-var objectHasOwn = Object.prototype.hasOwnProperty;
-var hasOwn$3 = function (object, propertyName) {
-  return objectHasOwn.call(object, propertyName);
-};
-
-var toStyleObject$1 = require$$2;
-var hasOwn$2 = hasOwn$3;
-
-/**
- * @ignore
- * @method toStyleString
- *
- * @param  {Object} styles The object to convert to a style string.
- * @param  {Object} config
- * @param  {Boolean} config.addUnits=true True if you want to add units when numerical values are encountered. Defaults to true
- * @param  {Object}  config.cssUnitless An object whose keys represent css numerical property names that will not be appended with units.
- * @param  {Object}  config.prefixProperties An object whose keys represent css property names that should be prefixed
- * @param  {String}  config.cssUnit='px' The css unit to append to numerical values. Defaults to 'px'
- * @param  {String}  config.scope
- *
- * @return {Object} The object, normalized with css style names
- */
-var toStyleString = function (styles, config) {
-  styles = toStyleObject$1(styles, config);
-  var result = [];
-  var prop;
-  for (prop in styles) if (hasOwn$2(styles, prop)) {
-    result.push(prop + ': ' + styles[prop]);
-  }
-  return result.join('; ');
-};
-
-var toStyle$1 = {
-  prefixProperties: prefixProperties,
-  cssUnitless: cssUnitless,
-  object: require$$2,
-  string: toStyleString
-};
-
-var hasOwn$1 = function (obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-};
-
-var toUpperFirst$3 = function (str) {
-  return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-};
-
-var el$3;
-var el_1 = function () {
-  if (!el$3 && !!commonjsGlobal.document) {
-    el$3 = commonjsGlobal.document.createElement('div');
-  }
-  if (!el$3) {
-    el$3 = {
-      style: {}
-    };
-  }
-  return el$3;
-};
-
-var toUpperFirst$2 = toUpperFirst$3;
-var prefixes = ["ms", "Moz", "Webkit", "O"];
-var el$2 = el_1;
-var ELEMENT$2;
-var PREFIX;
-var getPrefix$3 = function (key) {
-  if (PREFIX !== undefined) {
-    return PREFIX;
-  }
-  ELEMENT$2 = ELEMENT$2 || el$2();
-  var i = 0;
-  var len = prefixes.length;
-  var tmp;
-  var prefix;
-  for (; i < len; i++) {
-    prefix = prefixes[i];
-    tmp = prefix + toUpperFirst$2(key);
-    if (typeof ELEMENT$2.style[tmp] != 'undefined') {
-      return PREFIX = prefix;
-    }
-  }
-  return PREFIX;
-};
-
-var toUpperFirst$1 = toUpperFirst$3;
-var getPrefix$2 = getPrefix$3;
-var el$1 = el_1;
-var MEMORY$1 = {};
-var STYLE$1;
-var ELEMENT$1;
-var getStylePrefixed$1 = function (key, value) {
-  ELEMENT$1 = ELEMENT$1 || el$1();
-  STYLE$1 = STYLE$1 || ELEMENT$1.style;
-  var k = key; // + ': ' + value
-
-  if (MEMORY$1[k]) {
-    return MEMORY$1[k];
-  }
-  var prefix;
-  var prefixed;
-  if (!(key in STYLE$1)) {
-    //we have to prefix
-
-    // if (PREFIX){
-    //     prefix = PREFIX
-    // } else {
-    prefix = getPrefix$2('appearance');
-
-    //     if (prefix){
-    //         prefix = PREFIX = prefix.toLowerCase()
-    //     }
-    // }
-
-    if (prefix) {
-      prefixed = prefix + toUpperFirst$1(key);
-      if (prefixed in STYLE$1) {
-        key = prefixed;
-      }
-    }
-  }
-  MEMORY$1[k] = key;
-  return key;
-};
-
-var prefixProps = {
-  'alignItems': 1,
-  'justifyContent': 1,
-  'flex': 1,
-  'flexFlow': 1,
-  'flexGrow': 1,
-  'flexShrink': 1,
-  'flexBasis': 1,
-  'flexDirection': 1,
-  'flexWrap': 1,
-  'alignContent': 1,
-  'alignSelf': 1,
-  'userSelect': 1,
-  'transform': 1,
-  'transition': 1,
-  'transformOrigin': 1,
-  'transformStyle': 1,
-  'transitionProperty': 1,
-  'transitionDuration': 1,
-  'transitionTimingFunction': 1,
-  'transitionDelay': 1,
-  'borderImage': 1,
-  'borderImageSlice': 1,
-  'boxShadow': 1,
-  'backgroundClip': 1,
-  'backfaceVisibility': 1,
-  'perspective': 1,
-  'perspectiveOrigin': 1,
-  'animation': 1,
-  'animationDuration': 1,
-  'animationName': 1,
-  'animationDelay': 1,
-  'animationDirection': 1,
-  'animationIterationCount': 1,
-  'animationTimingFunction': 1,
-  'animationPlayState': 1,
-  'animationFillMode': 1,
-  'appearance': 1
-};
-
-var getStylePrefixed = getStylePrefixed$1;
-var properties$1 = prefixProps;
-var getPrefixed$1 = function (key, value) {
-  if (!properties$1[key]) {
-    return key;
-  }
-  return getStylePrefixed(key);
-};
-
-var map$2 = function (fn, item) {
-  if (!item) {
-    return;
-  }
-  if (Array.isArray(item)) {
-    return item.map(fn).filter(function (x) {
-      return !!x;
-    });
-  } else {
-    return fn(item);
-  }
-};
-
-var toUpperFirst = toUpperFirst$3;
-var getPrefix$1 = getPrefix$3;
-var properties = prefixProps;
-
-/**
- * Returns the given key prefixed, if the property is found in the prefixProps map.
- *
- * Does not test if the property supports the given value unprefixed.
- * If you need this, use './getPrefixed' instead
- */
-var forcePrefixed$1 = function (key, value) {
-  if (!properties[key]) {
-    return key;
-  }
-  var prefix = getPrefix$1(key);
-  return prefix ? prefix + toUpperFirst(key) : key;
-};
-
-var getPrefix = getPrefix$3;
-var forcePrefixed = forcePrefixed$1;
-var el = el_1;
-var MEMORY = {};
-var STYLE;
-var ELEMENT;
-var getCssPrefixedValue$1 = function (key, value, force) {
-  ELEMENT = ELEMENT || el();
-  STYLE = STYLE || ELEMENT.style;
-  var k = key + ': ' + value;
-  if (MEMORY[k]) {
-    return MEMORY[k];
-  }
-  var prefix;
-  var prefixed;
-  var prefixedValue;
-  if (force || !(key in STYLE)) {
-    prefix = getPrefix('appearance');
-    if (prefix) {
-      prefixed = forcePrefixed(key);
-      prefixedValue = '-' + prefix.toLowerCase() + '-' + value;
-      if (prefixed in STYLE) {
-        ELEMENT.style[prefixed] = '';
-        ELEMENT.style[prefixed] = prefixedValue;
-        if (ELEMENT.style[prefixed] !== '') {
-          value = prefixedValue;
-        }
-      }
-    }
-  }
-  MEMORY[k] = value;
-  return value;
-};
-
-var getCssPrefixedValue = getCssPrefixedValue$1;
-var plugable$1 = function (target) {
-  target.plugins = target.plugins || [function () {
-    var values = {
-      'flex': 1,
-      'inline-flex': 1
-    };
-    return function (key, value) {
-      if (key === 'display' && value in values) {
-        return {
-          key: key,
-          value: getCssPrefixedValue(key, value, true)
-        };
-      }
-    };
-  }()];
-  target.plugin = function (fn) {
-    target.plugins = target.plugins || [];
-    target.plugins.push(fn);
-  };
-  return target;
-};
-
-var hasOwn = hasOwn$1;
-var getPrefixed = getPrefixed$1;
-var map$1 = map$2;
-var plugable = plugable$1;
-function plugins(key, value) {
-  var result = {
-    key: key,
-    value: value
-  };
-  (RESULT.plugins || []).forEach(function (fn) {
-    var tmp = map$1(function (res) {
-      return fn(key, value, res);
-    }, result);
-    if (tmp) {
-      result = tmp;
-    }
-  });
-  return result;
-}
-function normalize$1(key, value) {
-  var result = plugins(key, value);
-  return map$1(function (result) {
-    return {
-      key: getPrefixed(result.key, result.value),
-      value: result.value
-    };
-  }, result);
-}
-var RESULT = function RESULT(style) {
-  var k;
-  var item;
-  var result = {};
-  for (k in style) if (hasOwn(style, k)) {
-    item = normalize$1(k, style[k]);
-    if (!item) {
-      continue;
-    }
-    map$1(function (item) {
-      result[item.key] = item.value;
-    }, item);
-  }
-  return result;
-};
-var src$1 = plugable(RESULT);
-
-var toStyleObject = toStyle$1.object;
-var normalize = src$1;
-var assign$2 = objectAssign;
-function toStyle(style) {
-  return toStyleObject(normalize(style));
-}
-function setStyle$2(element, style) {
-  style = toStyle(style);
-  Object.keys(style).forEach(function (key) {
-    element.style[key] = style[key];
-  });
-  return element;
-}
-var setStyle_1 = function (element, style /*, style2 */) {
-  var args = [].slice.call(arguments, 1);
-  var styles = [{}].concat(args).map(toStyle);
-  var style = assign$2.apply(null, styles);
-  setStyle$2(element, style);
-  return element;
-};
-
-var signs = {
-  t: {
-    x: 1,
-    y: 1
-  },
-  l: {
-    x: 1,
-    y: 1
-  },
-  b: {
-    x: 1,
-    y: -1
-  },
-  r: {
-    x: -1,
-    y: 1
-  }
-};
-
-/**
- * Given the offset (x,y, or left,top or array), returns an array of offsets, for each given position
- *
- * For example, if we align br-tl, it means we align br of tooltip to tl of target,
- * so for this position we should return an offset of {-x,-y} of the original offset
- * 
- * @param  {Object}
- * @param  {Array}
- * @return {Array}
- */
-var toOffset$1 = function (offset, positions) {
-  if (!offset) {
-    return;
-  }
-  var array;
-  if (Array.isArray(offset)) {
-    array = offset;
-  }
-  array = offset.x != undefined ? [offset.x, offset.y] : [offset.left, offset.top];
-  var x = array[0];
-  var y = array[1];
-  return positions.map(function (pos) {
-    var parts = pos.split('-');
-    var first = parts[0];
-    var side1 = first[0];
-    var side2 = first[1];
-    var sign1 = signs[side1];
-    var sign2 = signs[side2];
-    var xSign = 1;
-    var ySign = 1;
-    if (sign1) {
-      xSign *= sign1.x;
-      ySign *= sign1.y;
-    }
-    if (sign2) {
-      xSign *= sign2.x;
-      ySign *= sign2.y;
-    }
-    return [x * xSign, y * ySign];
-  });
-};
-
-var parseAsStyle$1 = function (str) {
-  var result = {};
-  str.split(';').forEach(function (style) {
-    var parts = style.split(':');
-    if (parts.length) {
-      result[parts[0].trim()] = parts[1].trim();
-    }
-  });
-  return result;
-};
-
-var setStyle$1 = setStyle_1;
-var map = {};
-var result = function result(config) {
-  var element = map[config.id];
-  if (!element) {
-    element = setStyle$1(document.createElement('div'), config.style || {});
-    element.className = config.className;
-    if (config.appendTooltip) {
-      config.appendTooltip(element);
-    } else {
-      document.body.appendChild(element);
-    }
-    map[config.id] = element;
-  }
-  return element;
-};
-result.destroy = function (config) {
-  var element = map[config.id];
-  if (element) {
-    var parent = element.parentNode;
-    parent && parent.removeChild(element);
-  }
-};
-var tooltipElement$1 = result;
-
-var TRANSLATE_POS = {
-  top: 'bc-tc',
-  bottom: 'tc-bc',
-  left: 'rc-lc',
-  right: 'lc-rc',
-  topleft: 'br-tl',
-  topright: 'bl-tr',
-  bottomleft: 'tr-bl',
-  bottomright: 'tl-br'
-};
-var preparePositions$2 = function preparePositions(positions) {
-  positions = positions || ['topleft', 'topright', 'bottomleft', 'bottomright', 'top', 'bottom'];
-  return positions.map(function (pos) {
-    pos = pos.trim();
-    return TRANSLATE_POS[pos] || pos;
-  }).filter(function (pos) {
-    return !!pos;
-  });
-};
-
-var mapObject$1 = function mapObject(obj, fn) {
-  var result = {};
-  Object.keys(obj).forEach(function (key) {
-    result[key] = fn(obj[key]);
-  });
-  return result;
-};
-
-var Region = regionAlign;
-var assign$1 = objectAssign;
-var escape = escapeHtml_1;
-var setStyle = setStyle_1;
-var toOffset = toOffset$1;
-var parseAsStyle = parseAsStyle$1;
-var tooltipElement = tooltipElement$1;
-var preparePositions$1 = preparePositions$2;
-var mapObject = mapObject$1;
-function emptyObject(obj) {
-  return mapObject(obj, function () {
-    return '';
-  });
-}
-var target = function (config) {
-  var prevStyle;
-  function showTooltip(target) {
-    var tooltip = target.getAttribute(config.attrName);
-    var el = tooltipElement(config);
-    el.innerHTML = config.escape ? escape(tooltip) : tooltip;
-    var positions = config.alignPositions;
-    var elRegion = Region.from(el);
-    var targetRegion = Region.from(target);
-    var attrPosition = target.getAttribute(config.attrName + '-positions');
-    var attrStyle = target.getAttribute(config.attrName + '-style');
-    var style = assign$1({}, prevStyle, config.style);
-    if (attrStyle) {
-      attrStyle = parseAsStyle(attrStyle);
-      prevStyle = emptyObject(attrStyle);
-      assign$1(style, attrStyle);
-    }
-    if (attrPosition) {
-      positions = preparePositions$1(attrPosition.split(';'));
-    }
-    elRegion.alignTo(targetRegion, positions, {
-      offset: toOffset(config.offset, positions),
-      constrain: true
-    });
-    var scrollTop = document.body.scrollTop || 0;
-    var scrollLeft = document.body.scrollLeft || 0;
-    setStyle(el, style, config.visibleStyle, {
-      top: elRegion.top + scrollTop,
-      left: elRegion.left + scrollLeft
-    });
-  }
-  function clearTooltip() {
-    setStyle(tooltipElement(config), config.hiddenStyle);
-  }
-  var currentTarget;
-  var withTarget = function () {
-    var prevId;
-    return function (target) {
-      if (target != currentTarget) {
-        if (prevId) {
-          clearTimeout(prevId);
-          prevId = null;
-        }
-        if (target) {
-          if (config.showDelay) {
-            prevId = setTimeout(function () {
-              prevId = null;
-              showTooltip(target);
-            }, config.showDelay);
-          } else {
-            showTooltip(target);
-          }
-        } else {
-          clearTooltip();
-        }
-      }
-      currentTarget = target;
-    };
-  }();
-  var setter = function () {
-    var lastValue;
-    var PREV_ID;
-    return function setter(value) {
-      if (value == lastValue) {
-        return;
-      }
-      lastValue = value;
-      if (config.hideOnChange) {
-        if (PREV_ID || value) {
-          if (PREV_ID) {
-            clearTimeout(PREV_ID);
-          }
-          PREV_ID = setTimeout(function () {
-            PREV_ID = null;
-            withTarget(lastValue);
-          }, config.hideOnChangeDelay);
-        }
-        value = null;
-      }
-      withTarget(value);
-    };
-  }();
-  var HOLD = false;
-  return {
-    destroy: function destroy() {
-      tooltipElement.destroy(config);
-    },
-    hold: function hold() {
-      HOLD = true;
-    },
-    onHold: function onHold() {
-      return HOLD;
-    },
-    set: function set(value) {
-      HOLD = false;
-      setter(value);
-    },
-    getCurrentTarget: function getCurrentTarget() {
-      return currentTarget;
-    }
-  };
-};
-
-var clone$1 = function () {
-
-  /**
-   * Clones (copies) an Object using deep copying.
-   *
-   * This function supports circular references by default, but if you are certain
-   * there are no circular references in your object, you can save some CPU time
-   * by calling clone(obj, false).
-   *
-   * Caution: if `circular` is false and `parent` contains circular references,
-   * your program may enter an infinite loop and crash.
-   *
-   * @param `parent` - the object to be cloned
-   * @param `circular` - set to true if the object to be cloned may contain
-   *    circular references. (optional - true by default)
-   * @param `depth` - set to a number if the object is only to be cloned to
-   *    a particular depth. (optional - defaults to Infinity)
-   * @param `prototype` - sets the prototype to be used when cloning an object.
-   *    (optional - defaults to parent prototype).
-  */
-  function clone(parent, circular, depth, prototype) {
-    if (_typeof(circular) === 'object') {
-      depth = circular.depth;
-      prototype = circular.prototype;
-      circular.filter;
-      circular = circular.circular;
-    }
-    // maintain two arrays for circular references, where corresponding parents
-    // and children have the same index
-    var allParents = [];
-    var allChildren = [];
-    var useBuffer = typeof Buffer != 'undefined';
-    if (typeof circular == 'undefined') circular = true;
-    if (typeof depth == 'undefined') depth = Infinity;
-
-    // recurse this function so we don't reset allParents and allChildren
-    function _clone(parent, depth) {
-      // cloning null always returns null
-      if (parent === null) return null;
-      if (depth == 0) return parent;
-      var child;
-      var proto;
-      if (_typeof(parent) != 'object') {
-        return parent;
-      }
-      if (clone.__isArray(parent)) {
-        child = [];
-      } else if (clone.__isRegExp(parent)) {
-        child = new RegExp(parent.source, __getRegExpFlags(parent));
-        if (parent.lastIndex) child.lastIndex = parent.lastIndex;
-      } else if (clone.__isDate(parent)) {
-        child = new Date(parent.getTime());
-      } else if (useBuffer && Buffer.isBuffer(parent)) {
-        if (Buffer.allocUnsafe) {
-          // Node.js >= 4.5.0
-          child = Buffer.allocUnsafe(parent.length);
-        } else {
-          // Older Node.js versions
-          child = new Buffer(parent.length);
-        }
-        parent.copy(child);
-        return child;
-      } else {
-        if (typeof prototype == 'undefined') {
-          proto = Object.getPrototypeOf(parent);
-          child = Object.create(proto);
-        } else {
-          child = Object.create(prototype);
-          proto = prototype;
-        }
-      }
-      if (circular) {
-        var index = allParents.indexOf(parent);
-        if (index != -1) {
-          return allChildren[index];
-        }
-        allParents.push(parent);
-        allChildren.push(child);
-      }
-      for (var i in parent) {
-        var attrs;
-        if (proto) {
-          attrs = Object.getOwnPropertyDescriptor(proto, i);
-        }
-        if (attrs && attrs.set == null) {
-          continue;
-        }
-        child[i] = _clone(parent[i], depth - 1);
-      }
-      return child;
-    }
-    return _clone(parent, depth);
-  }
-
-  /**
-   * Simple flat clone using prototype, accepts only objects, usefull for property
-   * override on FLAT configuration object (no nested props).
-   *
-   * USE WITH CAUTION! This may not behave as you wish if you do not know how this
-   * works.
-   */
-  clone.clonePrototype = function clonePrototype(parent) {
-    if (parent === null) return null;
-    var c = function c() {};
-    c.prototype = parent;
-    return new c();
-  };
-
-  // private utility functions
-
-  function __objToStr(o) {
-    return Object.prototype.toString.call(o);
-  }
-  clone.__objToStr = __objToStr;
-  function __isDate(o) {
-    return _typeof(o) === 'object' && __objToStr(o) === '[object Date]';
-  }
-  clone.__isDate = __isDate;
-  function __isArray(o) {
-    return _typeof(o) === 'object' && __objToStr(o) === '[object Array]';
-  }
-  clone.__isArray = __isArray;
-  function __isRegExp(o) {
-    return _typeof(o) === 'object' && __objToStr(o) === '[object RegExp]';
-  }
-  clone.__isRegExp = __isRegExp;
-  function __getRegExpFlags(re) {
-    var flags = '';
-    if (re.global) flags += 'g';
-    if (re.ignoreCase) flags += 'i';
-    if (re.multiline) flags += 'm';
-    return flags;
-  }
-  clone.__getRegExpFlags = __getRegExpFlags;
-  return clone;
-}();
-if ((typeof module === "undefined" ? "undefined" : _typeof(module)) === 'object' && module.exports) {
-  module.exports = clone$1;
-}
-
-var clone$2 = /*#__PURE__*/Object.freeze({
-  __proto__: null
-});
-
-var require$$1 = /*@__PURE__*/getAugmentedNamespace(clone$2);
-
-var assign = objectAssign;
-var clone = require$$1;
-var DEFAULT = {
-  attrName: 'data-tooltip',
-  throttle: 10,
-  showDelay: 500,
-  offset: {
-    x: 5,
-    y: 5
-  },
-  hideOnChange: true,
-  hideOnChangeDelay: 500,
-  className: 'tooltip',
-  style: {
-    padding: 5,
-    border: '1px solid gray',
-    background: 'white',
-    boxSizing: 'border-box',
-    pointerEvents: 'none',
-    position: 'absolute',
-    visibility: 'hidden',
-    display: 'inline-block',
-    transform: 'translate3d(0px, 0px, 0px)',
-    transition: 'opacity 0.3s' //, top 0.2s, left 0.2s'
-  },
-
-  visibleStyle: {
-    opacity: 1,
-    visibility: 'visible'
-  },
-  hiddenStyle: {
-    opacity: 0
-  },
-  alignPositions: null
-};
-var preparePositions = preparePositions$2;
-var id = 0;
-var config = function (values) {
-  values = values || {};
-  var style = assign({}, DEFAULT.style, values.style);
-  var visibleStyle = assign({}, DEFAULT.visibleStyle, values.visibleStyle);
-  var hiddenStyle = assign({}, DEFAULT.hiddenStyle, values.hiddenStyle);
-  var config = clone(assign({}, DEFAULT, values));
-  config.style = style;
-  config.visibleStyle = visibleStyle;
-  config.hiddenStyle = hiddenStyle;
-  config.selector = '[' + config.attrName + ']';
-  config.alignPositions = preparePositions(config.alignPositions);
-  config.target = config.target || document.documentElement;
-  config.id = id++;
-  return config;
-};
-
-var proto = typeof Element !== 'undefined' ? Element.prototype : {};
-var vendor = proto.matches || proto.matchesSelector || proto.webkitMatchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector;
-var matchesSelector = match;
-
-/**
- * Match `el` to `selector`.
- *
- * @param {Element} el
- * @param {String} selector
- * @return {Boolean}
- * @api public
- */
-
-function match(el, selector) {
-  if (!el || el.nodeType !== 1) return false;
-  if (vendor) return vendor.call(el, selector);
-  var nodes = el.parentNode.querySelectorAll(selector);
-  for (var i = 0; i < nodes.length; i++) {
-    if (nodes[i] == el) return true;
-  }
-  return false;
-}
-
-var matches = matchesSelector;
-var eventMatches = function (root, selector) {
-  return function (event) {
-    var target = event.target;
-    while (target) {
-      if (matches(target, selector)) {
-        return target;
-      }
-      if (target == root) {
-        return;
-      }
-      target = target.parentNode;
-    }
-  };
-};
-
-var testEventMatches$1 = eventMatches;
-var mouseenter$1 = function (el, selector, fn, config) {
-  var eventMatches = testEventMatches$1(el, selector);
-  var onMouseOver = function onMouseOver(event) {
-    event.target;
-    event.relatedTarget;
-
-    // console.log(event.target, event.relatedTarget)
-
-    // has() returns true if we move into target from related,
-    // where related is a child of target
-
-    var match;
-
-    // if (!related || (related !== target && has(target, related))){
-    if (match = eventMatches(event)) {
-      fn(match, event);
-    }
-    // }
-  };
-
-  el.addEventListener('mouseover', onMouseOver);
-  return function () {
-    el.removeEventListener('mouseover', onMouseOver);
-  };
-};
-
-var testEventMatches = eventMatches;
-function returnTrue() {
-  return true;
-}
-function contains$2(haystack, needle) {
-  var targ = needle;
-  while (targ && targ !== haystack) {
-    targ = targ.parentNode;
-  }
-  return targ !== haystack;
-}
-var mouseleave$1 = function (el, selector, fn, config) {
-  var has = config && config.allowNested ? returnTrue : contains$2;
-  var eventMatches = testEventMatches(el, selector);
-  var onMouseOut = function onMouseOut(event) {
-    var target = event.target;
-    var related = event.relatedTarget;
-
-    // console.log(event.target, event.relatedTarget)
-
-    // has() returns true if we move into target from related, 
-    // where related is a child of target
-
-    var match;
-    if (!related || related !== target && has(target, related)) {
-      if (match = eventMatches(event)) {
-        fn(match, event);
-      }
-    }
-  };
-  el.addEventListener('mouseout', onMouseOut);
-  return function () {
-    el.removeEventListener('mouseout', onMouseOut);
-  };
-};
-
-var DOCUMENT_POSITION_CONTAINED_BY = 16;
-var contains_1 = contains$1;
-function contains$1(container, elem) {
-  if (container.contains) {
-    return container.contains(elem);
-  }
-  var comparison = container.compareDocumentPosition(elem);
-  return comparison === 0 || comparison & DOCUMENT_POSITION_CONTAINED_BY;
-}
-
-var throttle = throttle$1;
-var targetFn = target;
-var configure = config;
-var mouseenter = mouseenter$1;
-var mouseleave = mouseleave$1;
-var contains = contains_1;
-var TOOLTIP = function TOOLTIP(cfg) {
-  var config = configure(cfg);
-  var target = targetFn(config);
-  var root = config.target;
-  var t = config.throttle;
-
-  //make the target && protection since it might be destroyed by that time
-  var onMouseOver = throttle(function (eventTarget) {
-    target && target.set(eventTarget);
-  }, t);
-  var onMouseOut = throttle(function (eventTarget) {
-    target && target.hold();
-    setTimeout(function () {
-      if (target && target.onHold()) {
-        target.set(null);
-      }
-    }, t);
-  }, t);
-  var removeMouseEnter = mouseenter(root, config.selector, onMouseOver);
-  var removeMouseLeave = mouseleave(root, config.selector, onMouseOut);
-  var onMouseMove = throttle(function () {
-    var currentTarget = target.getCurrentTarget();
-    if (currentTarget && !contains(document.documentElement, currentTarget)) {
-      target.set(null);
-    }
-  }, 200);
-  root.addEventListener('mousemove', onMouseMove);
-  return {
-    destroy: function destroy() {
-      target.destroy();
-      removeMouseEnter();
-      removeMouseLeave();
-      root.removeEventListener('mousemove', onMouseMove);
-      root = null;
-      target = null;
-      config = null;
-    }
-  };
-};
-var src = TOOLTIP;
-
-console.debug(src.tooltip);
 var _document = document,
   body = _document.body,
   navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
-  noScrollSavesPosition = true;
-var collapsible;
-
-// old browsers scroll-snap-type nav support
-if (typeof globalThis === 'undefined') {
-  //console.warn('Navigator is too old !!!');
-  new PanelSnap$1({
-    panelSelector: '> .page',
-    directionThreshold: 1
-  });
-
-  /**
-   * Smooth scrolling to id
-   */
-  addEventListener('click', function (e) {
-    var target;
-    if (target = e.target.closest('a[href^="#"]')) {
-      var elem = document.getElementById(target.getAttribute('href').slice(1));
-      if (elem) {
-        e.preventDefault();
-        elem.scrollIntoView({
-          block: "start",
-          inline: "nearest",
-          behavior: 'smooth'
-        });
-      }
-    }
-  });
-}
-
-//enable tooltips
-
-//const scrollNav = new ScrollNav(document.body, '.page');
-
+  noScrollSavesPosition = true,
+  pages = _toConsumableArray(document.querySelectorAll('.page'));
+var collapsible, currentPage;
 var pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', function (e) {
   var relatedTarget = e.relatedTarget,
@@ -13359,6 +9853,25 @@ addEventListener('activate.bs.scrollspy', function (e) {
       pill.classList.remove('active');
     }
   });
+});
+var io = new IntersectionObserver(function (entries) {
+  for (var i = 0; i < entries.length; i++) {
+    var item = entries[i];
+    if (item.isIntersecting) {
+      currentPage = item.target;
+      currentPage.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: 'smooth'
+      });
+      break;
+    }
+  }
+}, {
+  threshold: 0.4
+});
+pages.forEach(function (page) {
+  return io.observe(page);
 });
 addEventListener('show.bs.collapse', function () {
   var _body$classList;

@@ -7,46 +7,18 @@ import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
 import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
 import toast from "./components/notifications.mjs";
-import { tooltip } from 'tooltip';
 
 
 
-console.debug(tooltip);
-
-
-const { body } = document, navbarEventTypes = ['navbar-collapsing', 'navbar-shown'], noScrollSavesPosition = true;
-
-let collapsible;
-
-// old browsers scroll-snap-type nav support
-if (typeof globalThis === 'undefined') {
-    //console.warn('Navigator is too old !!!');
-    new PanelSnap({ panelSelector: '> .page', directionThreshold: 1 });
-
-    /**
-     * Smooth scrolling to id
-     */
-    addEventListener('click', e => {
-        let target;
-
-        if (target = e.target.closest('a[href^="#"]')) {
-            const elem = document.getElementById(target.getAttribute('href').slice(1));
-            if (elem) {
-                e.preventDefault();
-                elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
-            }
-        }
-    });
+const
+    { body } = document,
+    navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
+    noScrollSavesPosition = true,
+    pages = [...document.querySelectorAll('.page')];
 
 
 
-}
-
-//enable tooltips
-
-
-//const scrollNav = new ScrollNav(document.body, '.page');
-
+let collapsible, currentPage;
 
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
@@ -64,6 +36,29 @@ addEventListener('activate.bs.scrollspy', e => {
         }
     });
 });
+
+
+
+
+const io = new IntersectionObserver(entries => {
+
+    for (let i = 0; i < entries.length; i++) {
+        let item = entries[i];
+        if (item.isIntersecting) {
+            currentPage = item.target;
+            currentPage.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' })
+            break;
+        }
+    }
+}, {
+    threshold: 0.4
+});
+
+pages.forEach(page => io.observe(page));
+
+
+
+
 
 
 addEventListener('show.bs.collapse', () => {
