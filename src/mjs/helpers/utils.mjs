@@ -68,7 +68,7 @@ export function runAsync(callback, ...args) {
  * @param {string} [innerHTML]
  * @returns {HTMLElement}
  */
-export function createElement(tagName = 'div', attributes = null, innerHTML = '') {
+export function createElementOld(tagName = 'div', attributes = null, innerHTML = '') {
     if (isString(attributes)) {
         innerHTML = attributes;
         attributes = null;
@@ -105,6 +105,90 @@ export function createElement(tagName = 'div', attributes = null, innerHTML = ''
     return elem;
 }
 
+
+function toDashed(name) {
+    return name.replace(/([A-Z])/g, function (u) {
+        return "-" + u.toLowerCase();
+    });
+}
+
+/**
+ * Creates an Element
+ *
+ * @param {string} tagName
+ * @param {Object} [params]
+ * @param {string|HTMLElement|string[]|HTMLElement[]} [html]
+ * @returns {HTMLElement}
+ */
+export function createElement(tag, params = null, html = '') {
+
+    if (typeof tag !== 'string') {
+        throw new TypeError('tag must be a String');
+    }
+
+
+    if (
+        typeof params === 'string' ||
+        params instanceof Element ||
+        params instanceof NodeList ||
+        Array.isArray(params)
+    ) {
+        html = params;
+        params = {};
+    }
+
+
+    params ??= {};
+    html ??= '';
+
+    const elem = document.createElement(tag);
+
+    for (let attr in params) {
+        let value = params[attr];
+        if (attr === 'html') {
+            html = value;
+            continue;
+        }
+
+        if (/^data(set)?$/.test(attr) && isPlainObject(value)) {
+
+            for (let key in value) {
+                elem.dataset[key] = value[key];
+            }
+            continue;
+        } else if (/^data(-)?\w/.test(attr)) {
+            elem.setAttribute(toDashed(attr), value);
+            continue;
+        }
+
+        if (typeof value === 'string') {
+            elem.setAttribute(attr, value);
+        }
+        else {
+            elem[attr] = value;
+        }
+    }
+
+
+
+    if (html instanceof Element) {
+        html = [html];
+    }
+
+    if (Array.isArray(html) || html instanceof NodeList) {
+
+        html.forEach(item => {
+            if (item instanceof Element) {
+                elem.appendChild(item);
+            } else if (typeof item === 'string') {
+                elem.innerHTML += item;
+            }
+        });
+    } else if (typeof html === 'string') {
+        elem.innerHTML = html;
+    }
+    return elem;
+}
 
 
 /**

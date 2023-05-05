@@ -7961,46 +7961,68 @@ function runAsync(callback) {
     }, 0);
   }
 }
+function toDashed$1(name) {
+  return name.replace(/([A-Z])/g, function (u) {
+    return "-" + u.toLowerCase();
+  });
+}
 
 /**
  * Creates an Element
  *
  * @param {string} tagName
- * @param {Object} [attributes]
- * @param {string} [innerHTML]
+ * @param {Object} [params]
+ * @param {string|HTMLElement|string[]|HTMLElement[]} [html]
  * @returns {HTMLElement}
  */
-function createElement() {
-  var tagName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'div';
-  var attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var innerHTML = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  if (isString(attributes)) {
-    innerHTML = attributes;
-    attributes = null;
+function createElement(tag) {
+  var _params, _html;
+  var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var html = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  if (typeof tag !== 'string') {
+    throw new TypeError('tag must be a String');
   }
-  attributes = isPlainObject(attributes) ? attributes : {};
-  var elem = document$1.createElement(tagName),
-    props = Object.keys(attributes),
-    prop;
-  for (var i = 0; i < props.length; i++) {
-    prop = props[i];
-    if (prop === 'html') {
-      innerHTML = attributes[prop];
+  if (typeof params === 'string' || params instanceof Element || params instanceof NodeList || Array.isArray(params)) {
+    html = params;
+    params = {};
+  }
+  (_params = params) !== null && _params !== void 0 ? _params : params = {};
+  (_html = html) !== null && _html !== void 0 ? _html : html = '';
+  var elem = document$1.createElement(tag);
+  for (var attr in params) {
+    var value = params[attr];
+    if (attr === 'html') {
+      html = value;
       continue;
     }
-    if (/^data(set)?$/.test(prop) && isPlainObject(attributes[prop])) {
-      Object.keys(attributes[prop]).forEach(function (key) {
-        elem.dataset[key] = attributes[prop][key];
-      });
-    } else if (typeof attributes[prop] !== 'string') {
-      elem[prop] = attributes[prop];
+    if (/^data(set)?$/.test(attr) && isPlainObject(value)) {
+      for (var key in value) {
+        elem.dataset[key] = value[key];
+      }
       continue;
+    } else if (/^data(-)?\w/.test(attr)) {
+      elem.setAttribute(toDashed$1(attr), value);
+      continue;
+    }
+    if (typeof value === 'string') {
+      elem.setAttribute(attr, value);
     } else {
-      elem.setAttribute(prop, attributes[prop]);
+      elem[attr] = value;
     }
   }
-  if (innerHTML.length > 0) {
-    elem.innerHTML = innerHTML;
+  if (html instanceof Element) {
+    html = [html];
+  }
+  if (Array.isArray(html) || html instanceof NodeList) {
+    html.forEach(function (item) {
+      if (item instanceof Element) {
+        elem.appendChild(item);
+      } else if (typeof item === 'string') {
+        elem.innerHTML += item;
+      }
+    });
+  } else if (typeof html === 'string') {
+    elem.innerHTML = html;
   }
   return elem;
 }
