@@ -9857,11 +9857,64 @@ Object.assign(toast, {
   warn: warn
 });
 
+var DarkModeButton = /*#__PURE__*/function () {
+  function DarkModeButton() {
+    var _this = this;
+    _classCallCheck(this, DarkModeButton);
+    var checkbox = this.checkbox = document.getElementById('darkmode');
+    this.body = document.body;
+    var savedValue = localStorage.getItem('darkmode');
+    if (!matchMedia('(prefers-color-scheme: dark)').matches) {
+      if ('true' === savedValue) {
+        this.enable();
+      } else if ('false' === savedValue) {
+        this.disable();
+      }
+    }
+    checkbox.checked = this.enabled;
+    checkbox.addEventListener('change', function (e) {
+      //e.preventDefault();
+
+      if (checkbox.checked === true) {
+        _this.enable();
+      } else {
+        _this.disable();
+      }
+    });
+  }
+  _createClass(DarkModeButton, [{
+    key: "enable",
+    value: function enable() {
+      this.enabled = true;
+      this.body.dataset['bsTheme'] = 'dark';
+    }
+  }, {
+    key: "disable",
+    value: function disable() {
+      this.enabled = false;
+      delete this.body.dataset['bsTheme'];
+    }
+  }, {
+    key: "enabled",
+    get: function get() {
+      var value = localStorage.getItem('darkmode');
+      if (null !== value) {
+        return value === 'true';
+      }
+    },
+    set: function set(toggle) {
+      localStorage.setItem('darkmode', toggle === true ? "true" : "false");
+    }
+  }]);
+  return DarkModeButton;
+}();
+
 var _document = document,
   body = _document.body,
   navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
   noScrollSavesPosition = true,
   pages = _toConsumableArray(document.querySelectorAll('.page'));
+  new DarkModeButton();
 var collapsible, currentPage;
 var pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', function (e) {

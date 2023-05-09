@@ -7,6 +7,7 @@ import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
 import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
 import toast from "./components/notifications.mjs";
+import DarkModeButton from "./components/darkmode.mjs";
 
 
 
@@ -14,7 +15,8 @@ const
     { body } = document,
     navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
     noScrollSavesPosition = true,
-    pages = [...document.querySelectorAll('.page')];
+    pages = [...document.querySelectorAll('.page')],
+    darkmode = new DarkModeButton();
 
 
 

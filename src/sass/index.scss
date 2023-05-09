@@ -4,7 +4,7 @@
 @use 'components/izitoast';
 @use 'components/gerillass' as g;
 @use 'helpers' as *;
-
+@use 'components/switch';
 @use './components/animated/attention_seekers/rubberBand' as *;
 
 
@@ -359,6 +359,18 @@ header.fixed-top {
                 background: rgba(var(--bs-light-rgb), 1);
             }
         }
+    }
+
+
+
+
+}
+
+@media (prefers-color-scheme: 'dark') {
+
+    /* darkmode button */
+    .navbar .switch {
+        display: none;
     }
 }
 

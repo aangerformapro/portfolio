@@ -1,0 +1,136 @@
+.switcher {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+    &-input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked~.switch .slider {
+            background-color: #2196F3;
+
+            &::before {
+                transform: translateX(26px);
+            }
+        }
+
+
+        &:focus~.switch .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+    }
+
+
+    .slider {
+
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+
+
+        &:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+
+        &.round {
+            border-radius: 34px;
+
+            &::before {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+.switch {
+
+    display: inline-block;
+    width: 4rem;
+    height: 2rem;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--bs-body-bg);
+
+    border: 1px solid var(--bs-border-color);
+
+    .slider {
+        background: var(--bs-body-bg);
+
+        width: 1.875rem;
+        height: 1.875rem;
+        position: absolute;
+        top: 0;
+        left: -1px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid var(--bs-border-color);
+
+
+        transition: left .4s ease-in-out;
+
+        // transform: translateX(-1px);
+
+
+    }
+
+    &.round {
+        border-radius: 2rem;
+
+        & .slider {
+            border-radius: 50%;
+        }
+    }
+
+
+}
+
+
+
+
+
+
+.switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    appearance: none;
+
+    &:checked~.switch {
+        background: #0d6efd;
+
+        .slider {
+            left: 2.0625rem;
+        }
+
+
+
+
+    }
+}
