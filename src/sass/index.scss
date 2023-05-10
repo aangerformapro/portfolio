@@ -246,6 +246,10 @@ header.fixed-top {
 }
 
 
+.nav-link.active {
+    color: var(--bs-navbar-active-color) !important;
+}
+
 @include bootstrap.color-mode('dark') {
 
     .navbar .navbar-brand,
@@ -341,6 +345,18 @@ header.fixed-top {
 }
 
 
+.switch {
+    background: rgba(0, 0, 0, .3) !important;
+    transform: scale(.9);
+}
+
+#darkmode-slider {
+    & svg[data-mode="dark"] {
+        display: none;
+    }
+
+}
+
 
 @include bootstrap.color-mode('dark') {
     .navbar-toggler {
@@ -361,8 +377,17 @@ header.fixed-top {
         }
     }
 
+    #darkmode-slider {
+        & svg[data-mode="light"] {
+            display: none;
+        }
 
 
+        & svg[data-mode="dark"] {
+            display: initial;
+        }
+
+    }
 
 }
 

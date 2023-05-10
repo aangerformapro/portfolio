@@ -20,7 +20,28 @@ const
 
 
 
-let collapsible, currentPage;
+function scrollIntoView(elem, delay = 750) {
+
+
+    if (scrollingIntoView) {
+        return;
+    }
+
+    if (elem instanceof Element) {
+
+        scrollingIntoView = true;
+
+        setTimeout(() => {
+            scrollingIntoView = false;
+        }, delay);
+
+        elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
+
+    }
+}
+
+
+let collapsible, currentPage, scrollingIntoView;
 
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
@@ -45,15 +66,20 @@ addEventListener('activate.bs.scrollspy', e => {
 const io = new IntersectionObserver(entries => {
 
     for (let i = 0; i < entries.length; i++) {
+
+        if (scrollingIntoView) {
+            return;
+        }
         let item = entries[i];
         if (item.isIntersecting) {
             currentPage = item.target;
-            currentPage.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' })
+            scrollIntoView(currentPage);
+
             break;
         }
     }
 }, {
-    threshold: 0.4
+    threshold: 0.3
 });
 
 pages.forEach(page => io.observe(page));
@@ -94,20 +120,18 @@ addEventListener('click', e => {
         let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
 
         addEventListener('hidden.bs.collapse', () => {
-            elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
+            scrollIntoView(elem);
         }, { once: true });
 
         collapsible.hide();
 
-    } else if (target = e.target.closest('[href^="#"].scroll-down-button')) {
+    } else if (target = e.target.closest('[href^="#"].scroll-down-button, .nav-pills [href^="#"]')) {
         let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
 
         if (elem) {
             e.preventDefault();
-            elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
+            scrollIntoView(elem);
         }
-
-
     }
 
 });
@@ -181,23 +205,14 @@ addEventListener('submit', e => {
 });
 
 addEventListener('change', e => {
-    const
-        input = e.target.closest('input, textarea');
+    const input = e.target.closest('input, textarea');
 
     if (input && e.target.closest('#about form')) {
         e.preventDefault();
     }
 
 
-    //console.debug(e, e.target.closest('input, textarea').form.elements);
-    //console.debug(e.target.closest('form').elements);
 });
 
 
 
-//document.body.setAttribute('data-bs-theme', 'dark');
-
-//document.body['data-bs-theme'] = "dark";
-
-
-//document.body.dataset.bsTheme = "dark";

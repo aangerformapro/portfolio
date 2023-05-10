@@ -9915,7 +9915,24 @@ var _document = document,
   noScrollSavesPosition = true,
   pages = _toConsumableArray(document.querySelectorAll('.page'));
   new DarkModeButton();
-var collapsible, currentPage;
+function scrollIntoView(elem) {
+  var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 750;
+  if (scrollingIntoView) {
+    return;
+  }
+  if (elem instanceof Element) {
+    scrollingIntoView = true;
+    setTimeout(function () {
+      scrollingIntoView = false;
+    }, delay);
+    elem.scrollIntoView({
+      block: "start",
+      inline: "nearest",
+      behavior: 'smooth'
+    });
+  }
+}
+var collapsible, currentPage, scrollingIntoView;
 var pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', function (e) {
   var relatedTarget = e.relatedTarget,
@@ -9931,19 +9948,18 @@ addEventListener('activate.bs.scrollspy', function (e) {
 });
 var io = new IntersectionObserver(function (entries) {
   for (var i = 0; i < entries.length; i++) {
+    if (scrollingIntoView) {
+      return;
+    }
     var item = entries[i];
     if (item.isIntersecting) {
       currentPage = item.target;
-      currentPage.scrollIntoView({
-        block: "start",
-        inline: "nearest",
-        behavior: 'smooth'
-      });
+      scrollIntoView(currentPage);
       break;
     }
   }
 }, {
-  threshold: 0.4
+  threshold: 0.3
 });
 pages.forEach(function (page) {
   return io.observe(page);
@@ -9977,25 +9993,17 @@ addEventListener('click', function (e) {
     var id = target.getAttribute('href').slice(1),
       elem = document.getElementById(id);
     addEventListener('hidden.bs.collapse', function () {
-      elem.scrollIntoView({
-        block: "start",
-        inline: "nearest",
-        behavior: 'smooth'
-      });
+      scrollIntoView(elem);
     }, {
       once: true
     });
     collapsible.hide();
-  } else if (target = e.target.closest('[href^="#"].scroll-down-button')) {
+  } else if (target = e.target.closest('[href^="#"].scroll-down-button, .nav-pills [href^="#"]')) {
     var _id = target.getAttribute('href').slice(1),
       _elem = document.getElementById(_id);
     if (_elem) {
       e.preventDefault();
-      _elem.scrollIntoView({
-        block: "start",
-        inline: "nearest",
-        behavior: 'smooth'
-      });
+      scrollIntoView(_elem);
     }
   }
 });
@@ -10064,14 +10072,5 @@ addEventListener('change', function (e) {
   if (input && e.target.closest('#about form')) {
     e.preventDefault();
   }
-
-  //console.debug(e, e.target.closest('input, textarea').form.elements);
-  //console.debug(e.target.closest('form').elements);
 });
-
-//document.body.setAttribute('data-bs-theme', 'dark');
-
-//document.body['data-bs-theme'] = "dark";
-
-//document.body.dataset.bsTheme = "dark";
 //# sourceMappingURL=bundle.js.map

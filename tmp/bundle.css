@@ -10610,55 +10610,6 @@ textarea.form-control-lg {
     opacity: 0;
   }
 }
-.switcher {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-.switcher-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.switcher-input:checked ~ .switch .slider {
-  background-color: #2196F3;
-}
-.switcher-input:checked ~ .switch .slider::before {
-  transform: translateX(26px);
-}
-.switcher-input:focus ~ .switch .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-.switcher .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-.switcher .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-.switcher .slider.round {
-  border-radius: 34px;
-}
-.switcher .slider.round::before {
-  border-radius: 50%;
-}
-
 .switch {
   display: inline-block;
   width: 4rem;
@@ -10928,6 +10879,10 @@ header.fixed-top {
   color: rgba(var(--bs-dark-rgb), 1);
 }
 
+.nav-link.active {
+  color: var(--bs-navbar-active-color) !important;
+}
+
 @media (prefers-color-scheme: dark) {
   .navbar .navbar-brand,
   .navbar .nav-link,
@@ -11003,6 +10958,15 @@ header.fixed-top {
   background: rgba(var(--bs-dark-rgb), 1);
 }
 
+.switch {
+  background: rgba(0, 0, 0, 0.3) !important;
+  transform: scale(0.9);
+}
+
+#darkmode-slider svg[data-mode=dark] {
+  display: none;
+}
+
 @media (prefers-color-scheme: dark) {
   .navbar-toggler .hamburger,
   .navbar-toggler .hamburger::before,
@@ -11014,6 +10978,12 @@ header.fixed-top {
   .navbar-toggler:hover .hamburger::after {
     background: rgba(var(--bs-light-rgb), 1);
   }
+  #darkmode-slider svg[data-mode=light] {
+    display: none;
+  }
+  #darkmode-slider svg[data-mode=dark] {
+    display: initial;
+  }
 }
 [data-bs-theme=dark] .navbar-toggler .hamburger,
 [data-bs-theme=dark] .navbar-toggler .hamburger::before,
@@ -11024,6 +10994,12 @@ header.fixed-top {
 [data-bs-theme=dark] .navbar-toggler:hover .hamburger::before,
 [data-bs-theme=dark] .navbar-toggler:hover .hamburger::after {
   background: rgba(var(--bs-light-rgb), 1);
+}
+[data-bs-theme=dark] #darkmode-slider svg[data-mode=light] {
+  display: none;
+}
+[data-bs-theme=dark] #darkmode-slider svg[data-mode=dark] {
+  display: initial;
 }
 
 @media (prefers-color-scheme: dark) {
