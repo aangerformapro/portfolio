@@ -8233,7 +8233,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
+var css_248z$1 = ".noscroll {\r\n    position: fixed !important;\r\n    overflow-y: hidden !important;\r\n    width: 100% !important;\r\n    z-index: -1 !important;\r\n}\r\n\r\n.scrollback {\r\n    scroll-behavior: auto !important;\r\n}";
 styleInject(css_248z$1);
 
 var _document$1 = document,
@@ -8653,7 +8653,7 @@ function dataset(elem, attr, value) {
   return $this;
 }
 
-var css_248z = ".iziToast-wrapper-bottomRight {\n    top: 40% !important;\n    bottom: auto !important;\n}";
+var css_248z = ".iziToast-wrapper-bottomRight {\r\n    top: 40% !important;\r\n    bottom: auto !important;\r\n}";
 styleInject(css_248z);
 
 /*
