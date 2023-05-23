@@ -154,10 +154,20 @@ header.fixed-top {
     backdrop-filter: blur(3px);
 }
 
+.landscape {
+    background: #f8f9fa;
+}
+
 @include bootstrap.color-mode('dark') {
     header.fixed-top {
         background: rgba(var(--bs-dark-rgb), .8);
     }
+
+    .landscape {
+        background: #212529;
+    }
+
+
 }
 
 .navbar-shown,
@@ -172,10 +182,21 @@ header.fixed-top {
 
 .page {
     // fixed header size
-    padding-top: 80px;
+    padding-top: 64px;
     min-height: 100vh;
     //scroll-snap-align: end;
     transition: transform 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+
+#logo svg {
+    transition: transform 2s ease-in-out;
+    transform-origin: center;
+
+    &:hover {
+        transform: rotate(-1440deg);
+    }
+
 
 }
 
@@ -432,6 +453,20 @@ header.fixed-top {
         color: #fff;
         -webkit-text-fill-color: transparent;
         animation: tclip 5s linear infinite;
+
+
+    }
+
+    @include lg-down {
+
+        h1 {
+            font-size: 1.25rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+
     }
 
     .row {
@@ -517,4 +552,39 @@ header.fixed-top {
         height: 128px;
 
     }
+}
+
+
+.landscape {
+    display: none;
+}
+
+@media (orientation: landscape) and (max-height: 400px) and (max-width: 768px) {
+
+    .landscape {
+        display: flex;
+        position: fixed;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            max-width: 66vw;
+            text-align: center;
+        }
+
+
+    }
+
+    html {
+        overflow: hidden;
+    }
+
+
+
+
 }

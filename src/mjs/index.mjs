@@ -1,7 +1,7 @@
-import PanelSnap from "panelsnap";
+import "./helpers/process.mjs";
 
 // bootstrap components
-import { Collapse, ScrollSpy } from "bootstrap";
+import { Collapse, ScrollSpy, Tooltip } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
@@ -16,9 +16,11 @@ const
     navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
     noScrollSavesPosition = true,
     pages = [...document.querySelectorAll('.page')],
-    darkmode = new DarkModeButton();
+    darkmode = new DarkModeButton(),
+    tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
+        .map(elem => new Tooltip(elem));
 
-
+console.debug(tooltips);
 
 function scrollIntoView(elem, delay = 750) {
 

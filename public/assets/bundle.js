@@ -678,6 +678,17 @@ function _classPrivateFieldInitSpec(obj, privateMap, value) {
   privateMap.set(obj, value);
 }
 
+/**
+ * Bootstrap popper js fix
+ */
+if (typeof window !== "undefined" && typeof process === "undefined") {
+  window.process = {
+    env: {
+      NODE_ENV: 'production'
+    }
+  };
+}
+
 var top = 'top';
 var bottom = 'bottom';
 var right = 'right';
@@ -9915,6 +9926,10 @@ var _document = document,
   noScrollSavesPosition = true,
   pages = _toConsumableArray(document.querySelectorAll('.page'));
   new DarkModeButton();
+  var tooltips = _toConsumableArray(document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')).map(function (elem) {
+    return new Tooltip(elem);
+  });
+console.debug(tooltips);
 function scrollIntoView(elem) {
   var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 750;
   if (scrollingIntoView) {
