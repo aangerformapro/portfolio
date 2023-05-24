@@ -7931,8 +7931,8 @@ defineJQueryPlugin(Toast);
 /* global unsafeWindow, globalThis */
 
 var global$1 = typeof unsafeWindow !== 'undefined' ? unsafeWindow : typeof globalThis !== 'undefined' ? globalThis : window;
-var document$1 = global$1.document;
-  global$1.JSON;
+var document$1 = global$1.document,
+  JSON$2 = global$1.JSON;
 var RE_NUMERIC = /^-?(?:[\d]+\.)?\d+$/;
 var isPlainObject = function isPlainObject(param) {
     return param instanceof Object && Object.getPrototypeOf(param) === Object.prototype;
@@ -7955,6 +7955,9 @@ var isPlainObject = function isPlainObject(param) {
   isNumeric = function isNumeric(param) {
     return isInt(param) || isFloat(param) || RE_NUMERIC.test(param);
   },
+  isArray = function isArray(param) {
+    return Array.isArray(param);
+  },
   isNull = function isNull(param) {
     return param === null;
   },
@@ -7972,9 +7975,36 @@ function runAsync(callback) {
     }, 0);
   }
 }
-function toDashed$1(name) {
-  return name.replace(/([A-Z])/g, function (u) {
-    return "-" + u.toLowerCase();
+function isHTML(param) {
+  return isString(param) && param.startsWith('<') && param.endsWith('>');
+}
+function encode$1(value) {
+  if (!isString(value)) {
+    return JSON$2.stringify(value);
+  }
+  return value;
+}
+function parseDataElement(data) {
+  var _data;
+  var root = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var result = [];
+  (_data = data) !== null && _data !== void 0 ? _data : data = {};
+  var _loop = function _loop(key) {
+    var value = data[key];
+    if (isPlainObject(value)) {
+      result = result.concat(parseDataElement(value, false).map(function (item) {
+        return [key + '-' + item[0], item[1]];
+      }));
+      return "continue";
+    }
+    result.push([key, encode$1(value)]);
+  };
+  for (var key in data) {
+    var _ret = _loop(key);
+    if (_ret === "continue") continue;
+  }
+  return result.map(function (item) {
+    return root ? ['data-' + item[0], item[1]] : item;
   });
 }
 
@@ -7993,26 +8023,28 @@ function createElement$1(tag) {
   if (typeof tag !== 'string') {
     throw new TypeError('tag must be a String');
   }
-  if (typeof params === 'string' || params instanceof Element || params instanceof NodeList || Array.isArray(params)) {
+  if (typeof params === 'string' || params instanceof Element || isArray(params)) {
     html = params;
     params = {};
   }
   (_params = params) !== null && _params !== void 0 ? _params : params = {};
   (_html = html) !== null && _html !== void 0 ? _html : html = '';
-  var elem = document$1.createElement(tag);
+  var elem = isHTML(tag) ? html2element(tag) : document$1.createElement(tag);
   for (var attr in params) {
     var value = params[attr];
     if (attr === 'html') {
       html = value;
       continue;
     }
-    if (/^data(set)?$/.test(attr) && isPlainObject(value)) {
-      for (var key in value) {
-        elem.dataset[key] = value[key];
+    if (attr === 'data') {
+      if (isPlainObject(value)) {
+        parseDataElement(value).forEach(function (item) {
+          var _item = _slicedToArray(item, 2),
+            key = _item[0],
+            value = _item[1];
+          elem.setAttribute(key, value);
+        });
       }
-      continue;
-    } else if (/^data(-)?\w/.test(attr)) {
-      elem.setAttribute(toDashed$1(attr), value);
       continue;
     }
     if (typeof value === 'string') {
@@ -8021,10 +8053,10 @@ function createElement$1(tag) {
       elem[attr] = value;
     }
   }
-  if (html instanceof Element) {
+  if (html instanceof Element || isString(html)) {
     html = [html];
   }
-  if (Array.isArray(html) || html instanceof NodeList) {
+  if (Array.isArray(html)) {
     html.forEach(function (item) {
       if (item instanceof Element) {
         elem.appendChild(item);
@@ -8032,10 +8064,26 @@ function createElement$1(tag) {
         elem.innerHTML += item;
       }
     });
-  } else if (typeof html === 'string') {
-    elem.innerHTML = html;
   }
   return elem;
+}
+
+/**
+ * Creates an HTMLElement from html code
+ * @param {string} html
+ * @returns {HTMLElement|Array|undefined}
+ */
+function html2element(html) {
+  if (isString(html) && html.length > 0) {
+    var template = createElement$1('template', html),
+      content = template.content;
+    if (content.childNodes.length === 0) {
+      return;
+    } else if (content.childNodes.length > 1) {
+      return _toConsumableArray(content.childNodes);
+    }
+    return content.childNodes[0];
+  }
 }
 
 var _listeners = /*#__PURE__*/new WeakMap();
@@ -19030,47 +19078,71 @@ document.querySelectorAll('.typed-text').forEach(function (elem) {
 
 // contact form
 
+function formNotify(type, message) {
+  var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
+  return new Promise(function (resolve) {
+    var formAlert = document.querySelector('#form-alert'),
+      msg = createElement$1('<div role="alert"/>', {
+        class: 'my-3 alert alert-' + type
+      }, message);
+    setTimeout(function () {
+      msg.remove();
+      resolve(msg);
+    }, delay);
+    formAlert.appendChild(msg);
+  });
+}
 addEventListener('submit', function (e) {
   var form = e.target.closest('form.needs-validation');
+  if (form) {
+    var btn;
+    if (btn = form.querySelector('[type="submit"]')) {
+      btn.classList.add('disabled');
+    }
+  }
   if (e.target.closest('#about form')) {
     e.preventDefault();
     if (form) {
       form.classList.add('was-validated');
       if (form.checkValidity()) {
-        var formdata = new URLSearchParams(new FormData(form));
+        var formData = new URLSearchParams(new FormData(form));
         fetch(form.action, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
           },
-          body: formdata.toString()
+          body: formData.toString()
         }).then(function (resp) {
-          console.debug(resp);
           if (!resp.ok) {
             throw new Error(resp.statusText);
           }
-          toast.success('votre message à été envoyé.');
-          form.classList.remove('was-validated');
-          form.reset();
+          formNotify('success', 'Votre message à bien été envoyé.').then(function () {
+            form.classList.remove('was-validated');
+            form.reset();
+          });
         }).catch(function (err) {
-          toast.error(err.message, "Une erreur s'est produite");
-          form.reset();
+          formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(function () {
+            form.classList.remove('was-validated');
+            form.reset();
+          });
         });
-
-        // toast.success('votre message à été envoyé.').then(() => {
-        //     form.classList.remove('was-validated');
-        //     form.reset();
-        // });
       }
     }
   }
 });
-
-addEventListener('change', function (e) {
-  var input = e.target.closest('input, textarea');
-  if (input && e.target.closest('#about form')) {
-    e.preventDefault();
+function checkForm(e) {
+  var form, btn;
+  if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
+    btn.classList.add('disabled');
+    if (form.checkValidity()) {
+      form.classList.add('was-validated');
+      btn.classList.remove('disabled');
+    }
   }
+}
+addEventListener('change', checkForm);
+document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea').forEach(function (elem) {
+  return elem.addEventListener('keyup', checkForm);
 });
 
 //Swiper

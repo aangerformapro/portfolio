@@ -187,9 +187,35 @@ document.querySelectorAll('.typed-text').forEach(elem => {
 
 // contact form
 
+function formNotify(type, message, delay = 3000) {
+
+    return new Promise(resolve => {
+        const
+            formAlert = document.querySelector('#form-alert'),
+            msg = createElement('<div role="alert"/>', {
+                class: 'my-3 alert alert-' + type
+            }, message);
+
+        setTimeout(() => {
+            msg.remove();
+            resolve(msg);
+        }, delay);
+
+        formAlert.appendChild(msg);
+    });
+
+}
+
 addEventListener('submit', e => {
 
     const form = e.target.closest('form.needs-validation');
+
+    if (form) {
+        let btn;
+        if (btn = form.querySelector('[type="submit"]')) {
+            btn.classList.add('disabled');
+        }
+    }
 
     if (e.target.closest('#about form')) {
         e.preventDefault();
@@ -198,62 +224,56 @@ addEventListener('submit', e => {
             form.classList.add('was-validated');
             if (form.checkValidity()) {
 
-                const formdata = new URLSearchParams(new FormData(form));
+                const formData = new URLSearchParams(new FormData(form));
+
 
                 fetch(form.action, {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: formdata.toString()
+                    body: formData.toString()
                 }).then(resp => {
-
-
-                    console.debug(resp);
                     if (!resp.ok) {
                         throw new Error(resp.statusText);
                     }
 
-                    toast.success('votre message à été envoyé.');
-                    form.classList.remove('was-validated');
-                    form.reset();
 
+                    formNotify('success', 'Votre message à bien été envoyé.').then(() => {
+                        form.classList.remove('was-validated');
+                        form.reset();
+                    });
 
                 }).catch(err => {
 
-                    toast.error(err.message, "Une erreur s'est produite");
-                    form.reset();
-
+                    formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() => {
+                        form.classList.remove('was-validated');
+                        form.reset();
+                    });
                 });
-
-
-
-
-
-
-                // toast.success('votre message à été envoyé.').then(() => {
-                //     form.classList.remove('was-validated');
-                //     form.reset();
-                // });
-
 
             }
 
         }
-
-
-
     }
 
 });
 
-addEventListener('change', e => {
-    const input = e.target.closest('input, textarea');
 
-    if (input && e.target.closest('#about form')) {
-        e.preventDefault();
+function checkForm(e) {
+    let form, btn;
+    if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
+        btn.classList.add('disabled');
+        if (form.checkValidity()) {
+            form.classList.add('was-validated');
+            btn.classList.remove('disabled');
+        }
     }
+}
 
 
-});
+addEventListener('change', checkForm);
+
+
+document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea').forEach(elem => elem.addEventListener('keyup', checkForm));
 
 
 

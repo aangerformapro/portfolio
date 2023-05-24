@@ -59,58 +59,98 @@ export function runAsync(callback, ...args) {
         }, 0);
     }
 }
+export function isValidSelector(selector) {
 
-/**
- * Creates an Element
- *
- * @param {string} tagName
- * @param {Object} [attributes]
- * @param {string} [innerHTML]
- * @returns {HTMLElement}
- */
-export function createElementOld(tagName = 'div', attributes = null, innerHTML = '') {
-    if (isString(attributes)) {
-        innerHTML = attributes;
-        attributes = null;
+    try {
+        return isString(selector) && null === document.createElement('template').querySelector(selector);
+
+    } catch (e) {
+        return false;
     }
 
-    attributes = isPlainObject(attributes) ? attributes : {};
-
-    let elem = document.createElement(tagName),
-        props = Object.keys(attributes),
-        prop;
-
-    for (let i = 0; i < props.length; i++) {
-        prop = props[i];
-        if (prop === 'html') {
-            innerHTML = attributes[prop];
-            continue;
-        }
-
-        if (/^data(set)?$/.test(prop) && isPlainObject(attributes[prop])) {
-            Object.keys(attributes[prop]).forEach((key) => {
-                elem.dataset[key] = attributes[prop][key];
-            });
-        } else if (typeof attributes[prop] !== 'string') {
-            elem[prop] = attributes[prop];
-            continue;
-        } else {
-            elem.setAttribute(prop, attributes[prop]);
-        }
-    }
-    if (innerHTML.length > 0) {
-        elem.innerHTML = innerHTML;
-    }
-
-    return elem;
 }
 
+
+export function uuidv4() {
+    let uuid = "", i, random;
+    for (i = 0; i < 32; i++) {
+        random = Math.random() * 16 | 0;
+        if (i == 8 || i == 12 || i == 16 || i == 20) {
+            uuid += "-"
+        }
+        uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+    }
+    return uuid;
+}
+
+
+export function isElement(elem) {
+    return elem instanceof Object && isFunction(elem.querySelector);
+}
 
 function toDashed(name) {
     return name.replace(/([A-Z])/g, function (u) {
         return "-" + u.toLowerCase();
     });
 }
+
+function isHTML(param) {
+    return isString(param) && param.startsWith('<') && param.endsWith('>');
+}
+
+
+export function decode(value) {
+
+    if (isUndef(value) || isNull(value) || value === '') {
+        return null;
+    }
+    if (
+        (value.startsWith('{') && value.endsWith('}')) ||
+        (value.startsWith('[') && value.endsWith(']')) ||
+        isNumeric(value) || value === 'true' || value === 'false'
+    ) {
+        return JSON.parse(value);
+    }
+
+    return value;
+}
+
+
+export function encode(value) {
+
+    if (!isString(value)) {
+        return JSON.stringify(value);
+    }
+    return value;
+}
+
+
+
+
+
+
+function parseDataElement(data, root = true) {
+
+    let result = [];
+
+    data ??= {};
+
+    for (let key in data) {
+
+        let value = data[key];
+
+        if (isPlainObject(value)) {
+            result = result.concat(parseDataElement(value, false).map(
+                item => [key + '-' + item[0], item[1]]
+            ));
+            continue;
+        }
+        result.push([key, encode(value)]);
+    }
+    return result.map(item => root ? ['data-' + item[0], item[1]] : item);
+}
+
+
 
 /**
  * Creates an Element
@@ -126,22 +166,20 @@ export function createElement(tag, params = null, html = '') {
         throw new TypeError('tag must be a String');
     }
 
-
     if (
         typeof params === 'string' ||
         params instanceof Element ||
-        params instanceof NodeList ||
-        Array.isArray(params)
+        isArray(params)
     ) {
         html = params;
         params = {};
     }
 
-
     params ??= {};
     html ??= '';
 
-    const elem = document.createElement(tag);
+
+    const elem = isHTML(tag) ? html2element(tag) : document.createElement(tag);
 
     for (let attr in params) {
         let value = params[attr];
@@ -149,15 +187,13 @@ export function createElement(tag, params = null, html = '') {
             html = value;
             continue;
         }
-
-        if (/^data(set)?$/.test(attr) && isPlainObject(value)) {
-
-            for (let key in value) {
-                elem.dataset[key] = value[key];
+        if (attr === 'data') {
+            if (isPlainObject(value)) {
+                parseDataElement(value).forEach(item => {
+                    const [key, value] = item;
+                    elem.setAttribute(key, value);
+                });
             }
-            continue;
-        } else if (/^data(-)?\w/.test(attr)) {
-            elem.setAttribute(toDashed(attr), value);
             continue;
         }
 
@@ -169,13 +205,11 @@ export function createElement(tag, params = null, html = '') {
         }
     }
 
-
-
-    if (html instanceof Element) {
+    if (html instanceof Element || isString(html)) {
         html = [html];
     }
 
-    if (Array.isArray(html) || html instanceof NodeList) {
+    if (Array.isArray(html)) {
 
         html.forEach(item => {
             if (item instanceof Element) {
@@ -184,8 +218,6 @@ export function createElement(tag, params = null, html = '') {
                 elem.innerHTML += item;
             }
         });
-    } else if (typeof html === 'string') {
-        elem.innerHTML = html;
     }
     return elem;
 }
@@ -197,9 +229,8 @@ export function createElement(tag, params = null, html = '') {
  */
 export function uniqid() {
 
-
-    uniqid.values = uniqid.values || [];
     let value;
+    uniqid.values ??= [];
 
     while (!value || uniqid.values.includes(value)) {
         value = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -229,7 +260,6 @@ export function clone(obj) {
  */
 export function cloneRecursive(obj) {
     if (obj instanceof Object) {
-
 
         if (isArray(obj)) {
 
@@ -273,7 +303,7 @@ export function html2doc(html) {
 /**
  * Creates an HTMLElement from html code
  * @param {string} html
- * @returns {HTMLElement|Text|NodeList}
+ * @returns {HTMLElement|Array|undefined}
  */
 export function html2element(html) {
     if (isString(html) && html.length > 0) {
@@ -282,21 +312,18 @@ export function html2element(html) {
         if (content.childNodes.length === 0) {
             return;
         }
-        if (content.childNodes.length > 1) {
-            return content.childNodes;
-        } else {
-            return content.childNodes[0];
+        else if (content.childNodes.length > 1) {
+            return [...content.childNodes];
         }
+        return content.childNodes[0];
     }
 }
 export function getUrl(url) {
 
     if (url instanceof URL || isString(url)) {
-
         let a = createElement('a');
         a.href = url;
         return a.href;
-
     }
 }
 
@@ -340,7 +367,6 @@ export function loadScript(url, options) {
                     script[param] = value;
                 }
             }
-
 
             document.getElementsByTagName('head')[0].appendChild(script);
         }

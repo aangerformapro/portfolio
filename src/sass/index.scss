@@ -118,6 +118,11 @@ a
 
     }
 
+    @include md-down
+    {
+        display: none;
+    }
+
 }
 
 
