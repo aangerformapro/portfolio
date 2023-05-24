@@ -8,6 +8,7 @@ module.exports = (ctx) => {
         map: ctx.options.map,
         parser: ctx.options.parser,
         plugins: {
+            "postcss-import": {},
             'postcss-combine-media-query': env === 'development' ? {} : false,
             'postcss-preset-env': {
                 autoprefixer: {

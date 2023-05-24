@@ -17,6 +17,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap"
         rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
     <link rel="stylesheet" href="./assets/bundle.css">
 
     <script src="./assets/bundle.js" type="module" defer></script>
@@ -37,6 +41,7 @@
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M1280.44 341.533V662.16H1141.91V341.533H1280.44ZM1498.15 189.147L1363.57 108H870.76L910.36 157.467V1624.03L896.506 1683.41L949.933 1641.85L1153.79 1481.53L1141.91 1445.92V895.707H1280.44V1382.57L1512 1200.49L1498.15 1188.61V189.147Z" />
                     </svg>
+                    <span class="name ms-3 fw-bold">Aymeric Anger</span>
                 </a>
 
 
@@ -176,7 +181,57 @@
     </div>
     <div class="page" id="projects" title="Portfolio">
         <div class="container py-5">
-            <h1 class="display-5 fw-bold">Portfolio</h1>
+            <h1 class="display-5 fw-bold">Projets</h1>
+
+            <div class="row h-100">
+
+
+                <!-- Slider main container -->
+                <div class="swiper h-100">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="card project overflow-hidden">
+                                <img src="./assets/pictures/memory-desktop.png" alt="image"
+                                    class="card-img-top project-thumbnail"
+                                    srcset="./assets/pictures/memory-mobile.png 480w">
+                                <div class="card-header">Memory game</div>
+                                <div class="card-body flex-row justify-content-between ">
+
+                                    <div class="card-text"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="swiper-slide">Slide 2</div>
+                        <div class="swiper-slide">Slide 3</div>
+                        ...
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+                    <!-- If we need scrollbar -->
+                    <!-- <div class="swiper-scrollbar"></div> -->
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
         </div>
 
     </div>
@@ -192,7 +247,7 @@
             <hr class="my-4">
             <div class="container">
 
-                <form action="" method="post" class="needs-validation" novalidate>
+                <form method="post" class="needs-validation" novalidate name="contact" data-netlify="true">
 
                     <div class="form-floating my-3">
                         <input class="form-control" id="name" name="name" type="text" placeholder="Nom *" required>

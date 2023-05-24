@@ -1,0 +1,15 @@
+@import 'swiper/swiper-bundle.min.css';
+
+.page {
+    .swiper {
+        .swiper-wrapper {
+
+            min-height: 50vh;
+
+            .swiper-slide {
+                cursor: grab;
+            }
+        }
+
+    }
+}

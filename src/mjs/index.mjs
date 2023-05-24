@@ -1,7 +1,9 @@
 import "./helpers/process.mjs";
 
+
 // bootstrap components
 import { Collapse, ScrollSpy, Tooltip } from "bootstrap";
+// import { register as registerSwiper } from 'swiper/element/bundle';
 import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
@@ -9,6 +11,7 @@ import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
 import toast from "./components/notifications.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
 
+import Swiper from "swiper/swiper-bundle.esm.js";
 
 
 const
@@ -20,7 +23,9 @@ const
     tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
         .map(elem => new Tooltip(elem));
 
-console.debug(tooltips);
+
+// registerSwiper();
+
 
 function scrollIntoView(elem, delay = 750) {
 
@@ -127,7 +132,7 @@ addEventListener('click', e => {
 
         collapsible.hide();
 
-    } else if (target = e.target.closest('[href^="#"].scroll-down-button, .nav-pills [href^="#"]')) {
+    } else if (target = e.target.closest('[href^="#"].scroll-down-button,  [href^="#"] ')) {
         let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
 
         if (elem) {
@@ -160,6 +165,7 @@ addEventListener('click', e => {
 
 
 
+
 // typed.js
 
 const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
@@ -179,32 +185,32 @@ document.querySelectorAll('.typed-text').forEach(elem => {
 
 // contact form
 
-addEventListener('submit', e => {
+// addEventListener('submit', e => {
 
-    const form = e.target.closest('form.needs-validation');
+//     const form = e.target.closest('form.needs-validation');
 
-    if (e.target.closest('#about form')) {
-        e.preventDefault();
+//     if (e.target.closest('#about form')) {
+//         e.preventDefault();
 
-        if (form) {
-            form.classList.add('was-validated');
-            if (form.checkValidity()) {
+//         if (form) {
+//             form.classList.add('was-validated');
+//             if (form.checkValidity()) {
 
-                toast.success('votre message à été envoyé.').then(() => {
-                    form.classList.remove('was-validated');
-                    form.reset();
-                });
-
-
-            }
-
-        }
+//                 toast.success('votre message à été envoyé.').then(() => {
+//                     form.classList.remove('was-validated');
+//                     form.reset();
+//                 });
 
 
+//             }
 
-    }
+//         }
 
-});
+
+
+//     }
+
+// });
 
 addEventListener('change', e => {
     const input = e.target.closest('input, textarea');
@@ -218,3 +224,44 @@ addEventListener('change', e => {
 
 
 
+//Swiper
+
+const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    // direction: 'vertical',
+    loop: true,
+
+    centeredSlides: true,
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+
+
+    slidesPerView: 1,
+    spaceBetween: 10,
+    // Responsive breakpoints
+    breakpoints: {
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 1,
+            spaceBetween: 20
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 1,
+            spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 2,
+            spaceBetween: 40
+        }
+    },
+});

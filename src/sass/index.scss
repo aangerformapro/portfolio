@@ -1,12 +1,13 @@
 //@use "bootstrap-utilities";
 
+
+@use 'components/swiper';
 @use 'components/bootstrap';
 @use 'components/izitoast';
 @use 'components/gerillass' as g;
 @use 'helpers' as *;
 @use 'components/switch';
 @use './components/animated/attention_seekers/rubberBand' as *;
-
 
 
 html {
@@ -189,15 +190,21 @@ header.fixed-top {
 }
 
 
-#logo svg {
-    transition: transform 2s ease-in-out;
-    transform-origin: center;
+#logo {
+    svg {
+        transition: transform 2s ease-in-out;
+        transform-origin: center;
 
-    &:hover {
-        transform: rotate(-1440deg);
+
+
+
     }
 
-
+    &:hover {
+        svg {
+            transform: rotate(-1440deg);
+        }
+    }
 }
 
 /* Social media icons */

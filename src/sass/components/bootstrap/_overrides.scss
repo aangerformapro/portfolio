@@ -20,3 +20,15 @@
 
 
 }
+
+
+.card-img-left {
+    border-top-left-radius: var(--bs-card-inner-border-radius);
+    border-bottom-left-radius: var(--bs-card-inner-border-radius);
+}
+
+
+.card-img-right {
+    border-bottom-right-radius: var(--bs-card-inner-border-radius);
+    border-top-right-radius: var(--bs-card-inner-border-radius);
+}
