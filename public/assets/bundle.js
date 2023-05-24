@@ -8244,7 +8244,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
+var css_248z$1 = ".noscroll {\r\n    position: fixed !important;\r\n    overflow-y: hidden !important;\r\n    width: 100% !important;\r\n    z-index: -1 !important;\r\n}\r\n\r\n.scrollback {\r\n    scroll-behavior: auto !important;\r\n}";
 styleInject(css_248z$1);
 
 var _document$1 = document,
@@ -8664,7 +8664,7 @@ function dataset(elem, attr, value) {
   return $this;
 }
 
-var css_248z = ".iziToast-wrapper-bottomRight {\n    top: 40% !important;\n    bottom: auto !important;\n}";
+var css_248z = ".iziToast-wrapper-bottomRight {\r\n    top: 40% !important;\r\n    bottom: auto !important;\r\n}";
 styleInject(css_248z);
 
 /*
@@ -17092,6 +17092,7 @@ function HashNavigation(_ref) {
 }
 
 /* eslint no-underscore-dangle: "off" */
+/* eslint no-use-before-define: "off" */
 function Autoplay(_ref) {
   var swiper = _ref.swiper,
     extendParams = _ref.extendParams,
@@ -18873,6 +18874,7 @@ function EffectCards(_ref) {
  * Released on: May 15, 2023
  */
 
+
 // Swiper Class
 var modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];
 Swiper.use(modules);
@@ -18883,10 +18885,10 @@ var _document = document,
   noScrollSavesPosition = true,
   pages = _toConsumableArray(document.querySelectorAll('.page'));
   new DarkModeButton();
-  _toConsumableArray(document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')).map(function (elem) {
+  var tooltips = _toConsumableArray(document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')).map(function (elem) {
     return new Tooltip(elem);
   });
-
+console.debug(tooltips);
 // registerSwiper();
 
 function scrollIntoView(elem) {
@@ -18977,7 +18979,9 @@ addEventListener('click', function (e) {
       _elem = document.getElementById(_id);
     if (_elem) {
       e.preventDefault();
-      scrollIntoView(_elem);
+      if (!_elem.classList.contains('active')) {
+        scrollIntoView(_elem);
+      }
     }
   }
 });
@@ -19026,29 +19030,41 @@ document.querySelectorAll('.typed-text').forEach(function (elem) {
 
 // contact form
 
-// addEventListener('submit', e => {
+addEventListener('submit', function (e) {
+  var form = e.target.closest('form.needs-validation');
+  if (e.target.closest('#about form')) {
+    e.preventDefault();
+    if (form) {
+      form.classList.add('was-validated');
+      if (form.checkValidity()) {
+        var formdata = new URLSearchParams(new FormData(form));
+        fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: formdata.toString()
+        }).then(function (resp) {
+          console.debug(resp);
+          if (!resp.ok) {
+            throw new Error(resp.statusText);
+          }
+          toast.success('votre message à été envoyé.');
+          form.classList.remove('was-validated');
+          form.reset();
+        }).catch(function (err) {
+          toast.error(err.message, "Une erreur s'est produite");
+          form.reset();
+        });
 
-//     const form = e.target.closest('form.needs-validation');
-
-//     if (e.target.closest('#about form')) {
-//         e.preventDefault();
-
-//         if (form) {
-//             form.classList.add('was-validated');
-//             if (form.checkValidity()) {
-
-//                 toast.success('votre message à été envoyé.').then(() => {
-//                     form.classList.remove('was-validated');
-//                     form.reset();
-//                 });
-
-//             }
-
-//         }
-
-//     }
-
-// });
+        // toast.success('votre message à été envoyé.').then(() => {
+        //     form.classList.remove('was-validated');
+        //     form.reset();
+        // });
+      }
+    }
+  }
+});
 
 addEventListener('change', function (e) {
   var input = e.target.closest('input, textarea');

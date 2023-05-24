@@ -3156,12 +3156,12 @@ textarea.form-control-lg {
   z-index: 5;
   display: none;
   max-width: 100%;
-  padding: 0.25rem 0.5rem;
+  padding: 0.575rem 1.5rem;
   margin-top: 0.1rem;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   color: #fff;
   background-color: var(--bs-success);
-  border-radius: var(--bs-border-radius);
+  border-radius: 1.5rem;
 }
 
 .was-validated :valid ~ .valid-feedback,
@@ -3246,12 +3246,12 @@ textarea.form-control-lg {
   z-index: 5;
   display: none;
   max-width: 100%;
-  padding: 0.25rem 0.5rem;
+  padding: 0.575rem 1.5rem;
   margin-top: 0.1rem;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   color: #fff;
   background-color: var(--bs-danger);
-  border-radius: var(--bs-border-radius);
+  border-radius: 1.5rem;
 }
 
 .was-validated :invalid ~ .invalid-feedback,
@@ -3709,13 +3709,13 @@ textarea.form-control-lg {
 .tooltip {
   --bs-tooltip-zindex: 1080;
   --bs-tooltip-max-width: 200px;
-  --bs-tooltip-padding-x: 0.5rem;
-  --bs-tooltip-padding-y: 0.25rem;
-  --bs-tooltip-margin: ;
-  --bs-tooltip-font-size: 0.875rem;
+  --bs-tooltip-padding-x: 1.5rem;
+  --bs-tooltip-padding-y: 0.575rem;
+  --bs-tooltip-margin: 1rem;
+  --bs-tooltip-font-size: 1.1rem;
   --bs-tooltip-color: var(--bs-body-bg);
   --bs-tooltip-bg: var(--bs-emphasis-color);
-  --bs-tooltip-border-radius: var(--bs-border-radius);
+  --bs-tooltip-border-radius: 1.5rem;
   --bs-tooltip-opacity: 0.9;
   --bs-tooltip-arrow-width: 0.8rem;
   --bs-tooltip-arrow-height: 0.4rem;
@@ -11056,31 +11056,30 @@ a {
   z-index: 10;
   top: 50vh;
   transform: translateY(-50%);
-}
-.nav-pills ul {
-  list-style-type: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
+  justify-content: space-between;
 }
-.nav-pills ul li {
-  margin: 0.125rem 0;
-  position: relative;
+.nav-pills .pill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px 0;
+  padding: 6px;
 }
-.nav-pills ul li .pill {
-  border: 2px solid;
-  border-radius: 50%;
+.nav-pills .pill::after {
+  content: "";
   display: inline-block;
   outline: 0;
-  border-color: rgba(123, 123, 123, 0.77);
-  padding: 3px;
-  transition: border-color 0.6s ease-in-out;
+  border: 2px solid rgba(123, 123, 123, 0.77);
+  border-radius: 50%;
+  padding: 6px;
+  transition: border 0.6s ease-in-out;
 }
-.nav-pills ul li .pill.active {
+.nav-pills .pill.active::after {
   border-color: rgba(202, 63, 63, 0.94);
-  padding: 5px;
-  pointer-events: none;
+  padding: 8px;
 }
 
 header.fixed-top {

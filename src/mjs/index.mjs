@@ -23,7 +23,7 @@ const
     tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
         .map(elem => new Tooltip(elem));
 
-
+console.debug(tooltips);
 // registerSwiper();
 
 
@@ -137,7 +137,9 @@ addEventListener('click', e => {
 
         if (elem) {
             e.preventDefault();
-            scrollIntoView(elem);
+            if (!elem.classList.contains('active')) {
+                scrollIntoView(elem);
+            }
         }
     }
 
@@ -185,32 +187,63 @@ document.querySelectorAll('.typed-text').forEach(elem => {
 
 // contact form
 
-// addEventListener('submit', e => {
+addEventListener('submit', e => {
 
-//     const form = e.target.closest('form.needs-validation');
+    const form = e.target.closest('form.needs-validation');
 
-//     if (e.target.closest('#about form')) {
-//         e.preventDefault();
+    if (e.target.closest('#about form')) {
+        e.preventDefault();
 
-//         if (form) {
-//             form.classList.add('was-validated');
-//             if (form.checkValidity()) {
+        if (form) {
+            form.classList.add('was-validated');
+            if (form.checkValidity()) {
 
-//                 toast.success('votre message à été envoyé.').then(() => {
-//                     form.classList.remove('was-validated');
-//                     form.reset();
-//                 });
+                const formdata = new URLSearchParams(new FormData(form));
 
-
-//             }
-
-//         }
+                fetch(form.action, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: formdata.toString()
+                }).then(resp => {
 
 
+                    console.debug(resp);
+                    if (!resp.ok) {
+                        throw new Error(resp.statusText);
+                    }
 
-//     }
+                    toast.success('votre message à été envoyé.');
+                    form.classList.remove('was-validated');
+                    form.reset();
 
-// });
+
+                }).catch(err => {
+
+                    toast.error(err.message, "Une erreur s'est produite");
+                    form.reset();
+
+                });
+
+
+
+
+
+
+                // toast.success('votre message à été envoyé.').then(() => {
+                //     form.classList.remove('was-validated');
+                //     form.reset();
+                // });
+
+
+            }
+
+        }
+
+
+
+    }
+
+});
 
 addEventListener('change', e => {
     const input = e.target.closest('input, textarea');

@@ -73,7 +73,8 @@
                             id="social-media-links">
 
                             <a href="http://facebook.com/aymeric.anger" target="_blank" rel="noopener noreferrer"
-                                title="Facebook" class="social-media-link mx-2">
+                                title="Facebook" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                class="social-media-link mx-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                                     viewBox="0 0 512 512">
                                     <path
@@ -81,14 +82,16 @@
                                 </svg>
 
                             </a><a href="https://fr.linkedin.com/" target="_blank" rel="noopener noreferrer"
-                                class="social-media-link mx-2" title="Linkedin">
+                                class="social-media-link mx-2" title="Linkedin" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="currentColor"
                                     viewBox="0 0 448 512">
                                     <path
                                         d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
                                 </svg>
-                            </a><a href="mailto:aymeric.anger@gmail.com" title="Gmail" class="social-media-link mx-2">
+                            </a><a href="mailto:aymeric.anger@gmail.com" title="Gmail" class="social-media-link mx-2"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom">
 
                                 <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24" role="img"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +100,7 @@
                                 </svg>
                             </a>
                             <a href="http://github.com/ngsoft" target="_blank" rel="noopener noreferrer" title="Github"
-                                class="social-media-link mx-2">
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" class="social-media-link mx-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="31" height="32" fill="currentColor"
                                     viewBox="0 0 496 512">
                                     <path
@@ -111,7 +114,8 @@
                         <li class="nav-item order-last d-flex align-items-center">
 
                             <input type="checkbox" name="darkmode" id="darkmode" class="switch-input" title="darkmode">
-                            <label for="darkmode" class="switch round mx-3 p-0" id="darkmode-slider">
+                            <label for="darkmode" class="switch round mx-3 p-0" id="darkmode-slider" title="Dark Mode"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom">
                                 <span class="slider">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
                                         width="16" height="16" data-mode="dark">
@@ -217,8 +221,7 @@
                                 </div>
 
                                 <div class="card-footer text-end">
-                                    <a href="https://aanger-memory.netlify.app" target="_blank" title="Memory Game"
-                                        data-bs-toggle="tooltip">
+                                    <a href="https://aanger-memory.netlify.app" target="_blank" title="Memory Game">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16px"
                                             height="16px" viewBox="0 0 512 512">
                                             <path
@@ -266,7 +269,8 @@
             <hr class="my-4">
             <div class="container">
 
-                <form method="post" class="needs-validation" novalidate name="contact" data-netlify="true" netlify>
+                <form action="" method="post" class="needs-validation" novalidate name="contact" data-netlify="true"
+                    netlify>
 
                     <div class="form-floating my-3">
                         <input class="form-control" id="name" name="name" type="text" placeholder="Nom *" required>
@@ -297,28 +301,11 @@
 
     </div>
     <div class="nav-pills">
-        <ul class="m-0 p-0">
-            <li>
-                <span class="tooltip">Accueil</span>
-                <a href="#home" class="pill" title="Accueil"></a>
-            </li>
-            <li>
-                <span class="tooltip">Profil</span>
-                <a href="#profile" class="pill" title="Profil"></a>
-            </li>
-            <li>
-                <span class="tooltip">Compétences</span>
-                <a href="#skills" class="pill" title="Compétences"></a>
-            </li>
-            <li>
-                <span class="tooltip">Portfolio</span>
-                <a href="#projects" class="pill" title="Portfolio"></a>
-            </li>
-            <li>
-                <span class="tooltip">Contact</span>
-                <a href="#about" class="pill" title="Contact"></a>
-            </li>
-        </ul>
+        <a href="#home" class="pill" title="Accueil" data-bs-toggle="tooltip" data-bs-placement="left"></a>
+        <a href="#profile" class="pill" title="Profil" data-bs-toggle="tooltip" data-bs-placement="left"></a>
+        <a href="#skills" class="pill" title="Compétences" data-bs-toggle="tooltip" data-bs-placement="left"></a>
+        <a href="#projects" class="pill" title="Portfolio" data-bs-toggle="tooltip" data-bs-placement="left"></a>
+        <a href="#about" class="pill" title="Contact" data-bs-toggle="tooltip" data-bs-placement="left"></a>
     </div>
 
     <div class="landscape">
