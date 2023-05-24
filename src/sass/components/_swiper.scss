@@ -1,15 +1,19 @@
 @import 'swiper/swiper-bundle.min.css';
 
-.page {
-    .swiper {
-        width: 90%;
+.page
+{
+    .swiper
+    {
+        // width: 90%;
 
-        .swiper-wrapper {
+        .swiper-wrapper
+        {
 
-            min-height: 50vh;
+            min-height: 70vh;
             align-items: center;
 
-            .swiper-slide {
+            .swiper-slide
+            {
                 cursor: grab;
             }
         }

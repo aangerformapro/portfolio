@@ -133,11 +133,8 @@ button.swiper-pagination-bullet{border:none;margin:0;padding:0;box-shadow:none;a
 .swiper-creative .swiper-slide{backface-visibility:hidden;overflow:hidden;transition-property:transform,opacity,height}
 .swiper-cards{overflow:visible}
 .swiper-cards .swiper-slide{transform-origin:center bottom;backface-visibility:hidden;overflow:hidden}
-.page .swiper {
-  width: 90%;
-}
 .page .swiper .swiper-wrapper {
-  min-height: 50vh;
+  min-height: 70vh;
   align-items: center;
 }
 .page .swiper .swiper-wrapper .swiper-slide {
@@ -5982,6 +5979,27 @@ header.fixed-top {
   border-radius: 100%;
   animation: scrollDownButton 2s infinite;
   box-sizing: border-box;
+}
+#projects .project {
+  max-height: 60vh;
+}
+#projects .project .card-body {
+  max-height: 50vh;
+  text-align: center;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+#projects .project .project-thumbnail {
+  height: 33%;
+  max-height: 25vh;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+#projects .project .project-thumbnail img {
+  object-fit: contain;
+  object-position: center top;
+  width: 100%;
 }
 #about #message {
   height: 128px;
