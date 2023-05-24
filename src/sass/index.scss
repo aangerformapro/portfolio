@@ -2,6 +2,7 @@
 
 
 @use 'components/swiper';
+@use 'components/devicon';
 @use 'components/bootstrap';
 @use 'components/izitoast';
 @use 'components/gerillass' as g;
@@ -64,45 +65,45 @@ a {
 }
 
 
-.tooltip {
-    @include font-size(g.remify(14px));
+// .tooltip {
+//     @include font-size(g.remify(14px));
 
-    display: inline-block;
+//     display: inline-block;
 
-    border-radius: 5rem;
-    right: 2.3rem;
-    top: -.5rem;
-    background: #222;
-    color: #fff;
-    padding: .575rem 1.5rem;
-    position: absolute;
-    max-width: 220px;
+//     border-radius: 5rem;
+//     right: 2.3rem;
+//     top: -.5rem;
+//     background: #222;
+//     color: #fff;
+//     padding: .575rem 1.5rem;
+//     position: absolute;
+//     max-width: 220px;
 
-    visibility: hidden;
-    white-space: nowrap;
-    opacity: 0;
+//     visibility: hidden;
+//     white-space: nowrap;
+//     opacity: 0;
 
-    transition: opacity .7s ease-in-out;
-    text-transform: uppercase;
+//     transition: opacity .7s ease-in-out;
+//     text-transform: uppercase;
 
-    &::after {
-        border: .6rem solid transparent;
-        border-left-color: #222;
-        bottom: 50%;
-        content: '';
-        position: absolute;
-        margin-bottom: -.6rem;
-        right: -1rem;
+//     &::after {
+//         border: .6rem solid transparent;
+//         border-left-color: #222;
+//         bottom: 50%;
+//         content: '';
+//         position: absolute;
+//         margin-bottom: -.6rem;
+//         right: -1rem;
 
-        @include sizer(0);
-    }
+//         @include sizer(0);
+//     }
 
-}
+// }
 
-*:hover>.tooltip {
-    opacity: 1;
-    visibility: visible;
-}
+// *:hover>.tooltip {
+//     opacity: 1;
+//     visibility: visible;
+// }
 
 .nav-pills {
     position: fixed;
@@ -562,6 +563,8 @@ header.fixed-top {
 }
 
 
+
+
 .landscape {
     display: none;
 }
@@ -590,8 +593,5 @@ header.fixed-top {
     html {
         overflow: hidden;
     }
-
-
-
 
 }

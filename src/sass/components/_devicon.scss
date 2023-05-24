@@ -1,0 +1,6 @@
+@import url('https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css');
+
+
+[class*="devicon-"]+[class*="devicon-"] {
+    margin-left: .5rem;
+}

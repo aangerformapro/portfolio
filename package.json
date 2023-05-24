@@ -49,6 +49,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.3.0-alpha3",
+        "devicon": "^2.15.1",
         "gerillass": "^1.3.1",
         "izitoast": "^1.4.0",
         "swiper": "^9.3.2",

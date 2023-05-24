@@ -1,10 +1,19 @@
 @charset "UTF-8";
 @import 'swiper/swiper-bundle.min.css';
+@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
+.page .swiper {
+  width: 90%;
+}
 .page .swiper .swiper-wrapper {
   min-height: 50vh;
+  align-items: center;
 }
 .page .swiper .swiper-wrapper .swiper-slide {
   cursor: grab;
+}
+
+[class*=devicon-] + [class*=devicon-] {
+  margin-left: 0.5rem;
 }
 
 .card-img-left {
@@ -11039,40 +11048,6 @@ a {
   position: absolute;
   width: 1px;
   word-wrap: normal !important;
-}
-
-.tooltip {
-  font-size: 0.875rem;
-  display: inline-block;
-  border-radius: 5rem;
-  right: 2.3rem;
-  top: -0.5rem;
-  background: #222;
-  color: #fff;
-  padding: 0.575rem 1.5rem;
-  position: absolute;
-  max-width: 220px;
-  visibility: hidden;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.7s ease-in-out;
-  text-transform: uppercase;
-}
-.tooltip::after {
-  border: 0.6rem solid transparent;
-  border-left-color: #222;
-  bottom: 50%;
-  content: "";
-  position: absolute;
-  margin-bottom: -0.6rem;
-  right: -1rem;
-  width: 0;
-  height: 0;
-}
-
-*:hover > .tooltip {
-  opacity: 1;
-  visibility: visible;
 }
 
 .nav-pills {
