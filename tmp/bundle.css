@@ -11212,6 +11212,7 @@ header.fixed-top {
 }
 
 .page {
+  user-select: none;
   padding-top: 64px;
   min-height: 100vh;
   transition: transform 1s ease-in-out, visibility 1s ease-in-out;

@@ -7,12 +7,11 @@ import { Collapse, ScrollSpy, Tooltip } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
-import { capitalize, createElement, html2element } from "./helpers/utils.mjs";
-import toast from "./components/notifications.mjs";
+import { createElement } from "./helpers/utils.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
-
 import Swiper from "swiper/swiper-bundle.esm.js";
 
+import { IS_TOUCH } from "./helpers/constants.mjs";
 
 const
     { body } = document,
@@ -23,8 +22,6 @@ const
     tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
         .map(elem => new Tooltip(elem));
 
-console.debug(tooltips);
-// registerSwiper();
 
 
 function scrollIntoView(elem, delay = 750) {
@@ -68,28 +65,28 @@ addEventListener('activate.bs.scrollspy', e => {
 });
 
 
+if (!IS_TOUCH) {
+    const io = new IntersectionObserver(entries => {
 
+        for (let i = 0; i < entries.length; i++) {
 
-const io = new IntersectionObserver(entries => {
+            if (scrollingIntoView) {
+                return;
+            }
+            let item = entries[i];
+            if (item.isIntersecting) {
+                currentPage = item.target;
+                scrollIntoView(currentPage);
 
-    for (let i = 0; i < entries.length; i++) {
-
-        if (scrollingIntoView) {
-            return;
+                break;
+            }
         }
-        let item = entries[i];
-        if (item.isIntersecting) {
-            currentPage = item.target;
-            scrollIntoView(currentPage);
+    }, {
+        threshold: 0.3
+    });
 
-            break;
-        }
-    }
-}, {
-    threshold: 0.5
-});
-
-pages.forEach(page => io.observe(page));
+    pages.forEach(page => io.observe(page));
+}
 
 
 
