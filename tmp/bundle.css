@@ -1,10 +1,6 @@
 @charset "UTF-8";
 @import 'swiper/swiper-bundle.min.css';
 @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
-.page .swiper .swiper-wrapper {
-  min-height: 70vh;
-  align-items: center;
-}
 .page .swiper .swiper-wrapper .swiper-slide {
   cursor: grab;
 }
@@ -11495,26 +11491,36 @@ header.fixed-top {
   box-sizing: border-box;
 }
 
-#projects .project {
-  max-height: 60vh;
+#projects .swiper-wrapper {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}
+#projects .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+}
+#projects .swiper-pagination-bullet-active {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: 1px solid rgba(0, 0, 0, 0.2);
 }
 #projects .project .card-body {
-  max-height: 50vh;
-  text-align: center;
-  padding-top: 0;
-  padding-left: 0;
-  padding-right: 0;
+  height: 160px;
 }
 #projects .project .project-thumbnail {
-  height: 33%;
-  max-height: 25vh;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  height: 128px;
 }
 #projects .project .project-thumbnail img {
   object-fit: contain;
   object-position: center top;
   width: 100%;
+}
+@media (min-width: 992px) {
+  #projects .project .project-thumbnail {
+    height: 192px;
+  }
 }
 
 #about #message {

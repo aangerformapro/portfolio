@@ -524,44 +524,46 @@ header.fixed-top {
 
 #projects {
 
+    .swiper-wrapper {
+
+        height: 70vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .swiper-pagination-bullet {
+
+        @include g.sizer(12px);
+
+        &-active {
+            background-color: rgba(255, 255, 255, .5);
+            outline: 1px solid rgba(0, 0, 0, .2);
+
+        }
+    }
 
     .project {
 
-        // height: 50vh;
-
-        max-height: 60vh;
-
         .card-body {
-            max-height: 50vh;
-            text-align: center;
-
-            padding: {
-                top: 0;
-                left: 0;
-                right: 0;
-            }
-
-            // padding: 0;
+            height: 160px;
         }
 
         .project-thumbnail {
-
-            height: 33%;
-            max-height: 25vh;
-            border-bottom: 1px solid rgba(0, 0, 0, .3);
-            overflow: hidden;
-
             img {
                 object-fit: contain;
                 object-position: center top;
-
-
                 width: 100%;
-                //height: 100%;
+            }
+
+            border-bottom: 1px solid rgba(0, 0, 0, .3);
+            overflow: hidden;
+            height: 128px;
+
+            @include lg {
+                height: 192px;
             }
 
         }
-
 
     }
 }

@@ -11,16 +11,16 @@ import { createElement } from "./helpers/utils.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
 import Swiper from "swiper/swiper-bundle.esm.js";
 
-import { IS_TOUCH } from "./helpers/constants.mjs";
+import { IS_TOUCH, PROJECT_LIST } from "./helpers/constants.mjs";
+import Project from "./components/projects.mjs";
 
 const
     { body } = document,
     navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
     noScrollSavesPosition = true,
     pages = [...document.querySelectorAll('.page')],
-    darkmode = new DarkModeButton(),
-    tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
-        .map(elem => new Tooltip(elem));
+    darkmode = new DarkModeButton();
+
 
 
 
@@ -152,16 +152,6 @@ addEventListener('click', e => {
 })();
 
 
-
-
-
-
-
-
-
-
-
-
 // typed.js
 
 const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
@@ -218,8 +208,7 @@ addEventListener('submit', e => {
             form.classList.add('was-validated');
             if (form.checkValidity()) {
 
-                form.reset();
-                return;
+
                 const formData = new URLSearchParams(new FormData(form));
 
 
@@ -269,12 +258,21 @@ function checkForm(e) {
 addEventListener('change', checkForm);
 
 
-document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea').forEach(elem => elem.addEventListener('keyup', checkForm));
+document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')
+    .forEach(elem => elem.addEventListener('keyup', checkForm));
 
+// page projects
+const swiperWrapper = document.querySelector('#projects .swiper-wrapper');
+
+
+const projects = PROJECT_LIST.map(item => new Project(item));
+projects.forEach(project => swiperWrapper.appendChild(createElement(
+    '<div class="swiper-slide d-flex align-items-center"/>',
+    project.element
+)));
 
 
 //Swiper
-
 const swiper = new Swiper('.swiper', {
 
     loop: true,
@@ -285,11 +283,9 @@ const swiper = new Swiper('.swiper', {
     // If we need pagination
     pagination: {
         el: '.swiper-pagination',
+        clickable: true,
+        type: 'bullets'
     },
-
-
-
-
     slidesPerView: 1,
     spaceBetween: 10,
     // Responsive breakpoints
@@ -311,3 +307,8 @@ const swiper = new Swiper('.swiper', {
         }
     },
 });
+
+
+
+const tooltips = [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
+    .map(elem => new Tooltip(elem));

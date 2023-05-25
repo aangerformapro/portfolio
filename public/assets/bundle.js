@@ -17723,6 +17723,224 @@ Swiper.use(modules);
 
 var IS_BROWSER = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 var IS_TOUCH = IS_BROWSER && 'ontouchstart' in window;
+var PROJECT_LIST = [{
+  label: 'Memory Game',
+  describe: 'Un jeu de Memory développé pendant ma formation.',
+  picture: 'memory-desktop.png',
+  href: 'https://aanger-memory.netlify.app/',
+  icons: [{
+    label: 'NodeJS',
+    icon: 'devicon-nodejs-plain'
+  }, {
+    label: 'Babel',
+    icon: 'devicon-babel-plain'
+  }, {
+    label: 'SASS',
+    icon: 'devicon-sass-original'
+  }, {
+    label: 'Bootstrap',
+    icon: 'devicon-bootstrap-plain'
+  }],
+  links: [{
+    label: 'Voir le projet sur github',
+    href: 'https://github.com/aangerformapro/memory-game',
+    icon: 'devicon-github-original-wordmark'
+  }]
+}, {
+  label: 'Portfolio',
+  describe: 'Ce portfolio.',
+  picture: 'portfolio.png',
+  href: '',
+  icons: [{
+    label: 'NodeJS',
+    icon: 'devicon-nodejs-plain'
+  }, {
+    label: 'Babel',
+    icon: 'devicon-babel-plain'
+  }, {
+    label: 'SASS',
+    icon: 'devicon-sass-original'
+  }, {
+    label: 'Bootstrap',
+    icon: 'devicon-bootstrap-plain'
+  }],
+  links: [{
+    label: 'Voir le projet sur github',
+    href: 'https://github.com/aangerformapro/portfolio',
+    icon: 'devicon-github-original-wordmark'
+  }]
+}, {
+  label: 'Cache',
+  describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
+  picture: 'composer-project.png',
+  href: 'https://packagist.org/packages/ngsoft/cache',
+  icons: [{
+    label: 'PHP',
+    icon: 'devicon-php-plain'
+  }, {
+    label: 'Composer',
+    icon: 'devicon-composer-line'
+  }],
+  links: [{
+    label: 'Voir le projet sur github',
+    href: 'https://github.com/ngsoft/cache',
+    icon: 'devicon-github-original-wordmark'
+  }]
+}, {
+  label: 'Cache',
+  describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
+  picture: 'composer-project.png',
+  href: 'https://packagist.org/packages/ngsoft/cache',
+  icons: [{
+    label: 'PHP',
+    icon: 'devicon-php-plain'
+  }, {
+    label: 'Composer',
+    icon: 'devicon-composer-line'
+  }],
+  links: [{
+    label: 'Voir le projet sur github',
+    href: 'https://github.com/ngsoft/cache',
+    icon: 'devicon-github-original-wordmark'
+  }]
+}];
+
+/* <a href="https://github.com/aangerformapro/memory-game" target="_blank"
+title="Voir le projet sur github" data-bs-toggle="tooltip"
+class="link-secondary">
+<i class="devicon-github-original-wordmark"></i>
+</a> */
+
+var ProjectLink = /*#__PURE__*/_createClass(function ProjectLink(src, label, icon) {
+  _classCallCheck(this, ProjectLink);
+  _defineProperty(this, "src", void 0);
+  _defineProperty(this, "label", void 0);
+  _defineProperty(this, "icon", void 0);
+  _defineProperty(this, "element", void 0);
+  if (!isString(src)) {
+    throw new TypeError('src must be a String.');
+  }
+  if (!isString(label)) {
+    throw new TypeError('label must be a String.');
+  }
+  if (!isString(icon)) {
+    throw new TypeError('icon must be a String.');
+  }
+  var _ref = [src, label, icon];
+  this.src = _ref[0];
+  this.label = _ref[1];
+  this.icon = _ref[2];
+  this.element = createElement$1('<a target="_blank" class="link-secondary"/>', {
+    href: src,
+    data: {
+      bs: {
+        toggle: 'tooltip',
+        title: label
+      }
+    }
+  }, [createElement$1('i', {
+    class: icon
+  })]);
+});
+
+/* <i class="devicon-nodejs-plain" data-bs-toggle="tooltip" title="NodeJS"></i>
+<i class="devicon-sass-original" data-bs-toggle="tooltip" title="SASS"></i>
+<i class="devicon-bootstrap-plain" data-bs-toggle="tooltip" title="Bootstrap"></i> */
+var ProjectIcon = /*#__PURE__*/_createClass(function ProjectIcon(icon, label) {
+  _classCallCheck(this, ProjectIcon);
+  _defineProperty(this, "element", void 0);
+  _defineProperty(this, "icon", void 0);
+  _defineProperty(this, "label", void 0);
+  if (!isString(icon)) {
+    throw new TypeError('icon must be a String.');
+  }
+  if (!isString(label)) {
+    throw new TypeError('label must be a String.');
+  }
+  this.icon = icon;
+  this.label = label;
+  this.element = createElement$1('i', {
+    class: icon,
+    data: {
+      bs: {
+        toggle: 'tooltip',
+        title: label
+      }
+    }
+  });
+});
+
+/* <div class="card project overflow-hidden">
+    <div class="card-header fs-3 d-flex">
+        <span class="ms-auto"></span>
+        <i class="devicon-nodejs-plain" data-bs-toggle="tooltip" title="NodeJS"></i>
+        <i class="devicon-sass-original" data-bs-toggle="tooltip" title="SASS"></i>
+        <i class="devicon-bootstrap-plain" data-bs-toggle="tooltip" title="Bootstrap"></i>
+    </div>
+    <div class="card-body d-flex flex-column">
+        <a href="https://aanger-memory.netlify.app" target="_blank" title="Memory Game"
+            data-bs-toggle="tooltip" class="project-thumbnail">
+            <img src="./assets/pictures/memory-desktop.png" alt="image">
+        </a>
+
+        <div class="project-description my-3">
+            <div class="card-title fs-2 fw-bold">
+                Memory Game
+            </div>
+            <div class="card-text">
+                Un jeu de Memory développé pendant ma formation.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card-footer text-end fs-2">
+        <a href="https://github.com/aangerformapro/memory-game" target="_blank"
+            title="Voir le projet sur github" data-bs-toggle="tooltip"
+            class="link-secondary">
+            <i class="devicon-github-original-wordmark"></i>
+        </a>
+    </div>
+
+
+</div> */
+
+var Project = /*#__PURE__*/_createClass(function Project(data) {
+  _classCallCheck(this, Project);
+  _defineProperty(this, "element", void 0);
+  _defineProperty(this, "header", void 0);
+  _defineProperty(this, "footer", void 0);
+  _defineProperty(this, "body", void 0);
+  _defineProperty(this, "title", void 0);
+  _defineProperty(this, "text", void 0);
+  if (!isPlainObject(data)) {
+    throw new TypeError('data must be an Object.');
+  }
+  var header, footer, title, text, body;
+  this.element = createElement$1('<div class="card project overflow-hidden"/>', [header = createElement$1('<div class="card-header fs-3 d-flex"/>', ['<span class="ms-auto"></span>'].concat(data.icons.map(function (item) {
+    return new ProjectIcon(item.icon, item.label).element;
+  }))), createElement$1('a', {
+    href: data.href,
+    target: data.href.startsWith('http') ? '_blank' : '_self',
+    class: 'project-thumbnail',
+    data: {
+      bs: {
+        toggle: 'tooltip',
+        title: data.label
+      }
+    }
+  }, createElement$1('<img alt="Thumbnail"/>', {
+    src: './assets/pictures/' + data.picture
+  })), body = createElement$1('<div class="card-body pb-0 d-flex flex-column text-center">', [title = createElement$1('<div class="card-title fw-bold fs-3 mt-0"/>', data.label), text = createElement$1('<div class="card-text"/>', data.describe)]), footer = createElement$1('<div class="card-footer text-end fs-3"/>', data.links.map(function (item) {
+    return new ProjectLink(item.href, item.label, item.icon).element;
+  }))]);
+  var _ref2 = [header, footer, title, text, body];
+  this.header = _ref2[0];
+  this.footer = _ref2[1];
+  this.title = _ref2[2];
+  this.text = _ref2[3];
+  this.body = _ref2[4];
+});
 
 var _document = document,
   body = _document.body,
@@ -17730,9 +17948,6 @@ var _document = document,
   noScrollSavesPosition = true,
   pages = _toConsumableArray(document.querySelectorAll('.page'));
   new DarkModeButton();
-  _toConsumableArray(document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')).map(function (elem) {
-    return new Tooltip(elem);
-  });
 function scrollIntoView(elem) {
   var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 750;
   if (scrollingIntoView) {
@@ -17872,6 +18087,23 @@ document.querySelectorAll('.typed-text').forEach(function (elem) {
     }, typedOptions));
   }
 });
+
+// contact form
+
+function formNotify(type, message) {
+  var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
+  return new Promise(function (resolve) {
+    var formAlert = document.querySelector('#form-alert'),
+      msg = createElement$1('<div role="alert"/>', {
+        class: 'my-3 alert alert-' + type
+      }, message);
+    setTimeout(function () {
+      msg.remove();
+      resolve(msg);
+    }, delay);
+    formAlert.appendChild(msg);
+  });
+}
 addEventListener('submit', function (e) {
   var form = e.target.closest('form.needs-validation');
   if (form) {
@@ -17885,8 +18117,27 @@ addEventListener('submit', function (e) {
     if (form) {
       form.classList.add('was-validated');
       if (form.checkValidity()) {
-        form.reset();
-        return;
+        var formData = new URLSearchParams(new FormData(form));
+        fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: formData.toString()
+        }).then(function (resp) {
+          if (!resp.ok) {
+            throw new Error(resp.statusText);
+          }
+          formNotify('success', 'Votre message à bien été envoyé.').then(function () {
+            form.classList.remove('was-validated');
+            form.reset();
+          });
+        }).catch(function (err) {
+          formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(function () {
+            form.classList.remove('was-validated');
+            form.reset();
+          });
+        });
       }
     }
   }
@@ -17906,8 +18157,16 @@ document.querySelectorAll('form.needs-validation input:not([type="submit"]), for
   return elem.addEventListener('keyup', checkForm);
 });
 
-//Swiper
+// page projects
+var swiperWrapper = document.querySelector('#projects .swiper-wrapper');
+var projects = PROJECT_LIST.map(function (item) {
+  return new Project(item);
+});
+projects.forEach(function (project) {
+  return swiperWrapper.appendChild(createElement$1('<div class="swiper-slide d-flex align-items-center"/>', project.element));
+});
 
+//Swiper
 new Swiper('.swiper', {
   loop: true,
   autoplay: true,
@@ -17915,7 +18174,9 @@ new Swiper('.swiper', {
   centeredSlides: true,
   // If we need pagination
   pagination: {
-    el: '.swiper-pagination'
+    el: '.swiper-pagination',
+    clickable: true,
+    type: 'bullets'
   },
   slidesPerView: 1,
   spaceBetween: 10,
@@ -17937,5 +18198,8 @@ new Swiper('.swiper', {
       spaceBetween: 40
     }
   }
+});
+_toConsumableArray(document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')).map(function (elem) {
+  return new Tooltip(elem);
 });
 //# sourceMappingURL=bundle.js.map
