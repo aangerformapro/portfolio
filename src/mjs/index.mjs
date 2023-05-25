@@ -86,7 +86,7 @@ const io = new IntersectionObserver(entries => {
         }
     }
 }, {
-    threshold: 0.3
+    threshold: 0.5
 });
 
 pages.forEach(page => io.observe(page));
@@ -224,6 +224,8 @@ addEventListener('submit', e => {
             form.classList.add('was-validated');
             if (form.checkValidity()) {
 
+                form.reset();
+                return;
                 const formData = new URLSearchParams(new FormData(form));
 
 

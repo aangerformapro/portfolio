@@ -8292,7 +8292,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".noscroll {\r\n    position: fixed !important;\r\n    overflow-y: hidden !important;\r\n    width: 100% !important;\r\n    z-index: -1 !important;\r\n}\r\n\r\n.scrollback {\r\n    scroll-behavior: auto !important;\r\n}";
+var css_248z$1 = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
 styleInject(css_248z$1);
 
 var _document$1 = document,
@@ -8712,7 +8712,7 @@ function dataset(elem, attr, value) {
   return $this;
 }
 
-var css_248z = ".iziToast-wrapper-bottomRight {\r\n    top: 40% !important;\r\n    bottom: auto !important;\r\n}";
+var css_248z = ".iziToast-wrapper-bottomRight {\n    top: 40% !important;\n    bottom: auto !important;\n}";
 styleInject(css_248z);
 
 /*
@@ -17140,7 +17140,6 @@ function HashNavigation(_ref) {
 }
 
 /* eslint no-underscore-dangle: "off" */
-/* eslint no-use-before-define: "off" */
 function Autoplay(_ref) {
   var swiper = _ref.swiper,
     extendParams = _ref.extendParams,
@@ -18922,7 +18921,6 @@ function EffectCards(_ref) {
  * Released on: May 15, 2023
  */
 
-
 // Swiper Class
 var modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];
 Swiper.use(modules);
@@ -18983,7 +18981,7 @@ var io = new IntersectionObserver(function (entries) {
     }
   }
 }, {
-  threshold: 0.3
+  threshold: 0.5
 });
 pages.forEach(function (page) {
   return io.observe(page);
@@ -19075,23 +19073,6 @@ document.querySelectorAll('.typed-text').forEach(function (elem) {
     }, typedOptions));
   }
 });
-
-// contact form
-
-function formNotify(type, message) {
-  var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3000;
-  return new Promise(function (resolve) {
-    var formAlert = document.querySelector('#form-alert'),
-      msg = createElement$1('<div role="alert"/>', {
-        class: 'my-3 alert alert-' + type
-      }, message);
-    setTimeout(function () {
-      msg.remove();
-      resolve(msg);
-    }, delay);
-    formAlert.appendChild(msg);
-  });
-}
 addEventListener('submit', function (e) {
   var form = e.target.closest('form.needs-validation');
   if (form) {
@@ -19105,27 +19086,8 @@ addEventListener('submit', function (e) {
     if (form) {
       form.classList.add('was-validated');
       if (form.checkValidity()) {
-        var formData = new URLSearchParams(new FormData(form));
-        fetch(form.action, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: formData.toString()
-        }).then(function (resp) {
-          if (!resp.ok) {
-            throw new Error(resp.statusText);
-          }
-          formNotify('success', 'Votre message à bien été envoyé.').then(function () {
-            form.classList.remove('was-validated');
-            form.reset();
-          });
-        }).catch(function (err) {
-          formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(function () {
-            form.classList.remove('was-validated');
-            form.reset();
-          });
-        });
+        form.reset();
+        return;
       }
     }
   }
