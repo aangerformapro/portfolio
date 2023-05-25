@@ -89,10 +89,6 @@ if (!IS_TOUCH) {
 }
 
 
-
-
-
-
 addEventListener('show.bs.collapse', () => {
     body.classList.remove(...navbarEventTypes);
     body.classList.add('navbar-collapsing');
@@ -117,6 +113,7 @@ addEventListener('click', e => {
     let target;
 
     if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+        e.preventDefault();
         collapsible ??= new Collapse('#navbarNav', {
             toggle: false
         });

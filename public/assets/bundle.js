@@ -17807,6 +17807,7 @@ addEventListener('click', function (e) {
   var target;
   if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
     var _collapsible;
+    e.preventDefault();
     (_collapsible = collapsible) !== null && _collapsible !== void 0 ? _collapsible : collapsible = new Collapse('#navbarNav', {
       toggle: false
     });
