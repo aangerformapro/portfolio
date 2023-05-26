@@ -86,6 +86,11 @@ if (!IS_TOUCH) {
     });
 
     pages.forEach(page => io.observe(page));
+} else {
+    addEventListener('scroll', e => {
+
+        // alert(e.deltaY);
+    });
 }
 
 

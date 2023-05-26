@@ -1,0 +1,25 @@
+$customicon-sizes: 8px 16px 20px 24px 28px 32px 36px 40px 44px 48px 52px 56px 60px 64px 80px 96px 128px 256px 512px;
+
+[class*="customicon-"] {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-position: center center;
+    display: inline-block;
+}
+
+.customicon {
+
+    &-php-fig {
+        background-image: url('./pictures/icons/psr.svg');
+    }
+
+    @each $size in $customicon-sizes {
+        &-#{$size} {
+            font-size: $size;
+            height: $size;
+            width: $size;
+        }
+    }
+
+}

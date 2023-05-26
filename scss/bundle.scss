@@ -8,6 +8,7 @@
 @use 'components/gerillass' as g;
 @use 'helpers' as *;
 @use 'components/switch';
+@use 'components/customicons';
 @use './components/animated/attention_seekers/rubberBand' as *;
 
 
@@ -563,6 +564,12 @@ header.fixed-top {
                 height: 192px;
             }
 
+        }
+
+        .card-footer {
+            a+a {
+                margin-left: 8px;
+            }
         }
 
     }

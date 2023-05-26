@@ -54,7 +54,7 @@ export default inputFiles.map(item => ({
     output: [
         {
             format: 'es',
-            sourcemap: prod ? false : "inline",
+            sourcemap: !prod ,
             file: item.output
         }
     ],

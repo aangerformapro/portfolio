@@ -94,7 +94,7 @@ function toDashed(name) {
     });
 }
 
-function isHTML(param) {
+export function isHTML(param) {
     return isString(param) && param.startsWith('<') && param.endsWith('>');
 }
 
