@@ -15,13 +15,17 @@ import { IS_TOUCH, PROJECT_LIST } from "./helpers/constants.mjs";
 import Project from "./components/projects.mjs";
 
 const
+
     { body } = document,
     navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
     noScrollSavesPosition = true,
     pages = [...document.querySelectorAll('.page')],
     darkmode = new DarkModeButton();
 
-
+let scrollPos = {
+    x: scrollX,
+    y: scrollY
+};
 
 
 function scrollIntoView(elem, delay = 750) {
@@ -64,7 +68,7 @@ addEventListener('activate.bs.scrollspy', e => {
     });
 });
 
-
+dataset(body, 'mobile', IS_TOUCH);
 if (!IS_TOUCH) {
     const io = new IntersectionObserver(entries => {
 
@@ -86,12 +90,25 @@ if (!IS_TOUCH) {
     });
 
     pages.forEach(page => io.observe(page));
-} else {
-    addEventListener('scroll', e => {
-
-        // alert(e.deltaY);
-    });
 }
+
+
+addEventListener('scroll', e => {
+    if (scrollingIntoView) {
+        return;
+    }
+
+
+    let scrollBottom = scrollY > scrollPos.y;
+    dataset(body, 'scrollDirection', scrollBottom ? 'bottom' : 'top');
+
+    scrollPos = {
+        x: scrollX,
+        y: scrollY
+    }
+
+});
+
 
 
 addEventListener('show.bs.collapse', () => {
@@ -283,7 +300,12 @@ const swiper = new Swiper('.swiper', {
     loop: true,
     autoplay: true,
     delay: 2000,
+    //  parallax: true,
+    effect: 'coverflow',
 
+    coverflowEffect: {
+        slideShadows: false,
+    },
     centeredSlides: true,
     // If we need pagination
     pagination: {
