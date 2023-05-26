@@ -1,35 +1,64 @@
 // rollup.config.js
 import path from "node:path";
+import fs from "node:fs";
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import { babel } from '@rollup/plugin-babel';
 
-export default {
 
-    input: path.resolve('src/mjs/index.mjs'),
-    context: 'globalThis',
-    output: [
-        {
-            format: 'es',
-            sourcemap: true,
-            file: path.resolve('public/assets/bundle.js')
-        }
-    ],
-    plugins: [
-        babel({ presets: ['@babel/preset-env'], babelHelpers: 'bundled' }),
+
+
+const
+    prod = !!process.env.production,
+    inputdir = 'src', outputdir = 'public/assets',
+    plugins = [
         postcss(),
-
         resolve({
             moduleDirectories: ['node_modules'],
             extensions: ['.js', '.mjs', '.cjs'],
-            // preferBuiltins: false,
+            browser: true,
+
         }),
         commonjs(),
+    ];
 
-    ],
+
+
+const inputFiles = fs.readdirSync('src').filter(filename => filename.endsWith('.mjs') && !filename.startsWith('_')).map(filename => {
+    const { name } = path.parse(filename);
+    return {
+        name,
+        input: path.join(inputdir, filename),
+        output: path.join(outputdir, name + '.js')
+    }
+
+});
+
+
+
+if (prod) {
+
+    plugins.unshift(babel({ presets: ['@babel/preset-env'], babelHelpers: 'bundled' }));
+
+}
+
+
+export default inputFiles.map(item => ({
     watch: {
         exclude: 'node_modules/**',
-        include: 'src/mjs/**'
-    }
-};
+        include: inputdir + '/**'
+    },
+    context: 'globalThis',
+    input: item.input,
+    output: [
+        {
+            format: 'es',
+            sourcemap: prod ? false : "inline",
+            file: item.output
+        }
+    ],
+
+    plugins
+}));
+

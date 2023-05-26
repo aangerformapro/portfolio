@@ -85,7 +85,13 @@ export const PROJECT_LIST = [
             },
 
         ],
+
         links: [
+            {
+                label: 'Voir les recommendations PSR',
+                href: 'https://www.php-fig.org/psr/',
+                icon: 'customicon-php-fig customicon-28px'
+            },
             {
                 label: 'Voir le projet sur github',
                 href: 'https://github.com/ngsoft/cache',
@@ -95,29 +101,4 @@ export const PROJECT_LIST = [
 
     },
 
-    {
-        label: 'Cache',
-        describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
-        picture: 'composer-project.png',
-        href: 'https://packagist.org/packages/ngsoft/cache',
-        icons: [
-            {
-                label: 'PHP',
-                icon: 'devicon-php-plain'
-            },
-            {
-                label: 'Composer',
-                icon: 'devicon-composer-line'
-            },
-
-        ],
-        links: [
-            {
-                label: 'Voir le projet sur github',
-                href: 'https://github.com/ngsoft/cache',
-                icon: 'devicon-github-original-wordmark'
-            }
-        ]
-
-    }
 ];
