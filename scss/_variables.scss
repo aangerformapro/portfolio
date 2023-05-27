@@ -1,6 +1,6 @@
-$home-bg: #f8f9fa;
-$home-color: #404040;
-$home-color-rgb: 64, 64, 64;
+$home-bg-rgb: 64, 64, 64;
+$home-bg: rgba(64, 64, 64, 1);
+
 $font-family: 'Poppins';
 
 // https://colorswall.com/palette/154112
@@ -10,7 +10,10 @@ $cyberpunk-blue: #007aff;
 $cyberpunk-red: #ff1111;
 
 
+// landcape
 
+$landscape-light-bg: rgba(var(--bs-light-rgb), 1);
+$landscape-dark-bg: rgba(var(--bs-dark-rgb), 1);
 
 
 // bootstrap overrides
@@ -21,9 +24,4 @@ $tooltip-font-size: 1.1rem;
 $tooltip-padding-x: 1.5rem;
 $tooltip-padding-y: .575rem;
 $tooltip-margin: 1rem;
-// $tooltip-color: #fff;
-// $tooltip-bg: #222;
 $tooltip-border-radius: 1.5rem;
-// $tooltip-arrow-width: 2rem;
-// $tooltip-arrow-height: 2rem;
-// $zindex-tooltip: 2000;

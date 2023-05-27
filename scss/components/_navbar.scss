@@ -1,0 +1,362 @@
+@use '../helpers' as *;
+@use 'switch';
+
+
+@mixin navbar
+{
+    header
+    {
+        //position: fixed;
+        // top: 0;
+        // right: 0;
+        // left: 0;
+
+        width: 100vw;
+        z-index: 1030;
+
+        min-height: 64px;
+        background: rgba(var(--bs-light-rgb), .8);
+        backdrop-filter: blur(3px);
+
+    }
+
+
+
+    .navbar-shown,
+    .navbar-collapsing
+    {
+
+        header
+        {
+            min-height: 100vh;
+
+            @include lg
+            {
+                min-height: 64px;
+            }
+        }
+
+    }
+
+
+    /* Logo */
+
+    .navbar-brand
+    {
+        svg
+        {
+            min-width: 32px;
+            min-height: 32px;
+            max-width: 40px;
+            max-height: 40px;
+        }
+    }
+
+
+
+    #logo
+    {
+        svg
+        {
+            transition: transform 2s ease-in-out;
+            transform-origin: center;
+        }
+
+        &:hover
+        {
+            svg
+            {
+                transform: rotate(-1440deg);
+            }
+        }
+    }
+
+    /* Social media icons */
+    .social-media-link
+    {
+        svg
+        {
+            max-width: 24px;
+            max-height: 24px;
+        }
+    }
+
+
+
+    /* nav links */
+    .navbar .nav-link
+    {
+
+        position: relative;
+
+
+        &:hover
+        {
+            font-weight: 700;
+        }
+
+
+        @include lg
+        {
+            &::after
+            {
+                content: '';
+                position: absolute;
+                bottom: .125rem;
+                background-color: $home-bg;
+                border-radius: 50%;
+                height: .125rem;
+                left: 50%;
+                right: 50%;
+                transition: left .5s ease-in-out, right .5s ease-in-out;
+            }
+
+            &:hover::after
+            {
+                left: 5%;
+                right: 5%;
+            }
+        }
+    }
+
+
+    .navbar .navbar-brand,
+    .navbar .nav-link,
+    .social-media-link svg
+    {
+        color: rgba(var(--bs-dark-rgb), .8);
+
+        &:hover
+        {
+            color: rgba(var(--bs-dark-rgb), 1);
+        }
+    }
+
+
+    .nav-link.active
+    {
+        color: var(--bs-navbar-active-color) !important;
+    }
+
+
+
+
+
+
+    /* Hamburger */
+
+
+    .hamburger
+    {
+
+        width: 40px;
+        position: absolute;
+        height: 3px;
+
+        right: 0;
+
+        transition: transform .5s ease-in-out;
+
+
+        &::before,
+        &::after
+        {
+            position: absolute;
+            content: '';
+            height: 3px;
+            width: 40px;
+            top: -.75rem;
+
+            right: 0;
+            transition: transform .5s ease-in-out;
+        }
+
+        &::after
+        {
+            top: .75rem;
+            transition: width .25s ease-in-out;
+        }
+    }
+
+    .navbar-toggler
+    {
+
+        box-shadow: none !important;
+        border: 0 !important;
+        position: relative;
+        height: 40px;
+        width: 40px;
+
+        &[aria-expanded="true"]
+        {
+
+
+            .hamburger
+            {
+
+                transition: transform .5s ease-in-out;
+                transform: rotate(45deg);
+
+                &::after
+                {
+                    width: 0;
+                }
+
+                &::before
+                {
+                    transform: translateY(.75rem) rotate(90deg);
+                    transition: transform .5s ease-in-out;
+                }
+            }
+        }
+
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after
+        {
+            background: rgba(var(--bs-dark-rgb), .8);
+        }
+
+        &:hover
+        {
+
+            .hamburger,
+            .hamburger::before,
+            .hamburger::after
+            {
+                background: rgba(var(--bs-dark-rgb), 1);
+            }
+        }
+    }
+
+
+
+    .switch
+    {
+        background: rgba(0, 0, 0, .3) !important;
+        transform: scale(.9);
+    }
+
+    #darkmode-slider
+    {
+        & svg[data-mode="dark"]
+        {
+            display: none;
+        }
+
+    }
+
+
+
+    @include color-mode(dark)
+    {
+        header
+        {
+            background: rgba(var(--bs-dark-rgb), .8);
+        }
+
+
+        .navbar .navbar-brand,
+        .navbar .nav-link,
+        .social-media-link svg
+        {
+            color: rgba(var(--bs-light-rgb), .8);
+
+            &:hover
+            {
+                color: rgba(var(--bs-light-rgb), 1);
+            }
+        }
+
+
+        .navbar-toggler
+        {
+
+            .hamburger,
+            .hamburger::before,
+            .hamburger::after
+            {
+                background: rgba(var(--bs-light-rgb), .8);
+            }
+
+            &:hover
+            {
+
+                .hamburger,
+                .hamburger::before,
+                .hamburger::after
+                {
+                    background: rgba(var(--bs-light-rgb), 1);
+                }
+            }
+        }
+
+        #darkmode-slider
+        {
+            & svg[data-mode="light"]
+            {
+                display: none;
+            }
+
+
+            & svg[data-mode="dark"]
+            {
+                display: initial;
+            }
+
+        }
+    }
+
+    @media (prefers-color-scheme: 'dark')
+    {
+
+        /* darkmode button */
+        .navbar .switch
+        {
+            display: none;
+        }
+    }
+
+
+
+    [data-mobile="false"]
+    {
+        header
+        {
+            top: 0;
+            left: 0;
+            position: fixed;
+            transition: position 5s ease-in-out;
+            overflow: hidden;
+            height: 0;
+            min-height: unset;
+        }
+
+        .page
+        {
+            padding-top: 0;
+        }
+
+        &[data-scroll-direction="top"]
+        {
+            header
+            {
+                height: 64px;
+                min-height: 64px;
+            }
+
+            .page
+            {
+                padding-top: 64px;
+            }
+        }
+
+
+
+    }
+
+
+
+
+}

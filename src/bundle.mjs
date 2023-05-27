@@ -49,7 +49,7 @@ function scrollIntoView(elem, delay = 750) {
 }
 
 
-let collapsible, currentPage, scrollingIntoView;
+let collapsible, currentPage, scrollingIntoView, direction;
 
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
@@ -69,6 +69,8 @@ addEventListener('activate.bs.scrollspy', e => {
 });
 
 dataset(body, 'mobile', IS_TOUCH);
+
+
 if (!IS_TOUCH) {
     const io = new IntersectionObserver(entries => {
 
@@ -99,13 +101,17 @@ addEventListener('scroll', e => {
     }
 
 
-    let scrollBottom = scrollY > scrollPos.y;
-    dataset(body, 'scrollDirection', scrollBottom ? 'bottom' : 'top');
+    let bottom = scrollY > scrollPos.y, current = bottom ? 'bottom' : 'top';
 
     scrollPos = {
         x: scrollX,
         y: scrollY
     }
+
+    if (current !== direction) {
+        dataset(body, 'scrollDirection', direction = current);
+    }
+
 
 });
 

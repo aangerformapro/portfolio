@@ -154,3 +154,17 @@
     width: $width;
     height: $height;
 }
+
+
+@mixin color-mode($mode: dark)
+{
+    @media (prefers-color-scheme: $mode)
+    {
+        @content;
+    }
+
+    [data-bs-theme="#{$mode}"]
+    {
+        @content;
+    }
+}

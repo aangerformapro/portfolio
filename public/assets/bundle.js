@@ -6616,6 +6616,7 @@ function html2element(html) {
 
 
 
+
 class EventManager {
 
     #listeners
@@ -14227,6 +14228,7 @@ function HashNavigation({
 }
 
 /* eslint no-underscore-dangle: "off" */
+/* eslint no-use-before-define: "off" */
 function Autoplay({
   swiper,
   extendParams,
@@ -16022,6 +16024,7 @@ function EffectCards({
  * Released on: May 15, 2023
  */
 
+
 // Swiper Class
 const modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];
 Swiper.use(modules);
@@ -16340,7 +16343,7 @@ function scrollIntoView(elem, delay = 750) {
 }
 
 
-let collapsible, currentPage, scrollingIntoView;
+let collapsible, currentPage, scrollingIntoView, direction;
 
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
@@ -16360,6 +16363,8 @@ addEventListener('activate.bs.scrollspy', e => {
 });
 
 dataset(body, 'mobile', IS_TOUCH);
+
+
 if (!IS_TOUCH) {
     const io = new IntersectionObserver(entries => {
 
@@ -16390,13 +16395,17 @@ addEventListener('scroll', e => {
     }
 
 
-    let scrollBottom = scrollY > scrollPos.y;
-    dataset(body, 'scrollDirection', scrollBottom ? 'bottom' : 'top');
+    let bottom = scrollY > scrollPos.y, current = bottom ? 'bottom' : 'top';
 
     scrollPos = {
         x: scrollX,
         y: scrollY
     };
+
+    if (current !== direction) {
+        dataset(body, 'scrollDirection', direction = current);
+    }
+
 
 });
 

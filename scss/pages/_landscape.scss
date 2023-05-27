@@ -1,0 +1,61 @@
+@use '../variables' as *;
+
+@mixin landscape($light-bg: $landscape-light-bg, $dark-bg: $landscape-dark-bg)
+{
+
+    .landscape
+    {
+        display: none;
+        background: $light-bg;
+
+    }
+
+    @media (prefers-color-scheme: dark)
+    {
+        .landscape
+        {
+            background: $dark-bg;
+        }
+    }
+
+    [data-bs-theme="dark"]
+    {
+        .landscape
+        {
+            background: $dark-bg;
+        }
+    }
+
+    @media (orientation: landscape) and (max-height: 400px) and (max-width: 768px)
+    {
+
+        html
+        {
+            overflow: hidden;
+        }
+
+        .landscape
+        {
+            display: flex;
+            position: fixed;
+            z-index: 5000;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+
+            p
+            {
+                max-width: 66vw;
+                text-align: center;
+            }
+
+
+        }
+
+    }
+
+
+}
