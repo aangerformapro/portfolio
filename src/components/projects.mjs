@@ -1,12 +1,6 @@
 import { createElement, isHTML, isPlainObject, isString } from "../helpers/utils.mjs"
 
 
-/* <a href="https://github.com/aangerformapro/memory-game" target="_blank"
-title="Voir le projet sur github" data-bs-toggle="tooltip"
-class="link-secondary">
-<i class="devicon-github-original-wordmark"></i>
-</a> */
-
 export class ProjectLink {
 
     src

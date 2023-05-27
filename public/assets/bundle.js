@@ -60,7 +60,7 @@ function getWindow$1(node) {
   return node;
 }
 
-function isElement$1(node) {
+function isElement$2(node) {
   var OwnElement = getWindow$1(node).Element;
   return node instanceof OwnElement || node instanceof Element;
 }
@@ -205,7 +205,7 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy) {
     scaleY = element.offsetHeight > 0 ? round(clientRect.height) / element.offsetHeight || 1 : 1;
   }
 
-  var _ref = isElement$1(element) ? getWindow$1(element) : window,
+  var _ref = isElement$2(element) ? getWindow$1(element) : window,
       visualViewport = _ref.visualViewport;
 
   var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
@@ -283,7 +283,7 @@ function isTableElement(element) {
 
 function getDocumentElement(element) {
   // $FlowFixMe[incompatible-return]: assume body is always available
-  return ((isElement$1(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
+  return ((isElement$2(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
   element.document) || window.document).documentElement;
 }
 
@@ -878,7 +878,7 @@ function getInnerBoundingClientRect(element, strategy) {
 }
 
 function getClientRectFromMixedType(element, clippingParent, strategy) {
-  return clippingParent === viewport ? rectToClientRect(getViewportRect(element, strategy)) : isElement$1(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
+  return clippingParent === viewport ? rectToClientRect(getViewportRect(element, strategy)) : isElement$2(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
 } // A "clipping parent" is an overflowable container with the characteristic of
 // clipping (or hiding) overflowing elements with a position different from
 // `initial`
@@ -889,13 +889,13 @@ function getClippingParents(element) {
   var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle$2(element).position) >= 0;
   var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
 
-  if (!isElement$1(clipperElement)) {
+  if (!isElement$2(clipperElement)) {
     return [];
   } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
 
 
   return clippingParents.filter(function (clippingParent) {
-    return isElement$1(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
+    return isElement$2(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
   });
 } // Gets the maximum area that the element is visible in due to any number of
 // clipping parents
@@ -1009,7 +1009,7 @@ function detectOverflow(state, options) {
   var altContext = elementContext === popper ? reference : popper;
   var popperRect = state.rects.popper;
   var element = state.elements[altBoundary ? altContext : elementContext];
-  var clippingClientRect = getClippingRect(isElement$1(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary, strategy);
+  var clippingClientRect = getClippingRect(isElement$2(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary, strategy);
   var referenceClientRect = getBoundingClientRect(state.elements.reference);
   var popperOffsets = computeOffsets({
     reference: referenceClientRect,
@@ -1790,7 +1790,7 @@ function popperGenerator(generatorOptions) {
         cleanupModifierEffects();
         state.options = Object.assign({}, defaultOptions, state.options, options);
         state.scrollParents = {
-          reference: isElement$1(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
+          reference: isElement$2(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
           popper: listScrollParents(popper)
         }; // Orders the modifiers based on their dependencies and `phase`
         // properties
@@ -2154,7 +2154,7 @@ const getTransitionDurationFromElement = element => {
 const triggerTransitionEnd = element => {
   element.dispatchEvent(new Event(TRANSITION_END));
 };
-const isElement = object => {
+const isElement$1 = object => {
   if (!object || typeof object !== 'object') {
     return false;
   }
@@ -2165,7 +2165,7 @@ const isElement = object => {
 };
 const getElement = object => {
   // it's a jQuery object or a node element
-  if (isElement(object)) {
+  if (isElement$1(object)) {
     return object.jquery ? object[0] : object;
   }
   if (typeof object === 'string' && object.length > 0) {
@@ -2174,7 +2174,7 @@ const getElement = object => {
   return null;
 };
 const isVisible = element => {
-  if (!isElement(element) || element.getClientRects().length === 0) {
+  if (!isElement$1(element) || element.getClientRects().length === 0) {
     return false;
   }
   const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible';
@@ -2643,19 +2643,19 @@ class Config {
     return config;
   }
   _mergeConfigObj(config, element) {
-    const jsonConfig = isElement(element) ? Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
+    const jsonConfig = isElement$1(element) ? Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
 
     return {
       ...this.constructor.Default,
       ...(typeof jsonConfig === 'object' ? jsonConfig : {}),
-      ...(isElement(element) ? Manipulator.getDataAttributes(element) : {}),
+      ...(isElement$1(element) ? Manipulator.getDataAttributes(element) : {}),
       ...(typeof config === 'object' ? config : {})
     };
   }
   _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
     for (const [property, expectedTypes] of Object.entries(configTypes)) {
       const value = config[property];
-      const valueType = isElement(value) ? 'element' : toType(value);
+      const valueType = isElement$1(value) ? 'element' : toType(value);
       if (!new RegExp(expectedTypes).test(valueType)) {
         throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
       }
@@ -3873,7 +3873,7 @@ class Dropdown extends BaseComponent {
   }
   _getConfig(config) {
     config = super._getConfig(config);
-    if (typeof config.reference === 'object' && !isElement(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
+    if (typeof config.reference === 'object' && !isElement$1(config.reference) && typeof config.reference.getBoundingClientRect !== 'function') {
       // Popper virtual elements require a getBoundingClientRect method
       throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
     }
@@ -3886,7 +3886,7 @@ class Dropdown extends BaseComponent {
     let referenceElement = this._element;
     if (this._config.reference === 'parent') {
       referenceElement = this._parent;
-    } else if (isElement(this._config.reference)) {
+    } else if (isElement$1(this._config.reference)) {
       referenceElement = getElement(this._config.reference);
     } else if (typeof this._config.reference === 'object') {
       referenceElement = this._config.reference;
@@ -4380,7 +4380,7 @@ class ScrollBarHelper {
     this._applyManipulationCallback(selector, manipulationCallBack);
   }
   _applyManipulationCallback(selector, callBack) {
-    if (isElement(selector)) {
+    if (isElement$1(selector)) {
       callBack(selector);
       return;
     }
@@ -5132,7 +5132,7 @@ class TemplateFactory extends Config {
       templateElement.remove();
       return;
     }
-    if (isElement(content)) {
+    if (isElement$1(content)) {
       this._putElementInTemplate(getElement(content), templateElement);
       return;
     }
@@ -6477,6 +6477,21 @@ function runAsync(callback, ...args) {
             callback(...args);
         }, 0);
     }
+}
+function isValidSelector(selector) {
+
+    try {
+        return isString(selector) && null === document$1.createElement('template').querySelector(selector);
+
+    } catch (e) {
+        return false;
+    }
+
+}
+
+
+function isElement(elem) {
+    return elem instanceof Object && isFunction(elem.querySelector);
 }
 
 function isHTML(param) {
@@ -16175,12 +16190,6 @@ const PROJECT_LIST = [
     },
 ];
 
-/* <a href="https://github.com/aangerformapro/memory-game" target="_blank"
-title="Voir le projet sur github" data-bs-toggle="tooltip"
-class="link-secondary">
-<i class="devicon-github-original-wordmark"></i>
-</a> */
-
 class ProjectLink {
 
     src
@@ -16310,40 +16319,359 @@ class Project {
     }
 }
 
-const { body } = document,
-    navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
-    noScrollSavesPosition = true,
-    pages = [...document.querySelectorAll('.page')];
-    new DarkModeButton();
-
-let scrollPos = {
+// initial scroll
+const scrollPos = {
     x: scrollX,
-    y: scrollY
+    y: scrollY,
 };
 
+let scrollingIntoView = false;
+/**
+ * Enum Direction
+ * @link https://www.sohamkamani.com/javascript/enums/
+ */
+class Direction {
+    static Top = new Direction("top")
+    static Bottom = new Direction("bottom")
+    static Left = new Direction("left")
+    static Right = new Direction("right")
 
-function scrollIntoView(elem, delay = 750) {
-
-
-    if (scrollingIntoView) {
-        return;
+    #name
+    get name() {
+        return this.#name
     }
 
-    if (elem instanceof Element) {
-
-        scrollingIntoView = true;
-
-        setTimeout(() => {
-            scrollingIntoView = false;
-        }, delay);
-
-        elem.scrollIntoView({ block: "start", inline: "nearest", behavior: 'smooth' });
-
+    constructor(name) {
+        this.#name = name;
     }
 }
 
 
-let collapsible, currentPage, scrollingIntoView, direction;
+class ScrollDelta {
+
+
+    get x() {
+        return this.#x;
+    }
+
+    get y() {
+        return this.#y;
+    }
+
+    get direction() {
+
+        if (this.#x > 0) {
+            return Direction.Right;
+        }
+
+        if (this.#x < 0) {
+            return Direction.Left;
+        }
+
+        if (this.#y > 0) {
+            return Direction.Bottom;
+        }
+
+        if (this.#y < 0) {
+            return Direction.Top;
+        }
+
+        return null;
+    }
+
+    #x = 0
+    #y = 0
+    listener
+
+    #attached = false
+
+    constructor() {
+
+
+        EventManager.mixin(this);
+
+        this.listener = () => {
+            if (scrollingIntoView) {
+                return;
+            }
+
+            let
+                x = scrollX,
+                y = scrollY,
+                initialDirection = this.direction;
+
+            if (x === scrollPos.x && y === scrollPos.y) {
+                return;
+            }
+
+            [this.#x, this.#y] = [
+                x - scrollPos.x,
+                y - scrollPos.y
+            ];
+
+            [scrollPos.x, scrollPos.y] = [x, y];
+
+
+            let data = {
+                x: this.x,
+                y: this.y,
+                direction: this.direction
+            };
+
+
+            this.trigger('update', data);
+
+            if (data.direction !== initialDirection) {
+                this.trigger('change', data);
+            }
+
+        };
+
+        this.attach();
+    }
+
+    attach() {
+        if (!this.#attached) {
+            addEventListener('scroll', this.listener);
+            this.#attached = true;
+        }
+
+    }
+
+    detach() {
+
+        if (this.#attached) {
+            removeEventListener('scroll', this.listener);
+
+            this.#attached = false;
+        }
+    }
+
+}
+
+
+class ScrollSnap {
+
+
+
+    static of(target) {
+        return new ScrollSnap(target);
+    }
+
+
+    #currentTarget
+    #target
+    #observer
+    #started = false
+
+    get currentTarget() {
+        return this.#currentTarget;
+    }
+
+    get observer() {
+        return this.#observer;
+    }
+    get started() {
+        return this.#started;
+    }
+
+
+    /**
+     * @param {String|NodeList|HTMLElement|Array} target 
+     */
+    constructor(target, threshold = 0.3) {
+
+
+        if (isValidSelector(target)) {
+            target = document.querySelectorAll(target);
+        }
+
+        if (isElement(target)) {
+            target = [target];
+        } else if (target instanceof NodeList) {
+            target = [...target];
+        }
+
+        if (!isArray(target)) {
+            throw new TypeError('invalid target');
+        }
+
+        EventManager.mixin(this);
+
+        this.#target = target;
+
+        if (target.length > 0) {
+
+
+            this.#observer = new IntersectionObserver(entries => {
+
+                for (let i = 0; i < entries.length; i++) {
+
+                    if (scrollingIntoView) {
+                        return;
+                    }
+
+
+                    let item = entries[i];
+                    if (item.isIntersecting) {
+                        scrollIntoView$1(this.#currentTarget = item.target)
+                            .then(view => {
+                                this.trigger('change', { view });
+                            });
+
+                        break;
+                    }
+                }
+            }, {
+                threshold
+            });
+
+            this.start();
+        }
+    }
+
+    start() {
+        if (!this.#started && this.#observer) {
+            this.#target.forEach(elem => this.#observer.observe(elem));
+            this.#started = true;
+        }
+
+    }
+
+    stop() {
+        if (this.#started) {
+            this.#observer.disconnect();
+            this.#started = false;
+        }
+
+    }
+
+
+}
+
+
+
+
+function scrollIntoView$1(view, delay = 750) {
+
+    return new Promise((resolve, reject) => {
+        if (view instanceof Element && !scrollingIntoView) {
+
+            scrollingIntoView = true;
+
+            setTimeout(() => {
+                scrollingIntoView = false;
+                resolve(view);
+            }, delay);
+
+            scrollTo({
+                top: view.offsetTop,
+                left: view.offsetLeft,
+                behavior: 'smooth'
+            });
+
+        }
+        else {
+            reject(new Error('Cannot scroll into view.'));
+        }
+    });
+
+
+}
+
+const
+
+    { body } = document,
+    navbarEventTypes = ['navbar-collapsing', 'navbar-shown'],
+    noScrollSavesPosition = true;
+
+//dark mode
+(new DarkModeButton());
+
+// scroll behaviour
+(() => {
+    dataset(body, 'mobile', IS_TOUCH);
+    const delta = new ScrollDelta();
+
+    delta.on('change', e => {
+        const { direction } = e.data;
+        dataset(body, 'scrollDirection', direction.name);
+    });
+
+
+    const views = new ScrollSnap('#home, .page');
+
+
+    views.on('change', e => {
+        const { view } = e.data;
+        dataset(body, 'view', '#' + view.id);
+    });
+
+
+
+    let collapsible;
+
+    addEventListener('show.bs.collapse', () => {
+        body.classList.remove(...navbarEventTypes);
+        body.classList.add('navbar-collapsing');
+        NoScroll.enable(noScrollSavesPosition);
+    });
+
+
+    addEventListener('shown.bs.collapse', () => {
+        body.classList.remove(...navbarEventTypes);
+        body.classList.add('navbar-shown');
+    });
+
+
+    addEventListener('hidden.bs.collapse', () => {
+        body.classList.remove(...navbarEventTypes);
+        NoScroll.disable(noScrollSavesPosition);
+    });
+
+    addEventListener('click', e => {
+
+        let target;
+
+        if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+            e.preventDefault();
+            collapsible ??= new Collapse('#navbarNav', {
+                toggle: false
+            });
+
+            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+
+            addEventListener('hidden.bs.collapse', () => {
+                scrollIntoView(elem);
+            }, { once: true });
+
+            collapsible.hide();
+
+        } else if (target = e.target.closest('[href^="#"].scroll-down-button,  [href^="#"] ')) {
+            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+
+            if (elem) {
+                e.preventDefault();
+                if (!elem.classList.contains('active')) {
+                    scrollIntoView(elem);
+                }
+            }
+        }
+
+    });
+
+
+
+})();
+
+
+
+
+
+
+
+
+
 
 const pills = document.querySelectorAll('.nav-pills a.pill');
 addEventListener('activate.bs.scrollspy', e => {
@@ -16362,110 +16690,19 @@ addEventListener('activate.bs.scrollspy', e => {
     });
 });
 
-dataset(body, 'mobile', IS_TOUCH);
-
-
-if (!IS_TOUCH) {
-    const io = new IntersectionObserver(entries => {
-
-        for (let i = 0; i < entries.length; i++) {
-
-            if (scrollingIntoView) {
-                return;
-            }
-            let item = entries[i];
-            if (item.isIntersecting) {
-                currentPage = item.target;
-                scrollIntoView(currentPage);
-
-                break;
-            }
-        }
-    }, {
-        threshold: 0.3
-    });
-
-    pages.forEach(page => io.observe(page));
-}
-
-
-addEventListener('scroll', e => {
-    if (scrollingIntoView) {
-        return;
-    }
-
-
-    let bottom = scrollY > scrollPos.y, current = bottom ? 'bottom' : 'top';
-
-    scrollPos = {
-        x: scrollX,
-        y: scrollY
-    };
-
-    if (current !== direction) {
-        dataset(body, 'scrollDirection', direction = current);
-    }
-
-
-});
 
 
 
-addEventListener('show.bs.collapse', () => {
-    body.classList.remove(...navbarEventTypes);
-    body.classList.add('navbar-collapsing');
-    NoScroll.enable(noScrollSavesPosition);
-});
-addEventListener('shown.bs.collapse', () => {
-    body.classList.remove(...navbarEventTypes);
-    body.classList.add('navbar-shown');
-});
-
-
-addEventListener('hidden.bs.collapse', () => {
-    body.classList.remove(...navbarEventTypes);
-    NoScroll.disable(noScrollSavesPosition);
-});
-
-
-// mobile menu disappears when clicked + scrolldown button clicked
-
-addEventListener('click', e => {
-
-    let target;
-
-    if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
-        e.preventDefault();
-        collapsible ??= new Collapse('#navbarNav', {
-            toggle: false
-        });
-
-        let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
-
-        addEventListener('hidden.bs.collapse', () => {
-            scrollIntoView(elem);
-        }, { once: true });
-
-        collapsible.hide();
-
-    } else if (target = e.target.closest('[href^="#"].scroll-down-button,  [href^="#"] ')) {
-        let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
-
-        if (elem) {
-            e.preventDefault();
-            if (!elem.classList.contains('active')) {
-                scrollIntoView(elem);
-            }
-        }
-    }
-
-});
 
 
 //title in divs
 
 (() => {
-    let titleElement = document.querySelector('#home h1'), text = titleElement.getAttribute('aria-label'), letters = text.split('');
+    let
+        titleElement = document.querySelector('#home h1'),
+        text = titleElement.getAttribute('aria-label'),
+        letters = text.split('');
+
     titleElement.innerHTML = '';
 
     for (let letter of letters) {
@@ -16475,168 +16712,184 @@ addEventListener('click', e => {
 
 
 // typed.js
+(() => {
+    const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
 
-const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
-
-document.querySelectorAll('.typed-text').forEach(elem => {
+    document.querySelectorAll('.typed-text').forEach(elem => {
 
 
-    let list;
-    if (list = dataset(elem, 'typed')) {
-        list = list.split(',').map(item => item.trim());
-        new i(elem, Object.assign({
-            strings: list
-        }, typedOptions));
-    }
+        let list;
+        if (list = dataset(elem, 'typed')) {
+            list = list.split(',').map(item => item.trim());
+            new i(elem, Object.assign({
+                strings: list
+            }, typedOptions));
+        }
 
-});
+    });
+})();
+
+
 
 // contact form
+(() => {
+    function formNotify(type, message, delay = 3000) {
 
-function formNotify(type, message, delay = 3000) {
+        return new Promise(resolve => {
+            const
+                formAlert = document.querySelector('#form-alert'),
+                msg = createElement$1('<div role="alert"/>', {
+                    class: 'my-3 alert alert-' + type
+                }, message);
 
-    return new Promise(resolve => {
-        const
-            formAlert = document.querySelector('#form-alert'),
-            msg = createElement$1('<div role="alert"/>', {
-                class: 'my-3 alert alert-' + type
-            }, message);
+            setTimeout(() => {
+                msg.remove();
+                resolve(msg);
+            }, delay);
 
-        setTimeout(() => {
-            msg.remove();
-            resolve(msg);
-        }, delay);
+            formAlert.appendChild(msg);
+        });
 
-        formAlert.appendChild(msg);
-    });
-
-}
-
-addEventListener('submit', e => {
-
-    const form = e.target.closest('form.needs-validation');
-
-    if (form) {
-        let btn;
-        if (btn = form.querySelector('[type="submit"]')) {
-            btn.classList.add('disabled');
-        }
     }
 
-    if (e.target.closest('#about form')) {
-        e.preventDefault();
+    addEventListener('submit', e => {
+
+        const form = e.target.closest('form.needs-validation');
 
         if (form) {
-            form.classList.add('was-validated');
-            if (form.checkValidity()) {
+            let btn;
+            if (btn = form.querySelector('[type="submit"]')) {
+                btn.classList.add('disabled');
+            }
+        }
+
+        if (e.target.closest('#about form')) {
+            e.preventDefault();
+
+            if (form) {
+                form.classList.add('was-validated');
+                if (form.checkValidity()) {
 
 
-                const formData = new URLSearchParams(new FormData(form));
+                    const formData = new URLSearchParams(new FormData(form));
 
 
-                fetch(form.action, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: formData.toString()
-                }).then(resp => {
-                    if (!resp.ok) {
-                        throw new Error(resp.statusText);
-                    }
+                    fetch(form.action, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: formData.toString()
+                    }).then(resp => {
+                        if (!resp.ok) {
+                            throw new Error(resp.statusText);
+                        }
 
 
-                    formNotify('success', 'Votre message à bien été envoyé.').then(() => {
-                        form.classList.remove('was-validated');
-                        form.reset();
+                        formNotify('success', 'Votre message à bien été envoyé.').then(() => {
+                            form.classList.remove('was-validated');
+                            form.reset();
+                        });
+
+                    }).catch(err => {
+
+                        formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() => {
+                            form.classList.remove('was-validated');
+                            form.reset();
+                        });
                     });
 
-                }).catch(err => {
-
-                    formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() => {
-                        form.classList.remove('was-validated');
-                        form.reset();
-                    });
-                });
+                }
 
             }
+        }
 
+    });
+
+    function checkForm(e) {
+
+        if (!e.target.closest('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')) {
+            return;
+        }
+
+        let form, btn;
+        if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
+            btn.classList.add('disabled');
+            if (form.checkValidity()) {
+                form.classList.add('was-validated');
+                btn.classList.remove('disabled');
+            }
         }
     }
 
-});
+
+    addEventListener('change', checkForm);
+    document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')
+        .forEach(form => form.addEventListener('keyup', checkForm));
 
 
-function checkForm(e) {
-    let form, btn;
-    if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
-        btn.classList.add('disabled');
-        if (form.checkValidity()) {
-            form.classList.add('was-validated');
-            btn.classList.remove('disabled');
-        }
-    }
-}
+})();
 
 
-addEventListener('change', checkForm);
-
-
-document.querySelectorAll('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')
-    .forEach(elem => elem.addEventListener('keyup', checkForm));
 
 // page projects
-const swiperWrapper = document.querySelector('#projects .swiper-wrapper');
+
+(() => {
+
+    const swiperWrapper = document.querySelector('#projects .swiper-wrapper');
 
 
-const projects = PROJECT_LIST.map(item => new Project(item));
-projects.forEach(project => swiperWrapper.appendChild(createElement$1(
-    '<div class="swiper-slide d-flex align-items-center"/>',
-    project.element
-)));
+    const projects = PROJECT_LIST.map(item => new Project(item));
+    projects.forEach(project => swiperWrapper.appendChild(createElement$1(
+        '<div class="swiper-slide d-flex align-items-center"/>',
+        project.element
+    )));
 
 
-//Swiper
-new Swiper('.swiper', {
+    //Swiper
+    new Swiper('.swiper', {
 
-    loop: true,
-    autoplay: true,
-    delay: 2000,
-    //  parallax: true,
-    effect: 'coverflow',
+        loop: true,
+        autoplay: true,
+        delay: 2000,
+        //  parallax: true,
+        effect: 'coverflow',
 
-    coverflowEffect: {
-        slideShadows: false,
-    },
-    centeredSlides: true,
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        type: 'bullets'
-    },
-    slidesPerView: 1,
-    spaceBetween: 10,
-    // Responsive breakpoints
-    breakpoints: {
-        // when window width is >= 320px
-        320: {
-            slidesPerView: 1,
-            spaceBetween: 20
+        coverflowEffect: {
+            slideShadows: false,
         },
-        // when window width is >= 480px
-        480: {
-            slidesPerView: 1,
-            spaceBetween: 30
+        centeredSlides: true,
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            type: 'bullets'
         },
-        // when window width is >= 640px
-        640: {
-            slidesPerView: 2,
-            spaceBetween: 40
-        }
-    },
-});
+        slidesPerView: 1,
+        spaceBetween: 10,
+        // Responsive breakpoints
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+            },
+            // when window width is >= 480px
+            480: {
+                slidesPerView: 1,
+                spaceBetween: 30
+            },
+            // when window width is >= 640px
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 40
+            }
+        },
+    });
 
+})();
 
-
-[...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
-    .map(elem => new Tooltip(elem));
+// tooltips
+(() => {
+    [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
+        .map(elem => new Tooltip(elem));
+})();
 //# sourceMappingURL=bundle.js.map

@@ -5724,6 +5724,9 @@ body {
   min-height: 100vh;
   width: 100vw;
   margin: 0;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 *,
 ::before,
@@ -5731,19 +5734,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-header {
-  width: 100vw;
-  z-index: 1030;
-  min-height: 64px;
-  background: rgba(248, 249, 250, 0.8);
-  background: rgba(var(--bs-light-rgb), 0.8);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-}
-.navbar-shown header,
-.navbar-collapsing header {
-  min-height: 100vh;
 }
 /* Logo */
 .navbar-brand svg {
@@ -5883,25 +5873,21 @@ header {
   display: inline;
   display: initial;
 }
-[data-mobile=false] header {
-  top: 0;
+header {
+  position: absolute;
   left: 0;
-  position: fixed;
-  transition: position 5s ease-in-out;
-  overflow: hidden;
-  height: 0;
-  min-height: 0;
-  min-height: initial;
-}
-[data-mobile=false] .page {
-  padding-top: 0;
-}
-[data-mobile=false][data-scroll-direction=top] header {
-  height: 64px;
+  top: 100vh;
+  width: 100vw;
+  z-index: 1030;
   min-height: 64px;
+  background: rgba(248, 249, 250, 0.8);
+  background: rgba(var(--bs-light-rgb), 0.8);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
-[data-mobile=false][data-scroll-direction=top] .page {
-  padding-top: 64px;
+.navbar-shown header,
+.navbar-collapsing header {
+  min-height: 100vh;
 }
 .nav-pills {
   position: fixed;
@@ -5935,9 +5921,6 @@ header {
   padding: 8px;
 }
 .page {
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   height: 100vh;
   padding-top: 64px;
 }
@@ -5946,6 +5929,7 @@ header {
   display: inline-block;
 }
 #home {
+  height: 100vh;
   color: rgb(64, 64, 64);
   position: relative;
   background: #161616;
@@ -6150,7 +6134,6 @@ header {
     display: inline;
     display: initial;
   }
-  /* darkmode button */
   .navbar .switch {
     display: none;
   }
@@ -9355,10 +9338,6 @@ header {
   .text-lg-center {
     text-align: center !important;
   }
-  .navbar-shown header,
-  .navbar-collapsing header {
-    min-height: 64px;
-  }
   .navbar .nav-link::after {
     content: "";
     position: absolute;
@@ -9373,6 +9352,10 @@ header {
   .navbar .nav-link:hover::after {
     left: 5%;
     right: 5%;
+  }
+  .navbar-shown header,
+  .navbar-collapsing header {
+    min-height: 64px;
   }
   #projects .project .project-thumbnail {
     height: 192px;
