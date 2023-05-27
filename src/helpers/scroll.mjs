@@ -144,7 +144,7 @@ export class ScrollSnap {
 
 
     #currentTarget
-    #target
+    #targets
     #observer
     #started = false
 
@@ -159,32 +159,36 @@ export class ScrollSnap {
         return this.#started;
     }
 
+    get targets() {
+        return this.#targets;
+    }
+
 
     /**
-     * @param {String|NodeList|HTMLElement|Array} target 
+     * @param {String|NodeList|HTMLElement|Array} targets 
      */
-    constructor(target, threshold = 0.3) {
+    constructor(targets, threshold = 0.3) {
 
 
-        if (isValidSelector(target)) {
-            target = document.querySelectorAll(target);
+        if (isValidSelector(targets)) {
+            targets = document.querySelectorAll(targets);
         }
 
-        if (isElement(target)) {
-            target = [target];
-        } else if (target instanceof NodeList) {
-            target = [...target];
+        if (isElement(targets)) {
+            targets = [targets];
+        } else if (targets instanceof NodeList) {
+            targets = [...targets];
         }
 
-        if (!isArray(target)) {
+        if (!isArray(targets)) {
             throw new TypeError('invalid target');
         }
 
         EventManager.mixin(this);
 
-        this.#target = target;
+        this.#targets = targets;
 
-        if (target.length > 0) {
+        if (targets.length > 0) {
 
 
             this.#observer = new IntersectionObserver(entries => {
@@ -194,7 +198,6 @@ export class ScrollSnap {
                     if (scrollingIntoView) {
                         return;
                     }
-
 
                     let item = entries[i];
                     if (item.isIntersecting) {
@@ -216,7 +219,7 @@ export class ScrollSnap {
 
     start() {
         if (!this.#started && this.#observer) {
-            this.#target.forEach(elem => this.#observer.observe(elem));
+            this.#targets.forEach(elem => this.#observer.observe(elem));
             this.#started = true;
         }
 

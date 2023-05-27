@@ -16,6 +16,11 @@ $landscape-light-bg: rgba(var(--bs-light-rgb), 1);
 $landscape-dark-bg: rgba(var(--bs-dark-rgb), 1);
 
 
+//navpills
+
+$navpill-color: rgba(123, 123, 123, .77);
+$navpill-active-color: rgba(202, 63, 63, 0.94);
+
 // bootstrap overrides
 $include-column-box-sizing: true;
 $font-family-sans-serif: $font-family, sans-serif;

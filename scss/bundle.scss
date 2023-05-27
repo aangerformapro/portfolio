@@ -1,18 +1,19 @@
 //@use "bootstrap-utilities";
 
 
-@use 'components/swiper';
-@use 'components/devicon';
-@use 'components/bootstrap';
-@use 'components/izitoast';
-@use 'components/gerillass' as g;
-@use 'helpers' as *;
+@use './components/swiper';
+@use './components/devicon';
+@use './components/bootstrap';
+@use './components/izitoast';
+@use './components/gerillass' as g;
+@use './helpers' as *;
 
 @use './components/navbar' as *;
-
-@use 'pages/landscape' as *;
-@use 'pages/home' as *;
-
+@use './components/navpills' as *;
+@use './pages/landscape' as *;
+@use './pages/home' as *;
+@use './pages/projects' as *;
+@use './pages/contact' as *;
 
 
 html
@@ -29,18 +30,7 @@ body
     width: 100vw;
     margin: 0;
     user-select: none;
-
-    // background: #f8f9fa;
-
-    // &[data-bs-theme=dark]
-    // {
-    //     background: #212529;
-    // }
-
-    // @media (prefers-color-scheme: dark)
-    // {
-    //     background: #212529;
-    // }
+    overflow-x: hidden;
 }
 
 
@@ -55,152 +45,25 @@ body
 }
 
 
-@include navbar;
-
-
-.nav-pills
+a
 {
-    position: fixed;
-    right: 1vw;
-    z-index: 10;
-    top: 50vh;
-    transform: translateY(-50%);
+    text-decoration: none;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
-
-    .pill
+    &.active
     {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        margin: 4px 0;
-        padding: 6px;
-
-
-        &::after
-        {
-            content: '';
-            display: inline-block;
-            outline: 0;
-            border: 2px solid rgba(123, 123, 123, .77);
-            border-radius: 50%;
-            padding: 6px;
-            transition: border .6s ease-in-out;
-        }
-
-        &.active::after
-        {
-            border-color: rgba(202, 63, 63, 0.94);
-            padding: 8px;
-        }
-
-
+        pointer-events: none !important;
     }
-
-    @include md-down
-    {
-        display: none;
-    }
-
 }
-
-
-
 
 
 .page
 {
     height: 100vh;
-    padding-top: 64px;
 }
 
-
+@include navpills;
+@include navbar;
 @include home;
-
-//project page
-
-
-#projects
-{
-
-    .swiper-wrapper
-    {
-
-        height: 70vh;
-        display: flex;
-        align-items: center;
-    }
-
-    .swiper-pagination-bullet
-    {
-
-        @include g.sizer(12px);
-
-        &-active
-        {
-            background-color: rgba(255, 255, 255, .5);
-            outline: 1px solid rgba(0, 0, 0, .2);
-
-        }
-    }
-
-    .project
-    {
-
-        .card-body
-        {
-            height: 160px;
-        }
-
-        .project-thumbnail
-        {
-            img
-            {
-                object-fit: contain;
-                object-position: center top;
-                width: 100%;
-            }
-
-            border-bottom: 1px solid rgba(0, 0, 0, .3);
-            overflow: hidden;
-            height: 128px;
-
-            @include lg
-            {
-                height: 192px;
-            }
-
-        }
-
-        .card-footer
-        {
-            a + a
-            {
-                margin-left: 8px;
-            }
-        }
-
-    }
-}
-
-
-
-// Contact page
-
-#about
-{
-
-    #message
-    {
-        height: 128px;
-
-    }
-}
-
-
+@include projects;
+@include contact;
 @include landscape;

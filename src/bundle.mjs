@@ -1,9 +1,6 @@
-import "./helpers/process.mjs";
-
-
 // bootstrap components
-import { Collapse, ScrollSpy, Tooltip } from "bootstrap";
-// import { register as registerSwiper } from 'swiper/element/bundle';
+import "./helpers/process.mjs"; // bootstrap popper fix
+import { Collapse, Tooltip } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
 import Typed from 'typed.js';
 import dataset from "./helpers/dataset.mjs";
@@ -11,9 +8,10 @@ import { createElement } from "./helpers/utils.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
 import Swiper from "swiper/swiper-bundle.esm.js";
 
-import { IS_TOUCH, PROJECT_LIST } from "./helpers/constants.mjs";
+import { PROJECT_LIST } from "./helpers/constants.mjs";
 import Project from "./components/projects.mjs";
-import { ScrollDelta, ScrollSnap } from "./helpers/scroll.mjs";
+import { ScrollSnap } from "./helpers/scroll.mjs";
+import NavPills from "./components/navpills.mjs";
 
 const
 
@@ -26,24 +24,32 @@ const
 
 // scroll behaviour
 (() => {
-    dataset(body, 'mobile', IS_TOUCH);
-    const delta = new ScrollDelta();
 
-    delta.on('change', e => {
-        const { direction } = e.data;
-        dataset(body, 'scrollDirection', direction.name);
-    });
+    const navlinks = [...document.querySelectorAll('header [href*="#"]')];
 
-
-    const views = new ScrollSnap('#home, .page');
+    const
+        views = new ScrollSnap('#home, .page'),
+        pills = new NavPills(views);
 
 
-    views.on('change', e => {
-        const { view } = e.data;
+    pills.on('change', e => {
+        const { view, pill } = e.data;
+
+        navlinks.forEach(a => {
+
+
+            if (a.href === pill.href) {
+                a.classList.add('active');
+            }
+            else {
+                a.classList.remove('active');
+            }
+
+
+        });
+
         dataset(body, 'view', '#' + view.id);
     });
-
-
 
     let collapsible;
 
@@ -53,98 +59,61 @@ const
         NoScroll.enable(noScrollSavesPosition);
     });
 
-
     addEventListener('shown.bs.collapse', () => {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-shown');
     });
-
 
     addEventListener('hidden.bs.collapse', () => {
         body.classList.remove(...navbarEventTypes);
         NoScroll.disable(noScrollSavesPosition);
     });
 
+
+
     addEventListener('click', e => {
 
-        let target;
+        let link, elem;
 
-        if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+        if (link = e.target.closest('header [href^="#"], .scroll-down-button')) {
             e.preventDefault();
-            collapsible ??= new Collapse('#navbarNav', {
-                toggle: false
-            });
 
-            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+            if (elem = document.getElementById(link.getAttribute('href').slice(1))) {
+                // burger button (mobile)
+                if (link.closest('.navbar-shown')) {
+                    collapsible ??= new Collapse('#navbarNav', {
+                        toggle: false
+                    });
 
-            addEventListener('hidden.bs.collapse', () => {
-                scrollIntoView(elem);
-            }, { once: true });
-
-            collapsible.hide();
-
-        } else if (target = e.target.closest('[href^="#"].scroll-down-button,  [href^="#"] ')) {
-            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
-
-            if (elem) {
-                e.preventDefault();
-                if (!elem.classList.contains('active')) {
-                    scrollIntoView(elem);
+                    addEventListener('hidden.bs.collapse', () => {
+                        pills.scrollTo(elem.id);
+                    }, { once: true });
+                    collapsible.hide();
+                } else {
+                    pills.scrollTo(elem.id);
                 }
             }
         }
 
     });
 
-
-
 })();
-
-
-
-
-
-
-
-
-
-
-const pills = document.querySelectorAll('.nav-pills a.pill');
-addEventListener('activate.bs.scrollspy', e => {
-    const
-        { relatedTarget } = e,
-        hash = relatedTarget.getAttribute('href'),
-        selector = `[href="${hash}"]`;
-    pills.forEach(pill => {
-
-        if (pill.closest(selector)) {
-            pill.classList.add('active');
-        }
-        else {
-            pill.classList.remove('active');
-        }
-    });
-});
-
-
-
-
 
 
 //title in divs
 
-(() => {
-    let
-        titleElement = document.querySelector('#home h1'),
-        text = titleElement.getAttribute('aria-label'),
-        letters = text.split('');
+// (() => {
+//     let
+//         titleElement = document.querySelector('#home h1'),
+//         text = titleElement.getAttribute('aria-label'),
+//         letters = text.split('');
 
-    titleElement.innerHTML = '';
+//     titleElement.innerHTML = '';
 
-    for (let letter of letters) {
-        titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
-    }
-})();
+//     for (let letter of letters) {
+//         titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
+//     }
+// })();
 
 
 // typed.js

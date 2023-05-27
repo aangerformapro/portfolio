@@ -1,0 +1,74 @@
+@use '../helpers' as *;
+
+//project page
+
+@mixin projects
+{
+    #projects
+    {
+
+        .swiper
+        {
+            height: 70vh;
+        }
+
+        .swiper-wrapper
+        {
+
+            max-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .swiper-pagination-bullet
+        {
+
+            @include sizer(12px);
+
+            &-active
+            {
+                background-color: rgba(255, 255, 255, .5);
+                outline: 1px solid rgba(0, 0, 0, .2);
+
+            }
+        }
+
+        .project
+        {
+
+            .card-body
+            {
+                height: 160px;
+            }
+
+            .project-thumbnail
+            {
+                img
+                {
+                    object-fit: contain;
+                    object-position: center top;
+                    width: 100%;
+                }
+
+                border-bottom: 1px solid rgba(0, 0, 0, .3);
+                overflow: hidden;
+                height: 128px;
+
+                @include lg
+                {
+                    height: 192px;
+                }
+
+            }
+
+            .card-footer
+            {
+                a + a
+                {
+                    margin-left: 8px;
+                }
+            }
+
+        }
+    }
+}

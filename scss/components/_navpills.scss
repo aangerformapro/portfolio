@@ -1,0 +1,60 @@
+@use '../helpers' as *;
+@use '../variables' as *;
+
+@mixin navpills($color: $navpill-color, $active: $navpill-active-color)
+{
+
+
+
+    .nav-pills
+    {
+        position: fixed;
+        right: 1vw;
+        z-index: 10;
+        top: 50vh;
+        transform: translateY(-50%);
+
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+
+        .pill
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin: 4px 0;
+            padding: 6px;
+
+
+            &::after
+            {
+                content: '';
+                display: inline-block;
+                outline: 0;
+                border: 2px solid $color;
+                border-radius: 50%;
+                padding: 6px;
+                transition: border .6s ease-in-out;
+            }
+
+            &.active::after
+            {
+                border-color: $active;
+                padding: 8px;
+            }
+
+
+        }
+
+        @include md
+        {
+            display: flex;
+        }
+
+    }
+
+}

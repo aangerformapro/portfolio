@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Aymeric Anger - Portfolio</title>
+    <!-- <meta name="description" content=""> -->
 
     <link rel="shortcut icon" href="./assets/pictures/icons/logoaa16.png" type="image/png" sizes="16x16">
     <link rel="shortcut icon" href="./assets/pictures/icons/logoaa32.png" type="image/png" sizes="32x32">
@@ -24,7 +25,7 @@
 
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#navbarNav">
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-view="#home">
     <header>
         <nav class="navbar navbar-expand-lg px-3">
             <div class="container-fluid">
@@ -87,14 +88,6 @@
                                     <path
                                         d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
                                 </svg>
-                            </a><a href="mailto:aymeric.anger@gmail.com" title="Gmail" class="social-media-link mx-2"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom">
-
-                                <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24" role="img"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
-                                </svg>
                             </a>
                             <a href="http://github.com/ngsoft" target="_blank" rel="noopener noreferrer" title="Github"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" class="social-media-link mx-2">
@@ -149,7 +142,7 @@
                         class="hiro object-fit-fill w-100 h-100">
                 </div>
             </div>
-            <a href="#skills" class="scroll-down-button position-absolute bottom-0 start-50 mb-3"
+            <a href="#skills" class="scroll-down-button position-absolute bottom-0 start-50"
                 title="Please scroll down"><span></span></a>
         </div>
 
@@ -167,12 +160,13 @@
             <p class="col-md-8 fs-5 mb-0 mb-lg-3">
                 Voici une liste de quelques projets sur lesquels j'ai travaillé.
             </p>
+            <hr class="my-2">
             <div class="row">
 
                 <!-- Slider main container -->
                 <div class="swiper mx-auto">
                     <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-wrapper mb-3"></div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
@@ -221,7 +215,7 @@
                         <label for="message">Votre Message:</label>
                     </div>
                     <div class="text-end pt-3">
-                        <button type="submit" class="btn btn-primary btn-lg rounded-pill">Envoyer</button>
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill disabled">Envoyer</button>
                     </div>
                 </form>
             </div>
@@ -229,19 +223,29 @@
         </div>
 
     </div>
-    <div class="nav-pills">
-        <a href="#home" class="pill" title="Accueil" data-bs-toggle="tooltip" data-bs-placement="left"></a>
-        <a href="#skills" class="pill" title="Compétences" data-bs-toggle="tooltip" data-bs-placement="left"></a>
-        <a href="#projects" class="pill" title="Portfolio" data-bs-toggle="tooltip" data-bs-placement="left"></a>
-        <a href="#about" class="pill" title="Contact" data-bs-toggle="tooltip" data-bs-placement="left"></a>
-    </div>
+
 
     <div class="landscape">
         <p>
             Ce site est développé pour être affiché en mode portrait sur mobile.
         </p>
     </div>
-    <footer>
+    <footer class="container">
+        <div class="row justify-content-center align-items-center">
+
+            <div class="copyright text-center">
+                <span class="year me-1">
+                    &copy;
+                    <script>
+                        document.write((new Date()).getFullYear())
+                    </script>
+                </span>
+                <a href="http://github.com/ngsoft" target="_blank" rel="noopener noreferrer" title="Aymeric Anger"
+                    class="link-underline-primary">Aymeric Anger</a>
+            </div>
+
+
+        </div>
 
     </footer>
 </body>

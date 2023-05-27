@@ -6499,6 +6499,23 @@ function isHTML(param) {
 }
 
 
+function decode$1(value) {
+
+    if (isUndef(value) || isNull(value) || value === '') {
+        return null;
+    }
+    if (
+        (value.startsWith('{') && value.endsWith('}')) ||
+        (value.startsWith('[') && value.endsWith(']')) ||
+        isNumeric(value) || value === 'true' || value === 'false'
+    ) {
+        return JSON$2.parse(value);
+    }
+
+    return value;
+}
+
+
 function encode$1(value) {
 
     if (!isString(value)) {
@@ -6829,7 +6846,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".noscroll {\n    position: fixed !important;\n    overflow-y: hidden !important;\n    width: 100% !important;\n    z-index: -1 !important;\n}\n\n.scrollback {\n    scroll-behavior: auto !important;\n}";
+var css_248z = "@media (max-width: 992px) {\n    .noscroll {\n        position: fixed !important;\n        overflow-y: hidden !important;\n        width: 100% !important;\n        z-index: -1 !important;\n    }\n\n    .scrollback {\n        scroll-behavior: auto !important;\n    }\n}";
 styleInject(css_248z);
 
 const { documentElement } = document;
@@ -16044,11 +16061,6 @@ function EffectCards({
 const modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];
 Swiper.use(modules);
 
-const IS_BROWSER = typeof window !== 'undefined' && typeof window.document !== 'undefined';
-const IS_TOUCH = IS_BROWSER && 'ontouchstart' in window;
-
-
-
 const psrIcon = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 32.000000 32.000000"
 preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"><path d="M130 310 c-8 -5 -27 -11 -42 -15 -16 -3 -28 -12 -28 -20 0 -8 -12
 -22 -26 -31 -19 -13 -24 -23 -20 -40 4 -13 1 -34 -6 -48 -9 -21 -8 -29 4 -43
@@ -16319,12 +16331,6 @@ class Project {
     }
 }
 
-// initial scroll
-const scrollPos = {
-    x: scrollX,
-    y: scrollY,
-};
-
 let scrollingIntoView = false;
 /**
  * Enum Direction
@@ -16347,109 +16353,6 @@ class Direction {
 }
 
 
-class ScrollDelta {
-
-
-    get x() {
-        return this.#x;
-    }
-
-    get y() {
-        return this.#y;
-    }
-
-    get direction() {
-
-        if (this.#x > 0) {
-            return Direction.Right;
-        }
-
-        if (this.#x < 0) {
-            return Direction.Left;
-        }
-
-        if (this.#y > 0) {
-            return Direction.Bottom;
-        }
-
-        if (this.#y < 0) {
-            return Direction.Top;
-        }
-
-        return null;
-    }
-
-    #x = 0
-    #y = 0
-    listener
-
-    #attached = false
-
-    constructor() {
-
-
-        EventManager.mixin(this);
-
-        this.listener = () => {
-            if (scrollingIntoView) {
-                return;
-            }
-
-            let
-                x = scrollX,
-                y = scrollY,
-                initialDirection = this.direction;
-
-            if (x === scrollPos.x && y === scrollPos.y) {
-                return;
-            }
-
-            [this.#x, this.#y] = [
-                x - scrollPos.x,
-                y - scrollPos.y
-            ];
-
-            [scrollPos.x, scrollPos.y] = [x, y];
-
-
-            let data = {
-                x: this.x,
-                y: this.y,
-                direction: this.direction
-            };
-
-
-            this.trigger('update', data);
-
-            if (data.direction !== initialDirection) {
-                this.trigger('change', data);
-            }
-
-        };
-
-        this.attach();
-    }
-
-    attach() {
-        if (!this.#attached) {
-            addEventListener('scroll', this.listener);
-            this.#attached = true;
-        }
-
-    }
-
-    detach() {
-
-        if (this.#attached) {
-            removeEventListener('scroll', this.listener);
-
-            this.#attached = false;
-        }
-    }
-
-}
-
-
 class ScrollSnap {
 
 
@@ -16460,7 +16363,7 @@ class ScrollSnap {
 
 
     #currentTarget
-    #target
+    #targets
     #observer
     #started = false
 
@@ -16475,32 +16378,36 @@ class ScrollSnap {
         return this.#started;
     }
 
+    get targets() {
+        return this.#targets;
+    }
+
 
     /**
-     * @param {String|NodeList|HTMLElement|Array} target 
+     * @param {String|NodeList|HTMLElement|Array} targets 
      */
-    constructor(target, threshold = 0.3) {
+    constructor(targets, threshold = 0.3) {
 
 
-        if (isValidSelector(target)) {
-            target = document.querySelectorAll(target);
+        if (isValidSelector(targets)) {
+            targets = document.querySelectorAll(targets);
         }
 
-        if (isElement(target)) {
-            target = [target];
-        } else if (target instanceof NodeList) {
-            target = [...target];
+        if (isElement(targets)) {
+            targets = [targets];
+        } else if (targets instanceof NodeList) {
+            targets = [...targets];
         }
 
-        if (!isArray(target)) {
+        if (!isArray(targets)) {
             throw new TypeError('invalid target');
         }
 
         EventManager.mixin(this);
 
-        this.#target = target;
+        this.#targets = targets;
 
-        if (target.length > 0) {
+        if (targets.length > 0) {
 
 
             this.#observer = new IntersectionObserver(entries => {
@@ -16511,10 +16418,9 @@ class ScrollSnap {
                         return;
                     }
 
-
                     let item = entries[i];
                     if (item.isIntersecting) {
-                        scrollIntoView$1(this.#currentTarget = item.target)
+                        scrollIntoView(this.#currentTarget = item.target)
                             .then(view => {
                                 this.trigger('change', { view });
                             });
@@ -16532,7 +16438,7 @@ class ScrollSnap {
 
     start() {
         if (!this.#started && this.#observer) {
-            this.#target.forEach(elem => this.#observer.observe(elem));
+            this.#targets.forEach(elem => this.#observer.observe(elem));
             this.#started = true;
         }
 
@@ -16552,7 +16458,7 @@ class ScrollSnap {
 
 
 
-function scrollIntoView$1(view, delay = 750) {
+function scrollIntoView(view, delay = 750) {
 
     return new Promise((resolve, reject) => {
         if (view instanceof Element && !scrollingIntoView) {
@@ -16579,6 +16485,139 @@ function scrollIntoView$1(view, delay = 750) {
 
 }
 
+class NavPills {
+
+
+    #root
+    #views
+
+    element
+
+    pills
+
+    get views() {
+        return this.#views;
+    }
+
+    get targets() {
+        return this.#views.targets;
+    }
+
+
+    #findview(id = '') {
+
+        if (id.startsWith('#')) {
+            id = id.slice(1);
+        }
+
+        for (let target of this.targets) {
+            if (target.id === id) {
+                return target;
+            }
+        }
+
+    }
+
+
+    scrollTo(id = '') {
+
+        return new Promise((resolve, reject) => {
+            if (id.startsWith('#')) {
+                id = id.slice(1);
+            }
+
+            let view = this.#findview(id), pill = this.pills[id];
+
+            if (view && pill) {
+
+                this.one('change', e => {
+                    resolve(view);
+                });
+
+                this.trigger('change', {
+                    view, pill
+                });
+
+                scrollIntoView(view);
+            } else {
+                reject(new Error('invalid id ' + decode$1(id)));
+            }
+
+
+        });
+    }
+
+
+
+    constructor(views, root) {
+
+
+        if (views instanceof ScrollSnap === false) {
+            throw new TypeError('argument views not an instance of ScrollSnap')
+        }
+
+
+        EventManager.mixin(this);
+
+        this.#views = views;
+
+        if (!isElement(root)) {
+            root = document.body;
+        }
+
+        this.#root = root;
+
+        const { targets } = views, pills = this.pills = {};
+
+        const elem = this.element = createElement$1(
+            '<div class="nav-pills">',
+            targets.filter(t => t.matches('[id][title]')).map(target => {
+                let
+                    id = target.id,
+                    a = createElement$1('<a class="pill" data-bs-toggle="tooltip" data-bs-placement="left"/>', {
+                        href: '#' + id,
+                        title: target.getAttribute('title'),
+                        data: { id }
+                    });
+                return pills[id] = a;
+
+            })
+        );
+
+        this.on('change', e => {
+            const { view } = e.data;
+            for (let id in pills) {
+                let elem = pills[id];
+                elem.classList.remove('active');
+                if (view.id === id) {
+                    elem.classList.add('active');
+                }
+            }
+
+        });
+
+        views.on('change', e => {
+            this.trigger('change', { view: e.data.view, pill: pills[e.data.view.id] });
+        });
+
+        root.appendChild(elem);
+
+        elem.addEventListener('click', e => {
+            let pill = e.target.closest('[href^="#"]');
+            if (pill) {
+                e.preventDefault();
+                if (!pill.classList.contains('active')) {
+                    this.scrollTo(pill.dataset.id);
+                }
+            }
+
+        });
+
+    }
+}
+
+// bootstrap components
+
 const
 
     { body } = document,
@@ -16590,24 +16629,32 @@ const
 
 // scroll behaviour
 (() => {
-    dataset(body, 'mobile', IS_TOUCH);
-    const delta = new ScrollDelta();
 
-    delta.on('change', e => {
-        const { direction } = e.data;
-        dataset(body, 'scrollDirection', direction.name);
-    });
+    const navlinks = [...document.querySelectorAll('header [href*="#"]')];
 
-
-    const views = new ScrollSnap('#home, .page');
+    const
+        views = new ScrollSnap('#home, .page'),
+        pills = new NavPills(views);
 
 
-    views.on('change', e => {
-        const { view } = e.data;
+    pills.on('change', e => {
+        const { view, pill } = e.data;
+
+        navlinks.forEach(a => {
+
+
+            if (a.href === pill.href) {
+                a.classList.add('active');
+            }
+            else {
+                a.classList.remove('active');
+            }
+
+
+        });
+
         dataset(body, 'view', '#' + view.id);
     });
-
-
 
     let collapsible;
 
@@ -16617,98 +16664,61 @@ const
         NoScroll.enable(noScrollSavesPosition);
     });
 
-
     addEventListener('shown.bs.collapse', () => {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-shown');
     });
-
 
     addEventListener('hidden.bs.collapse', () => {
         body.classList.remove(...navbarEventTypes);
         NoScroll.disable(noScrollSavesPosition);
     });
 
+
+
     addEventListener('click', e => {
 
-        let target;
+        let link, elem;
 
-        if (target = e.target.closest('.navbar-shown .navbar-nav .nav-item [href^="#"]')) {
+        if (link = e.target.closest('header [href^="#"], .scroll-down-button')) {
             e.preventDefault();
-            collapsible ??= new Collapse('#navbarNav', {
-                toggle: false
-            });
 
-            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
+            if (elem = document.getElementById(link.getAttribute('href').slice(1))) {
+                // burger button (mobile)
+                if (link.closest('.navbar-shown')) {
+                    collapsible ??= new Collapse('#navbarNav', {
+                        toggle: false
+                    });
 
-            addEventListener('hidden.bs.collapse', () => {
-                scrollIntoView(elem);
-            }, { once: true });
-
-            collapsible.hide();
-
-        } else if (target = e.target.closest('[href^="#"].scroll-down-button,  [href^="#"] ')) {
-            let id = target.getAttribute('href').slice(1), elem = document.getElementById(id);
-
-            if (elem) {
-                e.preventDefault();
-                if (!elem.classList.contains('active')) {
-                    scrollIntoView(elem);
+                    addEventListener('hidden.bs.collapse', () => {
+                        pills.scrollTo(elem.id);
+                    }, { once: true });
+                    collapsible.hide();
+                } else {
+                    pills.scrollTo(elem.id);
                 }
             }
         }
 
     });
 
-
-
 })();
-
-
-
-
-
-
-
-
-
-
-const pills = document.querySelectorAll('.nav-pills a.pill');
-addEventListener('activate.bs.scrollspy', e => {
-    const
-        { relatedTarget } = e,
-        hash = relatedTarget.getAttribute('href'),
-        selector = `[href="${hash}"]`;
-    pills.forEach(pill => {
-
-        if (pill.closest(selector)) {
-            pill.classList.add('active');
-        }
-        else {
-            pill.classList.remove('active');
-        }
-    });
-});
-
-
-
-
 
 
 //title in divs
 
-(() => {
-    let
-        titleElement = document.querySelector('#home h1'),
-        text = titleElement.getAttribute('aria-label'),
-        letters = text.split('');
+// (() => {
+//     let
+//         titleElement = document.querySelector('#home h1'),
+//         text = titleElement.getAttribute('aria-label'),
+//         letters = text.split('');
 
-    titleElement.innerHTML = '';
+//     titleElement.innerHTML = '';
 
-    for (let letter of letters) {
-        titleElement.appendChild(createElement$1('span', { class: 'blast' }, letter));
-    }
-})();
+//     for (let letter of letters) {
+//         titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
+//     }
+// })();
 
 
 // typed.js
