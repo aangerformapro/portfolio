@@ -14,68 +14,82 @@ let scrollingIntoView = false;
  * Enum Direction
  * @link https://www.sohamkamani.com/javascript/enums/
  */
-export class Direction {
-    static Top = new Direction("top")
-    static Bottom = new Direction("bottom")
-    static Left = new Direction("left")
-    static Right = new Direction("right")
+export class Direction
+{
+    static Top = new Direction("top");
+    static Bottom = new Direction("bottom");
+    static Left = new Direction("left");
+    static Right = new Direction("right");
 
-    #name
-    get name() {
-        return this.#name
+    #name;
+    get name()
+    {
+        return this.#name;
     }
 
-    constructor(name) {
-        this.#name = name
+    constructor(name)
+    {
+        this.#name = name;
     }
 }
 
 
-export class ScrollDelta {
+export class ScrollDelta
+{
 
 
-    get x() {
+    get x()
+    {
         return this.#x;
     }
 
-    get y() {
+    get y()
+    {
         return this.#y;
     }
 
-    get direction() {
+    get direction()
+    {
 
-        if (this.#x > 0) {
+        if (this.#x > 0)
+        {
             return Direction.Right;
         }
 
-        if (this.#x < 0) {
+        if (this.#x < 0)
+        {
             return Direction.Left;
         }
 
-        if (this.#y > 0) {
+        if (this.#y > 0)
+        {
             return Direction.Bottom;
         }
 
-        if (this.#y < 0) {
+        if (this.#y < 0)
+        {
             return Direction.Top;
         }
 
         return null;
     }
 
-    #x = 0
-    #y = 0
-    listener
+    #x = 0;
+    #y = 0;
+    listener;
 
-    #attached = false
+    #attached = false;
 
-    constructor() {
+    constructor()
+    {
 
 
         EventManager.mixin(this);
 
-        this.listener = () => {
-            if (scrollingIntoView) {
+        this.listener = () =>
+        {
+            if (scrollingIntoView)
+            {
                 return;
             }
 
@@ -84,7 +98,8 @@ export class ScrollDelta {
                 y = scrollY,
                 initialDirection = this.direction;
 
-            if (x === scrollPos.x && y === scrollPos.y) {
+            if (x === scrollPos.x && y === scrollPos.y)
+            {
                 return;
             }
 
@@ -105,26 +120,31 @@ export class ScrollDelta {
 
             this.trigger('update', data);
 
-            if (data.direction !== initialDirection) {
+            if (data.direction !== initialDirection)
+            {
                 this.trigger('change', data);
             }
 
-        }
+        };
 
         this.attach();
     }
 
-    attach() {
-        if (!this.#attached) {
+    attach()
+    {
+        if (!this.#attached)
+        {
             addEventListener('scroll', this.listener);
             this.#attached = true;
         }
 
     }
 
-    detach() {
+    detach()
+    {
 
-        if (this.#attached) {
+        if (this.#attached)
+        {
             removeEventListener('scroll', this.listener);
 
             this.#attached = false;
@@ -134,32 +154,38 @@ export class ScrollDelta {
 }
 
 
-export class ScrollSnap {
+export class ScrollSnap
+{
 
 
 
-    static of(target) {
+    static of(target)
+    {
         return new ScrollSnap(target);
     }
 
 
-    #currentTarget
-    #targets
-    #observer
-    #started = false
+    #currentTarget;
+    #targets;
+    #observer;
+    #started = false;
 
-    get currentTarget() {
+    get currentTarget()
+    {
         return this.#currentTarget;
     }
 
-    get observer() {
+    get observer()
+    {
         return this.#observer;
     }
-    get started() {
+    get started()
+    {
         return this.#started;
     }
 
-    get targets() {
+    get targets()
+    {
         return this.#targets;
     }
 
@@ -167,20 +193,25 @@ export class ScrollSnap {
     /**
      * @param {String|NodeList|HTMLElement|Array} targets 
      */
-    constructor(targets, threshold = 0.3) {
+    constructor(targets, threshold = 0.3)
+    {
 
 
-        if (isValidSelector(targets)) {
+        if (isValidSelector(targets))
+        {
             targets = document.querySelectorAll(targets);
         }
 
-        if (isElement(targets)) {
+        if (isElement(targets))
+        {
             targets = [targets];
-        } else if (targets instanceof NodeList) {
+        } else if (targets instanceof NodeList)
+        {
             targets = [...targets];
         }
 
-        if (!isArray(targets)) {
+        if (!isArray(targets))
+        {
             throw new TypeError('invalid target');
         }
 
@@ -188,21 +219,27 @@ export class ScrollSnap {
 
         this.#targets = targets;
 
-        if (targets.length > 0) {
+        if (targets.length > 0)
+        {
 
 
-            this.#observer = new IntersectionObserver(entries => {
+            this.#observer = new IntersectionObserver(entries =>
+            {
 
-                for (let i = 0; i < entries.length; i++) {
+                for (let i = 0; i < entries.length; i++)
+                {
 
-                    if (scrollingIntoView) {
+                    if (scrollingIntoView)
+                    {
                         return;
                     }
 
                     let item = entries[i];
-                    if (item.isIntersecting) {
+                    if (item.isIntersecting)
+                    {
                         scrollIntoView(this.#currentTarget = item.target)
-                            .then(view => {
+                            .then(view =>
+                            {
                                 this.trigger('change', { view });
                             });
 
@@ -217,16 +254,20 @@ export class ScrollSnap {
         }
     }
 
-    start() {
-        if (!this.#started && this.#observer) {
+    start()
+    {
+        if (!this.#started)
+        {
             this.#targets.forEach(elem => this.#observer.observe(elem));
             this.#started = true;
         }
 
     }
 
-    stop() {
-        if (this.#started) {
+    stop()
+    {
+        if (this.#started)
+        {
             this.#observer.disconnect();
             this.#started = false;
         }
@@ -239,14 +280,18 @@ export class ScrollSnap {
 
 
 
-export function scrollIntoView(view, delay = 750) {
+export function scrollIntoView(view, delay = 750)
+{
 
-    return new Promise((resolve, reject) => {
-        if (view instanceof Element && !scrollingIntoView) {
+    return new Promise((resolve, reject) =>
+    {
+        if (view instanceof Element && !scrollingIntoView)
+        {
 
             scrollingIntoView = true;
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 scrollingIntoView = false;
                 resolve(view);
             }, delay);
@@ -258,7 +303,8 @@ export function scrollIntoView(view, delay = 750) {
             });
 
         }
-        else {
+        else
+        {
             reject(new Error('Cannot scroll into view.'));
         }
     });

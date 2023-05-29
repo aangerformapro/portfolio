@@ -6469,7 +6469,7 @@ const isPlainObject = (param) => param instanceof Object && Object.getPrototypeO
     isArray = (param) => Array.isArray(param),
     isNull = (param) => param === null,
     isCallable = (param) => typeof param === 'function',
-    isFunction = isCallable;
+    isFunction = isCallable;
 
 function runAsync(callback, ...args) {
     if (isFunction(callback)) {
@@ -6846,7 +6846,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "@media (max-width: 992px) {\n    .noscroll {\n        position: fixed !important;\n        overflow-y: hidden !important;\n        width: 100% !important;\n        z-index: -1 !important;\n    }\n\n    .scrollback {\n        scroll-behavior: auto !important;\n    }\n}";
+var css_248z = "@media (max-width: 992px) {\r\n    .noscroll {\r\n        position: fixed !important;\r\n        overflow-y: hidden !important;\r\n        width: 100% !important;\r\n        z-index: -1 !important;\r\n    }\r\n\r\n    .scrollback {\r\n        scroll-behavior: auto !important;\r\n    }\r\n}";
 styleInject(css_248z);
 
 const { documentElement } = document;
@@ -16336,49 +16336,58 @@ let scrollingIntoView = false;
  * Enum Direction
  * @link https://www.sohamkamani.com/javascript/enums/
  */
-class Direction {
-    static Top = new Direction("top")
-    static Bottom = new Direction("bottom")
-    static Left = new Direction("left")
-    static Right = new Direction("right")
+class Direction
+{
+    static Top = new Direction("top");
+    static Bottom = new Direction("bottom");
+    static Left = new Direction("left");
+    static Right = new Direction("right");
 
-    #name
-    get name() {
-        return this.#name
+    #name;
+    get name()
+    {
+        return this.#name;
     }
 
-    constructor(name) {
+    constructor(name)
+    {
         this.#name = name;
     }
 }
 
 
-class ScrollSnap {
+class ScrollSnap
+{
 
 
 
-    static of(target) {
+    static of(target)
+    {
         return new ScrollSnap(target);
     }
 
 
-    #currentTarget
-    #targets
-    #observer
-    #started = false
+    #currentTarget;
+    #targets;
+    #observer;
+    #started = false;
 
-    get currentTarget() {
+    get currentTarget()
+    {
         return this.#currentTarget;
     }
 
-    get observer() {
+    get observer()
+    {
         return this.#observer;
     }
-    get started() {
+    get started()
+    {
         return this.#started;
     }
 
-    get targets() {
+    get targets()
+    {
         return this.#targets;
     }
 
@@ -16386,20 +16395,25 @@ class ScrollSnap {
     /**
      * @param {String|NodeList|HTMLElement|Array} targets 
      */
-    constructor(targets, threshold = 0.3) {
+    constructor(targets, threshold = 0.3)
+    {
 
 
-        if (isValidSelector(targets)) {
+        if (isValidSelector(targets))
+        {
             targets = document.querySelectorAll(targets);
         }
 
-        if (isElement(targets)) {
+        if (isElement(targets))
+        {
             targets = [targets];
-        } else if (targets instanceof NodeList) {
+        } else if (targets instanceof NodeList)
+        {
             targets = [...targets];
         }
 
-        if (!isArray(targets)) {
+        if (!isArray(targets))
+        {
             throw new TypeError('invalid target');
         }
 
@@ -16407,21 +16421,27 @@ class ScrollSnap {
 
         this.#targets = targets;
 
-        if (targets.length > 0) {
+        if (targets.length > 0)
+        {
 
 
-            this.#observer = new IntersectionObserver(entries => {
+            this.#observer = new IntersectionObserver(entries =>
+            {
 
-                for (let i = 0; i < entries.length; i++) {
+                for (let i = 0; i < entries.length; i++)
+                {
 
-                    if (scrollingIntoView) {
+                    if (scrollingIntoView)
+                    {
                         return;
                     }
 
                     let item = entries[i];
-                    if (item.isIntersecting) {
+                    if (item.isIntersecting)
+                    {
                         scrollIntoView(this.#currentTarget = item.target)
-                            .then(view => {
+                            .then(view =>
+                            {
                                 this.trigger('change', { view });
                             });
 
@@ -16436,16 +16456,20 @@ class ScrollSnap {
         }
     }
 
-    start() {
-        if (!this.#started && this.#observer) {
+    start()
+    {
+        if (!this.#started)
+        {
             this.#targets.forEach(elem => this.#observer.observe(elem));
             this.#started = true;
         }
 
     }
 
-    stop() {
-        if (this.#started) {
+    stop()
+    {
+        if (this.#started)
+        {
             this.#observer.disconnect();
             this.#started = false;
         }
@@ -16458,14 +16482,18 @@ class ScrollSnap {
 
 
 
-function scrollIntoView(view, delay = 750) {
+function scrollIntoView(view, delay = 750)
+{
 
-    return new Promise((resolve, reject) => {
-        if (view instanceof Element && !scrollingIntoView) {
+    return new Promise((resolve, reject) =>
+    {
+        if (view instanceof Element && !scrollingIntoView)
+        {
 
             scrollingIntoView = true;
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 scrollingIntoView = false;
                 resolve(view);
             }, delay);
@@ -16477,7 +16505,8 @@ function scrollIntoView(view, delay = 750) {
             });
 
         }
-        else {
+        else
+        {
             reject(new Error('Cannot scroll into view.'));
         }
     });
@@ -16628,7 +16657,8 @@ const
 (new DarkModeButton());
 
 // scroll behaviour
-(() => {
+(() =>
+{
 
     const navlinks = [...document.querySelectorAll('header [href*="#"]')];
 
@@ -16637,16 +16667,20 @@ const
         pills = new NavPills(views);
 
 
-    pills.on('change', e => {
+    pills.on('change', e =>
+    {
         const { view, pill } = e.data;
 
-        navlinks.forEach(a => {
+        navlinks.forEach(a =>
+        {
 
 
-            if (a.href === pill.href) {
+            if (a.href === pill.href)
+            {
                 a.classList.add('active');
             }
-            else {
+            else
+            {
                 a.classList.remove('active');
             }
 
@@ -16658,43 +16692,52 @@ const
 
     let collapsible;
 
-    addEventListener('show.bs.collapse', () => {
+    addEventListener('show.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-collapsing');
         NoScroll.enable(noScrollSavesPosition);
     });
 
-    addEventListener('shown.bs.collapse', () => {
+    addEventListener('shown.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-shown');
     });
 
-    addEventListener('hidden.bs.collapse', () => {
+    addEventListener('hidden.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         NoScroll.disable(noScrollSavesPosition);
     });
 
 
 
-    addEventListener('click', e => {
+    addEventListener('click', e =>
+    {
 
         let link, elem;
 
-        if (link = e.target.closest('header [href^="#"], .scroll-down-button')) {
+        if (link = e.target.closest('header [href^="#"], .scroll-down-button'))
+        {
             e.preventDefault();
 
-            if (elem = document.getElementById(link.getAttribute('href').slice(1))) {
+            if (elem = document.getElementById(link.getAttribute('href').slice(1)))
+            {
                 // burger button (mobile)
-                if (link.closest('.navbar-shown')) {
+                if (link.closest('.navbar-shown'))
+                {
                     collapsible ??= new Collapse('#navbarNav', {
                         toggle: false
                     });
 
-                    addEventListener('hidden.bs.collapse', () => {
+                    addEventListener('hidden.bs.collapse', () =>
+                    {
                         pills.scrollTo(elem.id);
                     }, { once: true });
                     collapsible.hide();
-                } else {
+                } else
+                {
                     pills.scrollTo(elem.id);
                 }
             }
@@ -16722,14 +16765,17 @@ const
 
 
 // typed.js
-(() => {
+(() =>
+{
     const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
 
-    document.querySelectorAll('.typed-text').forEach(elem => {
+    document.querySelectorAll('.typed-text').forEach(elem =>
+    {
 
 
         let list;
-        if (list = dataset(elem, 'typed')) {
+        if (list = dataset(elem, 'typed'))
+        {
             list = list.split(',').map(item => item.trim());
             new i(elem, Object.assign({
                 strings: list
@@ -16742,17 +16788,21 @@ const
 
 
 // contact form
-(() => {
-    function formNotify(type, message, delay = 3000) {
+(() =>
+{
+    function formNotify(type, message, delay = 3000)
+    {
 
-        return new Promise(resolve => {
+        return new Promise(resolve =>
+        {
             const
                 formAlert = document.querySelector('#form-alert'),
                 msg = createElement$1('<div role="alert"/>', {
                     class: 'my-3 alert alert-' + type
                 }, message);
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 msg.remove();
                 resolve(msg);
             }, delay);
@@ -16762,23 +16812,29 @@ const
 
     }
 
-    addEventListener('submit', e => {
+    addEventListener('submit', e =>
+    {
 
         const form = e.target.closest('form.needs-validation');
 
-        if (form) {
+        if (form)
+        {
             let btn;
-            if (btn = form.querySelector('[type="submit"]')) {
+            if (btn = form.querySelector('[type="submit"]'))
+            {
                 btn.classList.add('disabled');
             }
         }
 
-        if (e.target.closest('#about form')) {
+        if (e.target.closest('#about form'))
+        {
             e.preventDefault();
 
-            if (form) {
+            if (form)
+            {
                 form.classList.add('was-validated');
-                if (form.checkValidity()) {
+                if (form.checkValidity())
+                {
 
 
                     const formData = new URLSearchParams(new FormData(form));
@@ -16788,20 +16844,25 @@ const
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: formData.toString()
-                    }).then(resp => {
-                        if (!resp.ok) {
+                    }).then(resp =>
+                    {
+                        if (!resp.ok)
+                        {
                             throw new Error(resp.statusText);
                         }
 
 
-                        formNotify('success', 'Votre message à bien été envoyé.').then(() => {
+                        formNotify('success', 'Votre message à bien été envoyé.').then(() =>
+                        {
                             form.classList.remove('was-validated');
                             form.reset();
                         });
 
-                    }).catch(err => {
+                    }).catch(err =>
+                    {
 
-                        formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() => {
+                        formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() =>
+                        {
                             form.classList.remove('was-validated');
                             form.reset();
                         });
@@ -16814,16 +16875,20 @@ const
 
     });
 
-    function checkForm(e) {
+    function checkForm(e)
+    {
 
-        if (!e.target.closest('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')) {
+        if (!e.target.closest('form.needs-validation input:not([type="submit"]), form.needs-validation textarea'))
+        {
             return;
         }
 
         let form, btn;
-        if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
+        if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]')))
+        {
             btn.classList.add('disabled');
-            if (form.checkValidity()) {
+            if (form.checkValidity())
+            {
                 form.classList.add('was-validated');
                 btn.classList.remove('disabled');
             }
@@ -16842,7 +16907,8 @@ const
 
 // page projects
 
-(() => {
+(() =>
+{
 
     const swiperWrapper = document.querySelector('#projects .swiper-wrapper');
 
@@ -16889,8 +16955,16 @@ const
             },
             // when window width is >= 640px
             640: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 40
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 60
+            },
+            992: {
+                slidesPerView: 2,
+                spaceBetween: 80
             }
         },
     });
@@ -16898,8 +16972,10 @@ const
 })();
 
 // tooltips
-(() => {
-    [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
+(() =>
+{
+    [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
+        .filter(elem => elem.matches('[title],[data-bs-title]'))
         .map(elem => new Tooltip(elem));
 })();
 //# sourceMappingURL=bundle.js.map

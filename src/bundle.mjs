@@ -23,7 +23,8 @@ const
 (new DarkModeButton());
 
 // scroll behaviour
-(() => {
+(() =>
+{
 
     const navlinks = [...document.querySelectorAll('header [href*="#"]')];
 
@@ -32,16 +33,20 @@ const
         pills = new NavPills(views);
 
 
-    pills.on('change', e => {
+    pills.on('change', e =>
+    {
         const { view, pill } = e.data;
 
-        navlinks.forEach(a => {
+        navlinks.forEach(a =>
+        {
 
 
-            if (a.href === pill.href) {
+            if (a.href === pill.href)
+            {
                 a.classList.add('active');
             }
-            else {
+            else
+            {
                 a.classList.remove('active');
             }
 
@@ -53,43 +58,52 @@ const
 
     let collapsible;
 
-    addEventListener('show.bs.collapse', () => {
+    addEventListener('show.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-collapsing');
         NoScroll.enable(noScrollSavesPosition);
     });
 
-    addEventListener('shown.bs.collapse', () => {
+    addEventListener('shown.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         body.classList.add('navbar-shown');
     });
 
-    addEventListener('hidden.bs.collapse', () => {
+    addEventListener('hidden.bs.collapse', () =>
+    {
         body.classList.remove(...navbarEventTypes);
         NoScroll.disable(noScrollSavesPosition);
     });
 
 
 
-    addEventListener('click', e => {
+    addEventListener('click', e =>
+    {
 
         let link, elem;
 
-        if (link = e.target.closest('header [href^="#"], .scroll-down-button')) {
+        if (link = e.target.closest('header [href^="#"], .scroll-down-button'))
+        {
             e.preventDefault();
 
-            if (elem = document.getElementById(link.getAttribute('href').slice(1))) {
+            if (elem = document.getElementById(link.getAttribute('href').slice(1)))
+            {
                 // burger button (mobile)
-                if (link.closest('.navbar-shown')) {
+                if (link.closest('.navbar-shown'))
+                {
                     collapsible ??= new Collapse('#navbarNav', {
                         toggle: false
                     });
 
-                    addEventListener('hidden.bs.collapse', () => {
+                    addEventListener('hidden.bs.collapse', () =>
+                    {
                         pills.scrollTo(elem.id);
                     }, { once: true });
                     collapsible.hide();
-                } else {
+                } else
+                {
                     pills.scrollTo(elem.id);
                 }
             }
@@ -117,14 +131,17 @@ const
 
 
 // typed.js
-(() => {
+(() =>
+{
     const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
 
-    document.querySelectorAll('.typed-text').forEach(elem => {
+    document.querySelectorAll('.typed-text').forEach(elem =>
+    {
 
 
         let list;
-        if (list = dataset(elem, 'typed')) {
+        if (list = dataset(elem, 'typed'))
+        {
             list = list.split(',').map(item => item.trim());
             new Typed(elem, Object.assign({
                 strings: list
@@ -137,17 +154,21 @@ const
 
 
 // contact form
-(() => {
-    function formNotify(type, message, delay = 3000) {
+(() =>
+{
+    function formNotify(type, message, delay = 3000)
+    {
 
-        return new Promise(resolve => {
+        return new Promise(resolve =>
+        {
             const
                 formAlert = document.querySelector('#form-alert'),
                 msg = createElement('<div role="alert"/>', {
                     class: 'my-3 alert alert-' + type
                 }, message);
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 msg.remove();
                 resolve(msg);
             }, delay);
@@ -157,23 +178,29 @@ const
 
     }
 
-    addEventListener('submit', e => {
+    addEventListener('submit', e =>
+    {
 
         const form = e.target.closest('form.needs-validation');
 
-        if (form) {
+        if (form)
+        {
             let btn;
-            if (btn = form.querySelector('[type="submit"]')) {
+            if (btn = form.querySelector('[type="submit"]'))
+            {
                 btn.classList.add('disabled');
             }
         }
 
-        if (e.target.closest('#about form')) {
+        if (e.target.closest('#about form'))
+        {
             e.preventDefault();
 
-            if (form) {
+            if (form)
+            {
                 form.classList.add('was-validated');
-                if (form.checkValidity()) {
+                if (form.checkValidity())
+                {
 
 
                     const formData = new URLSearchParams(new FormData(form));
@@ -183,20 +210,25 @@ const
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: formData.toString()
-                    }).then(resp => {
-                        if (!resp.ok) {
+                    }).then(resp =>
+                    {
+                        if (!resp.ok)
+                        {
                             throw new Error(resp.statusText);
                         }
 
 
-                        formNotify('success', 'Votre message à bien été envoyé.').then(() => {
+                        formNotify('success', 'Votre message à bien été envoyé.').then(() =>
+                        {
                             form.classList.remove('was-validated');
                             form.reset();
                         });
 
-                    }).catch(err => {
+                    }).catch(err =>
+                    {
 
-                        formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() => {
+                        formNotify('danger', "Une erreur s'est produite: <em>" + err.message + "</em>").then(() =>
+                        {
                             form.classList.remove('was-validated');
                             form.reset();
                         });
@@ -209,16 +241,20 @@ const
 
     });
 
-    function checkForm(e) {
+    function checkForm(e)
+    {
 
-        if (!e.target.closest('form.needs-validation input:not([type="submit"]), form.needs-validation textarea')) {
+        if (!e.target.closest('form.needs-validation input:not([type="submit"]), form.needs-validation textarea'))
+        {
             return;
         }
 
         let form, btn;
-        if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]'))) {
+        if ((form = e.target.closest('form.needs-validation')) && (btn = form.querySelector('[type="submit"]')))
+        {
             btn.classList.add('disabled');
-            if (form.checkValidity()) {
+            if (form.checkValidity())
+            {
                 form.classList.add('was-validated');
                 btn.classList.remove('disabled');
             }
@@ -237,7 +273,8 @@ const
 
 // page projects
 
-(() => {
+(() =>
+{
 
     const swiperWrapper = document.querySelector('#projects .swiper-wrapper');
 
@@ -284,8 +321,16 @@ const
             },
             // when window width is >= 640px
             640: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 40
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 60
+            },
+            992: {
+                slidesPerView: 2,
+                spaceBetween: 80
             }
         },
     });
@@ -293,8 +338,10 @@ const
 })();
 
 // tooltips
-(() => {
-    [...document.querySelectorAll('[data-bs-toggle="tooltip"][title], [data-bs-toggle="tooltip"][data-bs-title]')]
+(() =>
+{
+    [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
+        .filter(elem => elem.matches('[title],[data-bs-title]'))
         .map(elem => new Tooltip(elem));
 })();
 

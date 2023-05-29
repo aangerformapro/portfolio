@@ -18,10 +18,10 @@ const
 
 let { port, root } = argv;
 
-
 app.use(express.static(root));
 
-app.listen(port, () => {
+app.listen(port, () =>
+{
     console.log(
         'Server ' +
         path.basename(path.resolve()) +
