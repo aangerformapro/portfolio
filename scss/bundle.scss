@@ -1,6 +1,5 @@
 //@use "bootstrap-utilities";
 
-
 @use './components/swiper';
 @use './components/devicon';
 @use './components/bootstrap';
@@ -12,20 +11,17 @@
 @use './components/navpills' as *;
 @use './pages/landscape' as *;
 @use './pages/home' as *;
+@use './pages/skills' as *;
 @use './pages/projects' as *;
 @use './pages/contact' as *;
 
-
-html
-{
+html {
     font-size: 16px;
     line-height: 1.2;
     scroll-behavior: smooth;
 }
 
-
-body
-{
+body {
     min-height: 100vh;
     width: 100vw;
     margin: 0;
@@ -33,37 +29,36 @@ body
     overflow-x: hidden;
 }
 
-
 *,
 ::before,
-::after
-{
+::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
-
-a
-{
+a {
     text-decoration: none;
 
-    &.active
-    {
+    &.active {
         pointer-events: none !important;
     }
 }
 
+.page {
+    min-height: 100vh;
+    padding-top: 52px;
 
-.page
-{
-    height: 100vh;
+    @include lg {
+        padding-top: 64px;
+    }
 }
 
 @include navpills;
 @include navbar;
 @include home;
 @include projects;
+
+@include skills;
 @include contact;
 @include landscape;

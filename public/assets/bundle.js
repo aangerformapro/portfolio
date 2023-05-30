@@ -6469,7 +6469,7 @@ const isPlainObject = (param) => param instanceof Object && Object.getPrototypeO
     isArray = (param) => Array.isArray(param),
     isNull = (param) => param === null,
     isCallable = (param) => typeof param === 'function',
-    isFunction = isCallable;
+    isFunction = isCallable;
 
 function runAsync(callback, ...args) {
     if (isFunction(callback)) {
@@ -6644,7 +6644,6 @@ function html2element(html) {
 /**
  * A small Event manager that does not uses DOM
  */
-
 
 
 
@@ -6846,7 +6845,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "@media (max-width: 992px) {\r\n    .noscroll {\r\n        position: fixed !important;\r\n        overflow-y: hidden !important;\r\n        width: 100% !important;\r\n        z-index: -1 !important;\r\n    }\r\n\r\n    .scrollback {\r\n        scroll-behavior: auto !important;\r\n    }\r\n}";
+var css_248z = "@media (max-width: 992px) {\n    .noscroll {\n        position: fixed !important;\n        overflow-y: hidden !important;\n        width: 100% !important;\n        z-index: -1 !important;\n    }\n\n    .scrollback {\n        scroll-behavior: auto !important;\n    }\n}";
 styleInject(css_248z);
 
 const { documentElement } = document;
@@ -14260,7 +14259,6 @@ function HashNavigation({
 }
 
 /* eslint no-underscore-dangle: "off" */
-/* eslint no-use-before-define: "off" */
 function Autoplay({
   swiper,
   extendParams,
@@ -16055,7 +16053,6 @@ function EffectCards({
  *
  * Released on: May 15, 2023
  */
-
 
 // Swiper Class
 const modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];

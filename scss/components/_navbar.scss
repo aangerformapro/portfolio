@@ -1,18 +1,11 @@
 @use '../helpers' as *;
 @use 'switch';
 
-
-@mixin navbar
-{
-
-
-
+@mixin navbar {
     /* Logo */
 
-    .navbar-brand
-    {
-        svg
-        {
+    .navbar-brand {
+        svg {
             min-width: 32px;
             min-height: 32px;
             max-width: 40px;
@@ -20,321 +13,249 @@
         }
     }
 
-
-
-    #logo
-    {
-        svg
-        {
+    #logo {
+        svg {
             transition: transform 2s ease-in-out;
             transform-origin: center;
         }
 
-        &:hover
-        {
-            svg
-            {
+        &:hover {
+            svg {
                 transform: rotate(-1440deg);
             }
         }
     }
 
     /* Social media icons */
-    .social-media-link
-    {
-        svg
-        {
+    .social-media-link {
+        svg {
             max-width: 24px;
             max-height: 24px;
         }
     }
 
-
-
     /* nav links */
-    .navbar .nav-link
-    {
-
+    .navbar .nav-link {
         position: relative;
 
-
-        &:hover
-        {
+        &:hover {
             font-weight: 700;
         }
 
-
-        @include lg
-        {
-            &::after
-            {
+        @include lg {
+            &::after {
                 content: '';
                 position: absolute;
-                bottom: .125rem;
+                bottom: 0.125rem;
                 background-color: $home-bg;
                 border-radius: 50%;
-                height: .125rem;
+                height: 0.125rem;
                 left: 50%;
                 right: 50%;
-                transition: left .5s ease-in-out, right .5s ease-in-out;
+                transition: left 0.5s ease-in-out, right 0.5s ease-in-out;
             }
 
-            &:hover::after
-            {
+            &:hover::after {
                 left: 5%;
                 right: 5%;
             }
         }
     }
 
-
     .navbar .navbar-brand,
     .navbar .nav-link,
-    .social-media-link svg
-    {
-        color: rgba(var(--bs-dark-rgb), .8);
+    .social-media-link svg {
+        color: rgba(var(--bs-dark-rgb), 0.8);
 
-        &:hover
-        {
+        &:hover {
             color: rgba(var(--bs-dark-rgb), 1);
         }
     }
 
-
-    .nav-link.active
-    {
+    .nav-link.active {
         color: var(--bs-navbar-active-color) !important;
     }
 
-
-
-
-
-
     /* Hamburger */
 
-
-    .hamburger
-    {
-
+    .hamburger {
         width: 40px;
         position: absolute;
         height: 3px;
 
         right: 0;
 
-        transition: transform .5s ease-in-out;
-
+        transition: transform 0.5s ease-in-out;
 
         &::before,
-        &::after
-        {
+        &::after {
             position: absolute;
             content: '';
             height: 3px;
             width: 40px;
-            top: -.75rem;
+            top: -0.75rem;
 
             right: 0;
-            transition: transform .5s ease-in-out;
+            transition: transform 0.5s ease-in-out;
         }
 
-        &::after
-        {
-            top: .75rem;
-            transition: width .25s ease-in-out;
+        &::after {
+            top: 0.75rem;
+            transition: width 0.25s ease-in-out;
         }
     }
 
-    .navbar-toggler
-    {
-
+    .navbar-toggler {
         box-shadow: none !important;
         border: 0 !important;
-        position: relative;
+        position: fixed;
+        z-index: 1050;
+        right: 12px;
+        top: 12px;
         height: 40px;
         width: 40px;
+        padding: 12px;
 
-        &[aria-expanded="true"]
-        {
+        background: transparent;
 
-
-            .hamburger
-            {
-
-                transition: transform .5s ease-in-out;
+        &[aria-expanded='true'] {
+            .hamburger {
+                transition: transform 0.5s ease-in-out;
                 transform: rotate(45deg);
 
-                &::after
-                {
+                &::after {
                     width: 0;
                 }
 
-                &::before
-                {
-                    transform: translateY(.75rem) rotate(90deg);
-                    transition: transform .5s ease-in-out;
+                &::before {
+                    transform: translateY(0.75rem) rotate(90deg);
+                    transition: transform 0.5s ease-in-out;
                 }
             }
         }
 
-
         .hamburger,
         .hamburger::before,
-        .hamburger::after
-        {
-            background: rgba(var(--bs-dark-rgb), .8);
+        .hamburger::after {
+            background: rgba(var(--bs-dark-rgb), 0.8);
+
+            [data-view='#home']:not(.navbar-shown, .navbat-collapsing) & {
+                background: rgba(var(--bs-light-rgb), 0.8);
+            }
         }
 
-        &:hover
-        {
-
+        &:hover {
             .hamburger,
             .hamburger::before,
-            .hamburger::after
-            {
+            .hamburger::after {
                 background: rgba(var(--bs-dark-rgb), 1);
+
+                [data-view='#home']:not(.navbar-shown, .navbar-collapsing) & {
+                    background: rgba(var(--bs-light-rgb), 1);
+                }
             }
         }
     }
 
-
-
-    .switch
-    {
-        background: rgba(0, 0, 0, .3) !important;
-        transform: scale(.9);
+    .switch {
+        background: rgba(0, 0, 0, 0.3) !important;
+        transform: scale(0.9);
     }
 
-    #darkmode-slider
-    {
-        & svg[data-mode="dark"]
-        {
+    #darkmode-slider {
+        & svg[data-mode='dark'] {
             display: none;
         }
-
     }
 
-
-
-    @include color-mode(dark)
-    {
-        header
-        {
-            background: rgba(var(--bs-dark-rgb), .8);
+    @include color-mode(dark) {
+        header {
+            background: rgba(var(--bs-dark-rgb), 0.8);
         }
-
 
         .navbar .navbar-brand,
         .navbar .nav-link,
-        .social-media-link svg
-        {
-            color: rgba(var(--bs-light-rgb), .8);
+        .social-media-link svg {
+            color: rgba(var(--bs-light-rgb), 0.8);
 
-            &:hover
-            {
+            &:hover {
                 color: rgba(var(--bs-light-rgb), 1);
             }
         }
 
-
-        .navbar-toggler
-        {
-
+        .navbar-toggler {
             .hamburger,
             .hamburger::before,
-            .hamburger::after
-            {
-                background: rgba(var(--bs-light-rgb), .8);
+            .hamburger::after {
+                background: rgba(var(--bs-light-rgb), 0.8);
             }
 
-            &:hover
-            {
-
+            &:hover {
                 .hamburger,
                 .hamburger::before,
-                .hamburger::after
-                {
+                .hamburger::after {
                     background: rgba(var(--bs-light-rgb), 1);
                 }
             }
         }
 
-        #darkmode-slider
-        {
-            & svg[data-mode="light"]
-            {
+        #darkmode-slider {
+            & svg[data-mode='light'] {
                 display: none;
             }
 
-
-            & svg[data-mode="dark"]
-            {
+            & svg[data-mode='dark'] {
                 display: initial;
             }
-
         }
     }
 
-    @media (prefers-color-scheme: dark)
-    {
-        .navbar .switch
-        {
+    @media (prefers-color-scheme: dark) {
+        .navbar .switch {
             display: none;
         }
     }
 
-
-    header
-    {
+    header {
         position: fixed;
-        top: calc(100vh - 64px);
-        left: 0;
-        width: 100vw;
+        top: 0;
+        right: 0;
+        width: 0;
         z-index: 1030;
         min-height: 64px;
-        background: rgba(var(--bs-light-rgb), .8);
+        background: rgba(var(--bs-light-rgb), 0.8);
         backdrop-filter: blur(3px);
-        transition: top .5s ease-in-out;
+        transition: width 0.5s ease-in-out;
     }
 
-    @include lg
-    {
-        body:not([data-view="#home"])
-        {
-            header
-            {
+    @include lg {
+        header {
+            top: calc(100vh - 64px);
+            width: 100vw;
+            transition: top 0.5s ease-in-out;
+        }
+
+        body:not([data-view='#home']) {
+            header {
                 top: 0;
             }
 
-            .page
-            {
-                padding-top: 64px;
-            }
+            // .page {
+            //     padding-top: 64px;
+            // }
         }
     }
 
-
-
-
     .navbar-shown,
-    .navbar-collapsing
-    {
-
-        header
-        {
+    .navbar-collapsing {
+        header {
             min-height: 100vh;
+            width: 100vw;
             top: 0;
 
-            @include lg
-            {
+            @include lg {
                 min-height: 64px;
             }
         }
-
     }
-
-
-
-
 }

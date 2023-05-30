@@ -12,7 +12,7 @@
         "postcss:build": "postcss build/*.css --dir public/assets --verbose --no-map --env production",
         "rollup:build": "rollup -c --environment production",
         "rollup:watch": "rollup -c -w",
-        "serve": "node --watch server.js"
+        "serve": "node server.js"
     },
     "author": "Aymeric Anger",
     "license": "MIT",

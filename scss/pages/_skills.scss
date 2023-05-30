@@ -1,0 +1,37 @@
+@use '../helpers' as *;
+
+@mixin skills {
+    #skills {
+    }
+
+    .skill-lang {
+        cursor: pointer;
+        display: flex;
+        width: 48px;
+        height: 48px;
+        justify-content: center;
+        align-items: center;
+
+        border: {
+            radius: 8px;
+            color: transparent;
+            width: 5px;
+            style: solid;
+        }
+
+        outline: 3px solid transparent;
+
+        &:hover,
+        &:active {
+            outline-color: rgba(0, 0, 0, 0.3);
+        }
+
+        &.active {
+            border-color: rgba(var(--bs-cyan-rgb), 1);
+        }
+
+        & + & {
+            margin-left: 1rem;
+        }
+    }
+}
