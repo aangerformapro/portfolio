@@ -11,6 +11,7 @@
 @use './components/navpills' as *;
 @use './pages/landscape' as *;
 @use './pages/home' as *;
+@use './pages/about' as *;
 @use './pages/skills' as *;
 @use './pages/projects' as *;
 @use './pages/contact' as *;
@@ -47,16 +48,33 @@ a {
 
 .page {
     min-height: 100vh;
-    padding-top: 52px;
+    // padding-top: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    @include lg {
-        padding-top: 64px;
+    & > .container {
+        min-height: 60vh;
+
+        display: flex;
+        flex-direction: column;
+
+        .heading {
+            height: 20vh;
+            margin-top: 72px;
+        }
     }
+
+    // @include lg {
+    //     padding-top: 64px;
+    // }
 }
 
 @include navpills;
 @include navbar;
 @include home;
+@include about;
 @include projects;
 
 @include skills;

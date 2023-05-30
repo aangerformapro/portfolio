@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
 /**
  * Swiper 9.3.2
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -5957,7 +5956,19 @@ a.active {
 }
 .page {
   min-height: 100vh;
-  padding-top: 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page > .container {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+.page > .container .heading {
+  height: 20vh;
+  margin-top: 72px;
 }
 .nav-pills {
   position: fixed;
@@ -6257,13 +6268,25 @@ header {
   max-width: 100%;
   object-fit: contain;
 }
-#projects .swiper {
-  height: 70vh;
+#about .photo {
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+}
+#about #about-me {
+  max-width: 400px;
+}
+#about #about-me .label {
+  width: 25%;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+#about #about-me .list-group-item {
+  display: flex;
+  justify-content: space-between;
 }
 #projects .swiper-wrapper {
-  max-height: 70vh;
-  display: flex;
-  align-items: center;
+  height: 60vh;
 }
 #projects .swiper-pagination-bullet {
   width: 12px;
@@ -6289,6 +6312,14 @@ header {
 #projects .project .card-footer a + a {
   margin-left: 8px;
 }
+#skills .title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.icons {
+  margin-left: auto;
+  margin-right: auto;
+}
 .skill-lang {
   cursor: pointer;
   display: flex;
@@ -6296,20 +6327,33 @@ header {
   height: 48px;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
   border-radius: 8px;
   border-color: transparent;
-  border-width: 5px;
+  border-width: 2px;
   border-style: solid;
   outline: 3px solid transparent;
 }
 .skill-lang:hover, .skill-lang:active {
-  outline-color: rgba(0, 0, 0, 0.3);
+  outline-color: rgb(207, 226, 255);
 }
 .skill-lang.active {
-  border-color: rgba(var(--bs-cyan-rgb), 1);
+  border-color: rgba(0, 0, 0, 0.175);
+  border-color: var(--bs-border-color-translucent);
 }
 .skill-lang + .skill-lang {
   margin-left: 1rem;
+}
+.describe {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-left: 0.75rem;
+}
+.list-skills .list-group-item {
+  cursor: help;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 #about #message {
   height: 128px;
@@ -9715,9 +9759,6 @@ header {
   .text-lg-center {
     text-align: center !important;
   }
-  .page {
-    padding-top: 64px;
-  }
   .navbar .nav-link::after {
     content: "";
     position: absolute;
@@ -9754,6 +9795,13 @@ header {
   }
   #projects .project .project-thumbnail {
     height: 192px;
+  }
+  #skills .title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .icons {
+    margin-right: 0;
   }}
 @media (min-width: 1400px){
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
@@ -10688,8 +10736,16 @@ header {
   }
   #home h2 {
     font-size: calc(1.3rem + 0.6vw);
+  }
+  #about p {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #skills .title {
+    display: none;
   }}
-@media (orientation: landscape) and (max-height: 400px) and (max-width: 768px){
+@media (orientation: landscape) and (max-height: 450px) and (max-width: 768px){
   html {
     overflow: hidden;
   }

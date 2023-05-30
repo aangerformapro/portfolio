@@ -192,7 +192,7 @@ const
             }
         }
 
-        if (e.target.closest('#about form'))
+        if (e.target.closest('#contact form'))
         {
             e.preventDefault();
 
@@ -346,4 +346,21 @@ const
 })();
 
 
+// Age, Copyright
+(() =>
+{
 
+
+
+    const
+        date = new Date(),
+        age = parseInt(Math.floor(
+            date - (new Date('12/15/1982, 21:07'))) / (1000 * 60 * 60 * 24 * 365)
+        );
+
+    document.querySelectorAll('.age').forEach(elem => elem.innerHTML = `${age} ans`);
+    document.querySelectorAll('.year').forEach(elem => elem.innerHTML = date.getFullYear());
+
+
+
+})();

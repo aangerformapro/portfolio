@@ -1,0 +1,35 @@
+@use '../helpers' as *;
+
+@mixin about {
+    #about {
+        .photo {
+            object-fit: cover;
+            object-position: center center;
+
+            width: 100%;
+            // max-width: 400px;
+        }
+
+        @include lg-down {
+            p {
+                max-width: 400px;
+                @include margin-x(auto);
+            }
+        }
+
+        #about-me {
+            max-width: 400px;
+
+            .label {
+                width: 25%;
+                @include font-size(1.1rem, 700);
+            }
+
+            .list-group-item {
+                display: flex;
+                justify-content: space-between;
+                // align-items: center;
+            }
+        }
+    }
+}

@@ -6469,7 +6469,7 @@ const isPlainObject = (param) => param instanceof Object && Object.getPrototypeO
     isArray = (param) => Array.isArray(param),
     isNull = (param) => param === null,
     isCallable = (param) => typeof param === 'function',
-    isFunction = isCallable;
+    isFunction = isCallable;
 
 function runAsync(callback, ...args) {
     if (isFunction(callback)) {
@@ -6644,6 +6644,7 @@ function html2element(html) {
 /**
  * A small Event manager that does not uses DOM
  */
+
 
 
 
@@ -6845,7 +6846,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "@media (max-width: 992px) {\n    .noscroll {\n        position: fixed !important;\n        overflow-y: hidden !important;\n        width: 100% !important;\n        z-index: -1 !important;\n    }\n\n    .scrollback {\n        scroll-behavior: auto !important;\n    }\n}";
+var css_248z = "@media (max-width: 992px) {\r\n    .noscroll {\r\n        position: fixed !important;\r\n        overflow-y: hidden !important;\r\n        width: 100% !important;\r\n        z-index: -1 !important;\r\n    }\r\n\r\n    .scrollback {\r\n        scroll-behavior: auto !important;\r\n    }\r\n}";
 styleInject(css_248z);
 
 const { documentElement } = document;
@@ -14259,6 +14260,7 @@ function HashNavigation({
 }
 
 /* eslint no-underscore-dangle: "off" */
+/* eslint no-use-before-define: "off" */
 function Autoplay({
   swiper,
   extendParams,
@@ -16054,19 +16056,12 @@ function EffectCards({
  * Released on: May 15, 2023
  */
 
+
 // Swiper Class
 const modules = [Virtual, Keyboard, Mousewheel, Navigation, Pagination, Scrollbar, Parallax, Zoom, Controller, A11y, History, HashNavigation, Autoplay, Thumb, freeMode, Grid, Manipulation, EffectFade, EffectCube, EffectFlip, EffectCoverflow, EffectCreative, EffectCards];
 Swiper.use(modules);
 
-const psrIcon = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 32.000000 32.000000"
-preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"><path d="M130 310 c-8 -5 -27 -11 -42 -15 -16 -3 -28 -12 -28 -20 0 -8 -12
--22 -26 -31 -19 -13 -24 -23 -20 -40 4 -13 1 -34 -6 -48 -9 -21 -8 -29 4 -43
-9 -10 18 -27 20 -38 2 -11 13 -25 26 -31 12 -6 30 -17 39 -26 23 -19 104 -18
-128 2 9 8 27 19 38 25 12 6 23 19 25 30 2 11 11 28 20 38 12 14 13 22 4 43 -7
-14 -10 35 -6 48 4 17 -1 27 -20 40 -14 9 -26 23 -26 31 0 8 -12 17 -27 20 -16
-4 -36 10 -45 16 -21 11 -38 11 -58 -1z m65 -170 l-60 -60 -34 34 c-30 30 -33
-37 -21 51 12 14 15 14 35 -5 l21 -20 44 45 c39 40 46 43 59 30 14 -13 9 -22
--44 -75z" /></g></svg>`;
+const ICON_PSR = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 32.000000 32.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"><path d="M130 310 c-8 -5 -27 -11 -42 -15 -16 -3 -28 -12 -28 -20 0 -8 -12 -22 -26 -31 -19 -13 -24 -23 -20 -40 4 -13 1 -34 -6 -48 -9 -21 -8 -29 4 -43 9 -10 18 -27 20 -38 2 -11 13 -25 26 -31 12 -6 30 -17 39 -26 23 -19 104 -18 128 2 9 8 27 19 38 25 12 6 23 19 25 30 2 11 11 28 20 38 12 14 13 22 4 43 -7 14 -10 35 -6 48 4 17 -1 27 -20 40 -14 9 -26 23 -26 31 0 8 -12 17 -27 20 -16 4 -36 10 -45 16 -21 11 -38 11 -58 -1z m65 -170 l-60 -60 -34 34 c-30 30 -33 37 -21 51 12 14 15 14 35 -5 l21 -20 44 45 c39 40 46 43 59 30 14 -13 9 -22 -44 -75z" /></g></svg>`;
 
 const PROJECT_LIST = [
     {
@@ -16156,7 +16151,7 @@ const PROJECT_LIST = [
             {
                 label: 'Voir les recommendations PSR',
                 href: 'https://www.php-fig.org/psr/',
-                icon: psrIcon
+                icon: ICON_PSR
             },
             {
                 label: 'Voir le projet sur github',
@@ -16187,7 +16182,7 @@ const PROJECT_LIST = [
             {
                 label: 'Voir les recommendations PSR',
                 href: 'https://www.php-fig.org/psr/',
-                icon: psrIcon
+                icon: ICON_PSR
             },
             {
                 label: 'Voir le projet sur github',
@@ -16823,7 +16818,7 @@ const
             }
         }
 
-        if (e.target.closest('#about form'))
+        if (e.target.closest('#contact form'))
         {
             e.preventDefault();
 
@@ -16974,5 +16969,25 @@ const
     [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
         .filter(elem => elem.matches('[title],[data-bs-title]'))
         .map(elem => new Tooltip(elem));
+})();
+
+
+// Age, Copyright
+(() =>
+{
+
+
+
+    const
+        date = new Date(),
+        age = parseInt(Math.floor(
+            date - (new Date('12/15/1982, 21:07'))) / (1000 * 60 * 60 * 24 * 365)
+        );
+
+    document.querySelectorAll('.age').forEach(elem => elem.innerHTML = `${age} ans`);
+    document.querySelectorAll('.year').forEach(elem => elem.innerHTML = date.getFullYear());
+
+
+
 })();
 //# sourceMappingURL=bundle.js.map
