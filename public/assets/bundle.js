@@ -6471,44 +6471,55 @@ const isPlainObject = (param) => param instanceof Object && Object.getPrototypeO
     isCallable = (param) => typeof param === 'function',
     isFunction = isCallable;
 
-function runAsync(callback, ...args) {
-    if (isFunction(callback)) {
-        setTimeout(() => {
+function runAsync(callback, ...args)
+{
+    if (isFunction(callback))
+    {
+        setTimeout(() =>
+        {
             callback(...args);
         }, 0);
     }
 }
-function isValidSelector(selector) {
+function isValidSelector(selector)
+{
 
-    try {
+    try
+    {
         return isString(selector) && null === document$1.createElement('template').querySelector(selector);
 
-    } catch (e) {
+    } catch (e)
+    {
         return false;
     }
 
 }
 
 
-function isElement(elem) {
+function isElement(elem)
+{
     return elem instanceof Object && isFunction(elem.querySelector);
 }
 
-function isHTML(param) {
+function isHTML(param)
+{
     return isString(param) && param.startsWith('<') && param.endsWith('>');
 }
 
 
-function decode$1(value) {
+function decode$1(value)
+{
 
-    if (isUndef(value) || isNull(value) || value === '') {
+    if (isUndef(value) || isNull(value) || value === '')
+    {
         return null;
     }
     if (
         (value.startsWith('{') && value.endsWith('}')) ||
         (value.startsWith('[') && value.endsWith(']')) ||
         isNumeric(value) || value === 'true' || value === 'false'
-    ) {
+    )
+    {
         return JSON$2.parse(value);
     }
 
@@ -6516,9 +6527,11 @@ function decode$1(value) {
 }
 
 
-function encode$1(value) {
+function encode$1(value)
+{
 
-    if (!isString(value)) {
+    if (!isString(value))
+    {
         return JSON$2.stringify(value);
     }
     return value;
@@ -6529,17 +6542,20 @@ function encode$1(value) {
 
 
 
-function parseDataElement(data, root = true) {
+function parseDataElement(data, root = true)
+{
 
     let result = [];
 
     data ??= {};
 
-    for (let key in data) {
+    for (let key in data)
+    {
 
         let value = data[key];
 
-        if (isPlainObject(value)) {
+        if (isPlainObject(value))
+        {
             result = result.concat(parseDataElement(value, false).map(
                 item => [key + '-' + item[0], item[1]]
             ));
@@ -6560,9 +6576,11 @@ function parseDataElement(data, root = true) {
  * @param {string|HTMLElement|string[]|HTMLElement[]} [html]
  * @returns {HTMLElement}
  */
-function createElement$1(tag, params = null, html = '') {
+function createElement$1(tag, params = null, html = '')
+{
 
-    if (typeof tag !== 'string') {
+    if (typeof tag !== 'string')
+    {
         throw new TypeError('tag must be a String');
     }
 
@@ -6570,7 +6588,8 @@ function createElement$1(tag, params = null, html = '') {
         typeof params === 'string' ||
         params instanceof Element ||
         isArray(params)
-    ) {
+    )
+    {
         html = params;
         params = {};
     }
@@ -6581,15 +6600,20 @@ function createElement$1(tag, params = null, html = '') {
 
     const elem = isHTML(tag) ? html2element(tag) : document$1.createElement(tag);
 
-    for (let attr in params) {
+    for (let attr in params)
+    {
         let value = params[attr];
-        if (attr === 'html') {
+        if (attr === 'html')
+        {
             html = value;
             continue;
         }
-        if (attr === 'data') {
-            if (isPlainObject(value)) {
-                parseDataElement(value).forEach(item => {
+        if (attr === 'data')
+        {
+            if (isPlainObject(value))
+            {
+                parseDataElement(value).forEach(item =>
+                {
                     const [key, value] = item;
                     elem.setAttribute(key, value);
                 });
@@ -6597,24 +6621,31 @@ function createElement$1(tag, params = null, html = '') {
             continue;
         }
 
-        if (typeof value === 'string') {
+        if (typeof value === 'string')
+        {
             elem.setAttribute(attr, value);
         }
-        else {
+        else
+        {
             elem[attr] = value;
         }
     }
 
-    if (html instanceof Element || isString(html)) {
+    if (html instanceof Element || isString(html))
+    {
         html = [html];
     }
 
-    if (Array.isArray(html)) {
+    if (Array.isArray(html))
+    {
 
-        html.forEach(item => {
-            if (item instanceof Element) {
+        html.forEach(item =>
+        {
+            if (item instanceof Element)
+            {
                 elem.appendChild(item);
-            } else if (typeof item === 'string') {
+            } else if (typeof item === 'string')
+            {
                 elem.innerHTML += item;
             }
         });
@@ -6627,19 +6658,70 @@ function createElement$1(tag, params = null, html = '') {
  * @param {string} html
  * @returns {HTMLElement|Array|undefined}
  */
-function html2element(html) {
-    if (isString(html) && html.length > 0) {
+function html2element(html)
+{
+    if (isString(html) && html.length > 0)
+    {
         let template = createElement$1('template', html),
             content = template.content;
-        if (content.childNodes.length === 0) {
+        if (content.childNodes.length === 0)
+        {
             return;
         }
-        else if (content.childNodes.length > 1) {
+        else if (content.childNodes.length > 1)
+        {
             return [...content.childNodes];
         }
         return content.childNodes[0];
     }
 }
+
+
+class BackedEnum
+{
+
+
+    static from(value)
+    {
+        return this.cases().find(x => x.value === value);
+    }
+
+
+    /**
+     * @returns {BackedEnum[]}
+     */
+    static cases()
+    {
+        return Object.keys(this).filter(name => name === name.toUpperCase() && this[name] instanceof BackedEnum).map(x => this[x]);
+    }
+
+    get value()
+    {
+        return this.#value;
+    }
+    #value;
+    constructor(value)
+    {
+
+        if (Object.getPrototypeOf(this) === BackedEnum.prototype)
+        {
+            throw new Error('Cannot instantiate BackedEnum directly, it must be extended.');
+        }
+
+        if (isUndef(value))
+        {
+            throw new TypeError('value is undefined');
+        }
+        this.#value = value;
+    }
+}
+
+class GG extends BackedEnum
+{
+    static AA = new GG(10);
+}
+
+console.debug(GG.cases());
 
 /**
  * A small Event manager that does not uses DOM

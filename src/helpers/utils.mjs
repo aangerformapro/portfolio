@@ -34,49 +34,63 @@ const
         'strict-origin-when-cross-origin', 'unsafe-url'
     ],
     VALID_CROSSORIGIN = ['', 'use-credentials', 'anonymous'];
-export function isEmpty(param) {
+export function isEmpty(param)
+{
 
-    if (isUndef(param) || param === null) {
+    if (isUndef(param) || param === null)
+    {
         return true;
     }
-    if (isString(param) || isArray(param)) {
+    if (isString(param) || isArray(param))
+    {
         return param.length === 0;
     }
-    if (isNumber(param)) {
+    if (isNumber(param))
+    {
         return param === 0;
     }
 
-    if (isPlainObject(param)) {
+    if (isPlainObject(param))
+    {
         return Object.keys(param).length === 0;
     }
     return false;
 }
 
-export function runAsync(callback, ...args) {
-    if (isFunction(callback)) {
-        setTimeout(() => {
+export function runAsync(callback, ...args)
+{
+    if (isFunction(callback))
+    {
+        setTimeout(() =>
+        {
             callback(...args);
         }, 0);
     }
 }
-export function isValidSelector(selector) {
+export function isValidSelector(selector)
+{
 
-    try {
+    try
+    {
         return isString(selector) && null === document.createElement('template').querySelector(selector);
 
-    } catch (e) {
+    } catch (e)
+    {
         return false;
     }
 
 }
 
 
-export function uuidv4() {
+export function uuidv4()
+{
     let uuid = "", i, random;
-    for (i = 0; i < 32; i++) {
+    for (i = 0; i < 32; i++)
+    {
         random = Math.random() * 16 | 0;
-        if (i == 8 || i == 12 || i == 16 || i == 20) {
-            uuid += "-"
+        if (i == 8 || i == 12 || i == 16 || i == 20)
+        {
+            uuid += "-";
         }
         uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
     }
@@ -84,31 +98,38 @@ export function uuidv4() {
 }
 
 
-export function isElement(elem) {
+export function isElement(elem)
+{
     return elem instanceof Object && isFunction(elem.querySelector);
 }
 
-function toDashed(name) {
-    return name.replace(/([A-Z])/g, function (u) {
+function toDashed(name)
+{
+    return name.replace(/([A-Z])/g, function (u)
+    {
         return "-" + u.toLowerCase();
     });
 }
 
-export function isHTML(param) {
+export function isHTML(param)
+{
     return isString(param) && param.startsWith('<') && param.endsWith('>');
 }
 
 
-export function decode(value) {
+export function decode(value)
+{
 
-    if (isUndef(value) || isNull(value) || value === '') {
+    if (isUndef(value) || isNull(value) || value === '')
+    {
         return null;
     }
     if (
         (value.startsWith('{') && value.endsWith('}')) ||
         (value.startsWith('[') && value.endsWith(']')) ||
         isNumeric(value) || value === 'true' || value === 'false'
-    ) {
+    )
+    {
         return JSON.parse(value);
     }
 
@@ -116,9 +137,11 @@ export function decode(value) {
 }
 
 
-export function encode(value) {
+export function encode(value)
+{
 
-    if (!isString(value)) {
+    if (!isString(value))
+    {
         return JSON.stringify(value);
     }
     return value;
@@ -129,17 +152,20 @@ export function encode(value) {
 
 
 
-function parseDataElement(data, root = true) {
+function parseDataElement(data, root = true)
+{
 
     let result = [];
 
     data ??= {};
 
-    for (let key in data) {
+    for (let key in data)
+    {
 
         let value = data[key];
 
-        if (isPlainObject(value)) {
+        if (isPlainObject(value))
+        {
             result = result.concat(parseDataElement(value, false).map(
                 item => [key + '-' + item[0], item[1]]
             ));
@@ -160,9 +186,11 @@ function parseDataElement(data, root = true) {
  * @param {string|HTMLElement|string[]|HTMLElement[]} [html]
  * @returns {HTMLElement}
  */
-export function createElement(tag, params = null, html = '') {
+export function createElement(tag, params = null, html = '')
+{
 
-    if (typeof tag !== 'string') {
+    if (typeof tag !== 'string')
+    {
         throw new TypeError('tag must be a String');
     }
 
@@ -170,7 +198,8 @@ export function createElement(tag, params = null, html = '') {
         typeof params === 'string' ||
         params instanceof Element ||
         isArray(params)
-    ) {
+    )
+    {
         html = params;
         params = {};
     }
@@ -181,15 +210,20 @@ export function createElement(tag, params = null, html = '') {
 
     const elem = isHTML(tag) ? html2element(tag) : document.createElement(tag);
 
-    for (let attr in params) {
+    for (let attr in params)
+    {
         let value = params[attr];
-        if (attr === 'html') {
+        if (attr === 'html')
+        {
             html = value;
             continue;
         }
-        if (attr === 'data') {
-            if (isPlainObject(value)) {
-                parseDataElement(value).forEach(item => {
+        if (attr === 'data')
+        {
+            if (isPlainObject(value))
+            {
+                parseDataElement(value).forEach(item =>
+                {
                     const [key, value] = item;
                     elem.setAttribute(key, value);
                 });
@@ -197,24 +231,31 @@ export function createElement(tag, params = null, html = '') {
             continue;
         }
 
-        if (typeof value === 'string') {
+        if (typeof value === 'string')
+        {
             elem.setAttribute(attr, value);
         }
-        else {
+        else
+        {
             elem[attr] = value;
         }
     }
 
-    if (html instanceof Element || isString(html)) {
+    if (html instanceof Element || isString(html))
+    {
         html = [html];
     }
 
-    if (Array.isArray(html)) {
+    if (Array.isArray(html))
+    {
 
-        html.forEach(item => {
-            if (item instanceof Element) {
+        html.forEach(item =>
+        {
+            if (item instanceof Element)
+            {
                 elem.appendChild(item);
-            } else if (typeof item === 'string') {
+            } else if (typeof item === 'string')
+            {
                 elem.innerHTML += item;
             }
         });
@@ -227,12 +268,14 @@ export function createElement(tag, params = null, html = '') {
  * Generate a unique ID
  * @returns {String}
  */
-export function uniqid() {
+export function uniqid()
+{
 
     let value;
     uniqid.values ??= [];
 
-    while (!value || uniqid.values.includes(value)) {
+    while (!value || uniqid.values.includes(value))
+    {
         value = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
     uniqid.values.push(value);
@@ -244,8 +287,10 @@ export function uniqid() {
  * @param {Object} obj
  * @returns {Object|undefined}
  */
-export function clone(obj) {
-    if (obj instanceof Object) {
+export function clone(obj)
+{
+    if (obj instanceof Object)
+    {
         return Object.assign({}, obj);
     }
 
@@ -258,26 +303,34 @@ export function clone(obj) {
  * @param {Object} obj 
  * @returns 
  */
-export function cloneRecursive(obj) {
-    if (obj instanceof Object) {
+export function cloneRecursive(obj)
+{
+    if (obj instanceof Object)
+    {
 
-        if (isArray(obj)) {
+        if (isArray(obj))
+        {
 
-            return Array.from(obj).map(value => {
-                if (isPlainObject(value) || isArray(value)) {
+            return Array.from(obj).map(value =>
+            {
+                if (isPlainObject(value) || isArray(value))
+                {
                     return cloneRecursive(value);
                 }
                 return value;
             });
         }
 
-        if (!isPlainObject(obj)) {
+        if (!isPlainObject(obj))
+        {
             throw new TypeError('Invalid Object supplied.');
         }
 
         obj = clone(obj);
-        for (let prop in obj) {
-            if (isPlainObject(obj[prop]) || isArray(obj[prop])) {
+        for (let prop in obj)
+        {
+            if (isPlainObject(obj[prop]) || isArray(obj[prop]))
+            {
                 obj[prop] = cloneRecursive(obj[prop]);
             }
         }
@@ -292,9 +345,11 @@ export function cloneRecursive(obj) {
  * @param {string} html
  * @returns {documentElement}
  */
-export function html2doc(html) {
+export function html2doc(html)
+{
     let node = document.implementation.createHTMLDocument().documentElement;
-    if (isString(html) && html.length > 0) {
+    if (isString(html) && html.length > 0)
+    {
         node.innerHTML = html;
     }
     return node;
@@ -305,30 +360,38 @@ export function html2doc(html) {
  * @param {string} html
  * @returns {HTMLElement|Array|undefined}
  */
-export function html2element(html) {
-    if (isString(html) && html.length > 0) {
+export function html2element(html)
+{
+    if (isString(html) && html.length > 0)
+    {
         let template = createElement('template', html),
             content = template.content;
-        if (content.childNodes.length === 0) {
+        if (content.childNodes.length === 0)
+        {
             return;
         }
-        else if (content.childNodes.length > 1) {
+        else if (content.childNodes.length > 1)
+        {
             return [...content.childNodes];
         }
         return content.childNodes[0];
     }
 }
-export function getUrl(url) {
+export function getUrl(url)
+{
 
-    if (url instanceof URL || isString(url)) {
+    if (url instanceof URL || isString(url))
+    {
         let a = createElement('a');
         a.href = url;
         return a.href;
     }
 }
 
-export function loadScript(url, options) {
-    return new Promise(resolve => {
+export function loadScript(url, options)
+{
+    return new Promise(resolve =>
+    {
         const params = Object.assign({
             async: null,
             defer: null,
@@ -339,31 +402,39 @@ export function loadScript(url, options) {
 
         let { async, defer, crossorigin, referrerpolicy, type } = params;
 
-        if (async !== true) {
+        if (async !== true)
+        {
             async = null;
         }
 
-        if (defer !== true) {
+        if (defer !== true)
+        {
             defer = null;
         }
 
-        if (VALID_CROSSORIGIN.includes(crossorigin)) {
+        if (VALID_CROSSORIGIN.includes(crossorigin))
+        {
             crossorigin = null;
         }
-        if (VALID_REFERERRPOLICY.includes(referrerpolicy)) {
+        if (VALID_REFERERRPOLICY.includes(referrerpolicy))
+        {
             referrerpolicy = null;
         }
-        if (type !== 'module') {
+        if (type !== 'module')
+        {
             type = null;
         }
 
-        if (url = getUrl(url)) {
+        if (url = getUrl(url))
+        {
 
             const script = createElement('script', { src: url, onload: () => resolve(script), id: uniqid() });
 
-            for (let param in params) {
+            for (let param in params)
+            {
                 let value = params[param];
-                if (null !== value) {
+                if (null !== value)
+                {
                     script[param] = value;
                 }
             }
@@ -375,7 +446,55 @@ export function loadScript(url, options) {
 }
 
 
-export {
+export class BackedEnum
+{
+
+
+    static from(value)
+    {
+        return this.cases().find(x => x.value === value);
+    }
+
+
+    /**
+     * @returns {BackedEnum[]}
+     */
+    static cases()
+    {
+        return Object.keys(this).filter(name => name === name.toUpperCase() && this[name] instanceof BackedEnum).map(x => this[x]);
+    }
+
+    get value()
+    {
+        return this.#value;
+    }
+    #value;
+    constructor(value)
+    {
+
+        if (Object.getPrototypeOf(this) === BackedEnum.prototype)
+        {
+            throw new Error('Cannot instantiate BackedEnum directly, it must be extended.');
+        }
+
+        if (isUndef(value))
+        {
+            throw new TypeError('value is undefined');
+        }
+        this.#value = value;
+    }
+}
+
+class GG extends BackedEnum
+{
+    static AA = new GG(10);
+}
+
+console.debug(GG.cases());
+
+
+export
+{
     JSON,
     global,
     document,
