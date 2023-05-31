@@ -1,5 +1,5 @@
 import EventManager from "./event-manager.mjs";
-import { isArray, isElement, isValidSelector } from "./utils.mjs";
+import { BackedEnum, isArray, isElement, isValidSelector } from "./utils.mjs";
 
 
 
@@ -14,23 +14,13 @@ let scrollingIntoView = false;
  * Enum Direction
  * @link https://www.sohamkamani.com/javascript/enums/
  */
-export class Direction
+export class Direction extends BackedEnum
 {
     static Top = new Direction("top");
     static Bottom = new Direction("bottom");
     static Left = new Direction("left");
     static Right = new Direction("right");
 
-    #name;
-    get name()
-    {
-        return this.#name;
-    }
-
-    constructor(name)
-    {
-        this.#name = name;
-    }
 }
 
 

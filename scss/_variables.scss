@@ -21,7 +21,7 @@ $navpill-active-color: rgba(202, 63, 63, 0.94);
 
 // bootstrap overrides
 $include-column-box-sizing: true;
-$font-family-sans-serif: $font-family, sans-serif;
+$font-family-sans-serif: $font-family, var(--bs-font-sans-serif), sans-serif;
 $color-mode-type: media-query;
 $tooltip-font-size: 1.1rem;
 $tooltip-padding-x: 1.5rem;

@@ -2,17 +2,21 @@
 import "./helpers/process.mjs"; // bootstrap popper fix
 import { Collapse, Tooltip } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
-import Typed from 'typed.js';
+//import Typed from 'typed.js';
+
+
 import dataset from "./helpers/dataset.mjs";
-import { createElement } from "./helpers/utils.mjs";
+import { createElement, getUrl } from "./helpers/utils.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
 import Swiper from "swiper/swiper-bundle.esm.js";
 
-import { PROJECT_LIST, SKILLS, TAG_ICONS } from "./helpers/constants.mjs";
+import { IS_TOUCH, PROJECT_LIST, SKILLS, TAG_ICONS } from "./helpers/constants.mjs";
 import Project from "./components/projects.mjs";
 import { ScrollSnap } from "./helpers/scroll.mjs";
 import NavPills from "./components/navpills.mjs";
 import Skills from "./components/skills.mjs";
+import Typed from "./helpers/typed.mjs";
+import Cursor from "./helpers/cursor.mjs";
 
 const
 
@@ -115,41 +119,23 @@ const
 })();
 
 
-//title in divs
-
-// (() => {
-//     let
-//         titleElement = document.querySelector('#home h1'),
-//         text = titleElement.getAttribute('aria-label'),
-//         letters = text.split('');
-
-//     titleElement.innerHTML = '';
-
-//     for (let letter of letters) {
-//         titleElement.appendChild(createElement('span', { class: 'blast' }, letter));
-//     }
-// })();
-
 
 // typed.js
 (() =>
 {
-    const typedOptions = { typeSpeed: 100, backSpeed: 100, loop: true };
+    Typed.of('[data-typed');
 
-    document.querySelectorAll('.typed-text').forEach(elem =>
+    if (!IS_TOUCH)
     {
+        const cur = Cursor.of('#home');
 
-
-        let list;
-        if (list = dataset(elem, 'typed'))
+        setTimeout(() =>
         {
-            list = list.split(',').map(item => item.trim());
-            new Typed(elem, Object.assign({
-                strings: list
-            }, typedOptions));
-        }
+            cur.destroy();
+        }, 120000);
+    }
 
-    });
+
 })();
 
 
@@ -352,14 +338,6 @@ const
 
     header.appendChild(skills.elements.tags.root);
     card.appendChild(skills.elements.list.root);
-
-    console.debug(skills, card, header);
-
-
-
-
-
-
 
 })();
 

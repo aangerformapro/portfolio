@@ -1,91 +1,95 @@
 
-import { isNull, isNumeric, isString, isUndef } from "./utils.mjs"
-const { JSON } = typeof globalThis !== 'undefined' ? globalThis : window;
+import { decode, encode, isArray, isElement, isNull, isPlainObject, isString, isUndef, isValidSelector, toCamel } from "./utils.mjs";
+// const { JSON } = typeof globalThis !== 'undefined' ? globalThis : window;
 
 
-let api;
+let api = {
 
-if (typeof document !== "undefined" && document.head && document.head.dataset) {
-
-    api = {
-        set: function (node, attr, value) {
-            if (isUndef(value) || isNull(value)) {
-                return this.remove(node, attr);
-            }
-            node.dataset[attr] = encode(value);
-        },
-        get: function (node, attr) {
-            return decode(node.dataset[attr]);
-        },
-        remove: function (node, attr) {
-            delete node.dataset[attr];
+    set(elem, attr, value)
+    {
+        if (nullUndef.includes(value))
+        {
+            this.remove(elem, attr);
         }
-    };
-} else {
-    api = {
-        set: function (node, attr, value) {
 
-            if (isUndef(value) || isNull(value)) {
-                return this.remove(node, attr);
-            }
-            node.setAttribute('data-' + toDashed(attr), encode(value));
-        },
-        get: function (node, attr) {
-            return decode(node.getAttribute('data-' + toDashed(attr)));
-        },
-        remove: function (node, attr) {
-            node.removeAttribute('data-' + toDashed(attr));
+        getAttrs(attr).forEach(x =>
+        {
+            elem.dataset[x] = encode(value);
+        });
+    },
+    get(elem, attr, fallback = null)
+    {
+        let result = getAttrs(attr).map(x => decode(elem.dataset[x])).map(x => !nullUndef.includes(x) ? x : fallback);
+
+        if (result.length <= 1)
+        {
+            return result[0] ?? fallback;
         }
-    };
-}
+
+        return result;
+    },
+    remove(elem, attr)
+    {
+        getAttrs(attr).forEach(x => delete elem.dataset[x]);
+    }
 
 
-function toDashed(name) {
-    return name.replace(/([A-Z])/g, function (u) {
-        return "-" + u.toLowerCase();
-    });
-}
+}, undef, nullUndef = [null, undef];
 
-function getElem(elem) {
 
-    if (isString(elem)) {
-        elem = document.querySelectorAll(elem);
-        if (elem.length === 1) {
-            elem = elem[0];
+
+function getAttrs(attr)
+{
+    let result = [];
+
+    if (isString(attr))
+    {
+        if (attr.startsWith('data-'))
+        {
+            attr = attr.slice(5);
         }
+        result = [toCamel(attr)];
     }
 
-    return elem;
+
+    if (isArray(attr))
+    {
+        result = result.concat(...attr.map(x => getAttrs(x)));
+    }
+
+    return result;
 }
 
 
-function decode(value) {
 
 
-
-    //unification
-    if (isUndef(value) || isNull(value) || value === '') {
-        return null;
-    }
-    if (
-        (value.startsWith('{') && value.endsWith('}')) ||
-        (value.startsWith('[') && value.endsWith(']')) ||
-        isNumeric(value) || value === 'true' || value === 'false'
-    ) {
-        return JSON.parse(value);
+function getElem(elem)
+{
+    if (hasDataset(elem))
+    {
+        return [elem];
     }
 
-    return value;
+    if (elem instanceof NodeList)
+    {
+        return [...elem];
+    }
+
+    if (isArray(elem))
+    {
+        return elem.filter(x => hasDataset(x));
+    }
+
+    return isValidSelector(elem) ? [...document.querySelectorAll(elem)] : [];
+}
+
+function hasDataset(elem)
+{
+    return elem instanceof Object && elem.dataset instanceof DOMStringMap;
 }
 
 
-function encode(value) {
 
-    if (!isString(value)) {
-        return JSON.stringify(value);
-    }
-    return value;
-}
 
 
 /**
@@ -94,55 +98,61 @@ function encode(value) {
  * @param {String} attr 
  * @param {Any} [value]
  */
-export function dataset(elem, attr, value) {
+export function dataset(elem, attr, value)
+{
 
     elem = getElem(elem);
 
-    const $this = {
 
-        get(attr) {
-            if (elem instanceof NodeList) {
-                elem = elem[0];
-            }
-            if (elem instanceof HTMLElement) {
-                return api.get(elem, attr);
-            }
-            return null;
-        },
+    function get(attr, fallback = null)
+    {
 
-        set(attr, value) {
-
-            if (elem instanceof NodeList) {
-                elem.forEach(el => {
-                    api.set(el, attr, value);
-                });
-            } else if (elem instanceof HTMLElement) {
-                api.set(elem, attr, value);
-            }
-
-
-            return $this;
-        },
-        remove(attr) {
-
-            if (elem instanceof NodeList) {
-                elem.forEach(el => {
-                    api.remove(el, attr);
-                });
-            } else if (elem instanceof HTMLElement) {
-                api.remove(elem, attr);
-            }
-
-            return $this;
+        let x = elem[0];
+        if (hasDataset(x))
+        {
+            return api.get(x, attr, fallback);
         }
-    };
 
-    switch (arguments.length) {
+        return fallback;
+    }
+
+
+    function set(attr, value)
+    {
+        if (isPlainObject(attr))
+        {
+
+            for (let key in attr)
+            {
+                set(key, attr[key]);
+            }
+        }
+        else
+        {
+            elem.forEach(x => api.set(x, attr, value));
+        }
+
+        return $this;
+
+    }
+
+
+    function remove(attr)
+    {
+        elem.forEach(x => api.remove(x, attr));
+        return $this;
+    }
+
+
+    const $this = { get, set, remove };
+
+    switch (arguments.length)
+    {
         case 2:
-            return $this.get(attr);
+            return get(attr);
 
         case 3:
-            return $this.set(attr, value);
+            return set(attr, value);
 
     }
 

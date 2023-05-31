@@ -15,6 +15,10 @@
 @use './pages/projects' as *;
 @use './pages/contact' as *;
 
+:root {
+    --bs-body-font-family: #{$font-family-sans-serif};
+}
+
 html {
     font-size: 16px;
     line-height: 1.2;

@@ -52,7 +52,7 @@
                 border-color: var(--bs-border-color-translucent);
             }
 
-            & + & {
+            & + .skill-lang {
                 margin-left: 1rem;
             }
         }

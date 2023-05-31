@@ -103,8 +103,29 @@ export function isElement(elem)
     return elem instanceof Object && isFunction(elem.querySelector);
 }
 
-function toDashed(name)
+export function toCamel(name = '')
 {
+
+    if (!isString(name))
+    {
+        throw new TypeError('name must be a String');
+    }
+
+    let index;
+    while (-1 < (index = name.indexOf("-")))
+    {
+        name = name.slice(0, index) + capitalize(name.slice(index + 1));
+    }
+    return name;
+}
+
+
+export function toDashed(name = '')
+{
+    if (!isString(name))
+    {
+        throw new TypeError('name must be a String');
+    }
     return name.replace(/([A-Z])/g, function (u)
     {
         return "-" + u.toLowerCase();
@@ -340,6 +361,25 @@ export function cloneRecursive(obj)
     return obj;
 }
 
+
+export function element2html(elem)
+{
+    if (isElement(elem))
+    {
+        elem = [elem];
+    }
+    if (elem instanceof NodeList)
+    {
+        elem = [...elem];
+    }
+
+    if (isArray(elem))
+    {
+        return createElement('div', elem.map(el => el.cloneNode(true))).innerHTML;
+    }
+}
+
+
 /**
  * Creates a Document from html code
  * @param {string} html
@@ -354,6 +394,9 @@ export function html2doc(html)
     }
     return node;
 }
+
+
+
 
 /**
  * Creates an HTMLElement from html code
@@ -382,8 +425,7 @@ export function getUrl(url)
 
     if (url instanceof URL || isString(url))
     {
-        let a = createElement('a');
-        a.href = url;
+        let a = createElement('a', { href: url });
         return a.href;
     }
 }

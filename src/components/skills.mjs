@@ -1,4 +1,3 @@
-import { SKILLS, TAG_ICONS } from "../helpers/constants.mjs";
 import dataset from "../helpers/dataset.mjs";
 import EventManager from "../helpers/event-manager.mjs";
 import { BackedEnum, createElement } from "../helpers/utils.mjs";
