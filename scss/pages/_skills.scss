@@ -1,5 +1,7 @@
 @use '../helpers' as *;
 
+@use '../components/animated/bouncing_entrances/bounceIn' as *;
+
 @mixin skills {
     #skills {
         .title {
@@ -57,17 +59,28 @@
         }
     }
 
+    .card {
+        @include lg {
+            max-width: 90%;
+            @include margin-x(auto);
+        }
+    }
     .describe {
         @include font-size(1.1rem, 700);
         margin-left: 0.75rem;
     }
 
     .list-skills {
-        .list-group-item {
-            cursor: help;
+        min-height: 40vh;
+        [data-tags] {
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            @extend %bounceIn;
         }
+    }
+
+    .active {
+        pointer-events: none;
     }
 }

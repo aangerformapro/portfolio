@@ -8,10 +8,11 @@ import { createElement } from "./helpers/utils.mjs";
 import DarkModeButton from "./components/darkmode.mjs";
 import Swiper from "swiper/swiper-bundle.esm.js";
 
-import { PROJECT_LIST } from "./helpers/constants.mjs";
+import { PROJECT_LIST, SKILLS, TAG_ICONS } from "./helpers/constants.mjs";
 import Project from "./components/projects.mjs";
 import { ScrollSnap } from "./helpers/scroll.mjs";
 import NavPills from "./components/navpills.mjs";
+import Skills from "./components/skills.mjs";
 
 const
 
@@ -337,6 +338,36 @@ const
 
 })();
 
+
+// Compétences
+
+(() =>
+{
+
+    const
+        card = document.querySelector('#skills .card'),
+        header = card.querySelector('.card-header'),
+        skills = new Skills(TAG_ICONS, SKILLS);
+
+
+    header.appendChild(skills.elements.tags.root);
+    card.appendChild(skills.elements.list.root);
+
+    console.debug(skills, card, header);
+
+
+
+
+
+
+
+})();
+
+
+
+
+
+
 // tooltips
 (() =>
 {
@@ -349,9 +380,6 @@ const
 // Age, Copyright
 (() =>
 {
-
-
-
     const
         date = new Date(),
         age = parseInt(Math.floor(
@@ -360,7 +388,4 @@ const
 
     document.querySelectorAll('.age').forEach(elem => elem.innerHTML = `${age} ans`);
     document.querySelectorAll('.year').forEach(elem => elem.innerHTML = date.getFullYear());
-
-
-
 })();

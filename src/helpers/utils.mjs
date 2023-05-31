@@ -485,13 +485,6 @@ export class BackedEnum
     }
 }
 
-class GG extends BackedEnum
-{
-    static AA = new GG(10);
-}
-
-console.debug(GG.cases());
-
 
 export
 {
