@@ -5,12 +5,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import { babel } from '@rollup/plugin-babel';
+import terser from "@rollup/plugin-terser";
 
 
 
 
 const
-    prod = !!process.env.production,
+    prod = !process.env.ROLLUP_WATCH,
     inputdir = 'src', outputdir = 'public/assets',
     plugins = [
         postcss(),
@@ -25,21 +26,35 @@ const
 
 
 
-const inputFiles = fs.readdirSync('src').filter(filename => filename.endsWith('.mjs') && !filename.startsWith('_')).map(filename => {
+const inputFiles = fs.readdirSync('src').filter(filename => filename.endsWith('.mjs') && !filename.startsWith('_')).map(filename =>
+{
     const { name } = path.parse(filename);
     return {
         name,
         input: path.join(inputdir, filename),
         output: path.join(outputdir, name + '.js')
-    }
+    };
 
 });
 
 
 
-if (prod) {
+if (prod)
+{
 
-    plugins.unshift(babel({ presets: ['@babel/preset-env'], babelHelpers: 'bundled' }));
+    plugins.unshift(babel({
+        presets: [
+            [
+                '@babel/preset-env', {
+                    targets: { esmodules: true },
+                    loose: true, modules: false
+                }
+
+            ]
+        ], babelHelpers: 'bundled'
+    }));
+
+    plugins.push(terser());
 
 }
 
@@ -54,7 +69,7 @@ export default inputFiles.map(item => ({
     output: [
         {
             format: 'es',
-            sourcemap: !prod ,
+            sourcemap: !prod,
             file: item.output
         }
     ],

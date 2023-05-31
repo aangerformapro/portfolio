@@ -10,9 +10,9 @@
         "postcss:dev": "postcss build/*.css --verbose --map --dir public/assets",
         "postcss:watch": "postcss build/*.css --map --watch --dir public/assets",
         "postcss:build": "postcss build/*.css --dir public/assets --verbose --no-map --env production",
-        "rollup:build": "rollup -c --environment production",
+        "rollup:build": "rollup -c",
         "rollup:watch": "rollup -c -w",
-        "serve": "node server.js"
+        "serve": "node server"
     },
     "author": "Aymeric Anger",
     "license": "MIT",
@@ -35,6 +35,7 @@
         "@rollup/plugin-babel": "^6.0.3",
         "@rollup/plugin-commonjs": "^24.0.1",
         "@rollup/plugin-node-resolve": "^15.0.1",
+        "@rollup/plugin-terser": "^0.4.3",
         "autoprefixer": "^10.4.14",
         "cssnano": "^6.0.0",
         "express": "^4.18.2",
