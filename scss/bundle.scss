@@ -2,11 +2,10 @@
 
 @use './components/swiper';
 @use './components/devicon';
-@use './components/bootstrap';
-// @use './components/izitoast';
-// @use './components/gerillass' as g;
-@use './helpers' as *;
+@use './components/tooltips';
+// @use './components/bootstrap';
 
+@use './helpers' as *;
 @use './components/navbar' as *;
 @use './components/navpills' as *;
 @use './pages/landscape' as *;
@@ -61,14 +60,14 @@ a {
         flex-direction: column;
 
         .heading {
-            height: 20vh;
+            min-height: 20vh;
             margin-top: 72px;
         }
     }
+}
 
-    // @include lg {
-    //     padding-top: 64px;
-    // }
+.active {
+    pointer-events: none;
 }
 
 @include navpills;

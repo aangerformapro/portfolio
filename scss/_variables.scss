@@ -9,16 +9,14 @@ $cyberpunk-yellow: #f2e900;
 $cyberpunk-blue: #007aff;
 $cyberpunk-red: #ff1111;
 
-
 // landcape
 
 $landscape-light-bg: rgba(var(--bs-light-rgb), 1);
 $landscape-dark-bg: rgba(var(--bs-dark-rgb), 1);
 
-
 //navpills
 
-$navpill-color: rgba(123, 123, 123, .77);
+$navpill-color: rgba(123, 123, 123, 0.77);
 $navpill-active-color: rgba(202, 63, 63, 0.94);
 
 // bootstrap overrides
@@ -27,6 +25,6 @@ $font-family-sans-serif: $font-family, sans-serif;
 $color-mode-type: media-query;
 $tooltip-font-size: 1.1rem;
 $tooltip-padding-x: 1.5rem;
-$tooltip-padding-y: .575rem;
+$tooltip-padding-y: 0.575rem;
 $tooltip-margin: 1rem;
 $tooltip-border-radius: 1.5rem;

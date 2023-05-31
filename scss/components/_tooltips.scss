@@ -1,0 +1,9 @@
+@use '../variables' as *;
+
+:root {
+    --bs-tooltip-border-radius: #{$tooltip-border-radius};
+    --bs-tooltip-margin: #{$tooltip-margin};
+    --bs-tooltip-padding-x: #{$tooltip-padding-x};
+    --bs-tooltip-padding-y: #{$tooltip-padding-y};
+    --bs-tooltip-font-size: #{$tooltip-font-size};
+}

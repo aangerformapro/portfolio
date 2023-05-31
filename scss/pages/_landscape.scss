@@ -1,24 +1,16 @@
-@use '../variables' as *;
+@use '../helpers' as *;
 
 @mixin landscape($light-bg: $landscape-light-bg, $dark-bg: $landscape-dark-bg) {
     .landscape {
         display: none;
         background: $light-bg;
-    }
 
-    @media (prefers-color-scheme: dark) {
-        .landscape {
+        @include color-mode(dark) {
             background: $dark-bg;
         }
     }
 
-    [data-bs-theme='dark'] {
-        .landscape {
-            background: $dark-bg;
-        }
-    }
-
-    @media (orientation: landscape) and (max-height: 450px) and (max-width: 768px) {
+    @media (orientation: landscape) and (max-height: 450px) {
         html {
             overflow: hidden;
         }

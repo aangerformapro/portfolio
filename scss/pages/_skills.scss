@@ -14,73 +14,68 @@
                 display: none;
             }
         }
-    }
-
-    .icons {
-        @include margin-x(auto);
-        @include lg {
-            margin-right: 0;
-        }
-    }
-
-    .skill-lang {
-        cursor: pointer;
-        display: flex;
-        width: 48px;
-        height: 48px;
-        justify-content: center;
-        align-items: center;
-        font-size: 2rem;
-
-        border: {
-            radius: 8px;
-            color: transparent;
-            width: 2px;
-            style: solid;
-        }
-
-        outline: 3px solid transparent;
-
-        &:hover,
-        &:active {
-            outline-color: rgba(207, 226, 255, 1);
-            // rgba(8, 66, 152, 0.5);
-        }
-
-        &.active {
-            // rgba(207, 226, 255,.7);
-            // --bs-primary-border-subtle
-            //--bs-primary-bg-subtle
-            border-color: var(--bs-border-color-translucent);
-        }
-
-        & + & {
-            margin-left: 1rem;
-        }
-    }
-
-    .card {
-        @include lg {
-            max-width: 90%;
+        .icons {
             @include margin-x(auto);
+            @include lg {
+                margin-right: 0;
+            }
         }
-    }
-    .describe {
-        @include font-size(1.1rem, 700);
-        margin-left: 0.75rem;
-    }
 
-    .list-skills {
-        min-height: 40vh;
-        [data-tags] {
+        .skill-lang {
             cursor: pointer;
             display: flex;
+            width: 48px;
+            height: 48px;
+            justify-content: center;
             align-items: center;
-            @extend %bounceIn;
-        }
-    }
+            font-size: 2rem;
 
-    .active {
-        pointer-events: none;
+            border: {
+                radius: 8px;
+                color: transparent;
+                width: 2px;
+                style: solid;
+            }
+
+            outline: 3px solid transparent;
+
+            &:hover,
+            &:active {
+                outline-color: rgba(207, 226, 255, 1);
+                // rgba(8, 66, 152, 0.5);
+            }
+
+            &.active {
+                // rgba(207, 226, 255,.7);
+                // --bs-primary-border-subtle
+                //--bs-primary-bg-subtle
+                border-color: var(--bs-border-color-translucent);
+            }
+
+            & + & {
+                margin-left: 1rem;
+            }
+        }
+
+        .card {
+            @include lg {
+                max-width: 90%;
+                @include margin-x(auto);
+            }
+        }
+        .describe {
+            @include font-size(1.1rem, 700);
+            margin-left: 0.75rem;
+        }
+
+        .list-skills {
+            min-height: 40vh;
+            [data-tags] {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                @extend %bounceIn;
+            }
+        }
     }
 }

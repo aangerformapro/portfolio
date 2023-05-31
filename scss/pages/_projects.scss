@@ -5,7 +5,7 @@
 @mixin projects {
     #projects {
         .swiper-wrapper {
-            height: 60vh;
+            min-height: 60vh;
         }
         .swiper-pagination-bullet {
             @include sizer(12px);

@@ -1,43 +1,27 @@
-@mixin color-mode($mode: light, $root: false)
-{
-
-    @if $root ==true
-    {
-        @media (prefers-color-scheme: $mode)
-        {
-            :root
-            {
+@mixin color-mode($mode: light, $root: false) {
+    @if $root ==true {
+        @media (prefers-color-scheme: $mode) {
+            :root {
                 @content;
             }
         }
-    }
-
-    @else
-    {
-        @media (prefers-color-scheme: $mode)
-        {
+    } @else {
+        @media (prefers-color-scheme: $mode) {
             @content;
         }
     }
 
-    [data-bs-theme="#{$mode}"]
-    {
+    [data-bs-theme='#{$mode}'] {
         @content;
     }
-
-
 }
 
-
-.card-img-left
-{
+.card-img-left {
     border-top-left-radius: var(--bs-card-inner-border-radius);
     border-bottom-left-radius: var(--bs-card-inner-border-radius);
 }
 
-
-.card-img-right
-{
+.card-img-right {
     border-bottom-right-radius: var(--bs-card-inner-border-radius);
     border-top-right-radius: var(--bs-card-inner-border-radius);
 }

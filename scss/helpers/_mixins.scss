@@ -1,53 +1,39 @@
 @use 'sass:math';
 
-
-@mixin font-size($font-size,
-    $font-weight: null,
-    $line-height: null)
-{
-    @if $font-size
-    {
-
+@mixin font-size($font-size, $font-weight: null, $line-height: null) {
+    @if $font-size {
         font-size: $font-size;
     }
 
-    @if $line-height
-    {
+    @if $line-height {
         line-height: $line-height;
     }
 
-    @if $font-weight
-    {
+    @if $font-weight {
         font-weight: $font-weight;
     }
 }
 
-
-@mixin font-family($font-family,
+@mixin font-family(
+    $font-family,
     $font-size: 16px,
     $line-height: 1.2,
     $font-weight: 400,
     $font-style: normal,
-    $font-stretch: normal,
-)
-{
-    @if $font-family
-    {
+    $font-stretch: normal
+) {
+    @if $font-family {
         font-family: $font-family, sans-serif;
-        @include font-size($font-size, $font-weight, $line-height)
+        @include font-size($font-size, $font-weight, $line-height);
     }
 
-    font:
-    {
+    font: {
         style: $font-style;
         stretch: $font-stretch;
     }
-
 }
 
-
-@mixin visually-hidden
-{
+@mixin visually-hidden {
     position: absolute;
     color: #00000000;
     background: #00000000;
@@ -55,67 +41,43 @@
     visibility: hidden;
 }
 
-
-@mixin margin-x($value)
-{
-
-    @if $value
-    {
-        margin:
-        {
-            left: $value;
-            right: $value;
-        }
-    }
-
-}
-
-
-@mixin margin-y($value)
-{
-    @if $value
-    {
-        margin:
-        {
-            top: $value;
-            bottom: $value;
-        }
-    }
-}
-
-@mixin padding-x($value)
-{
-    @if $value
-    {
-        padding:
-        {
+@mixin margin-x($value) {
+    @if $value {
+        margin: {
             left: $value;
             right: $value;
         }
     }
 }
 
-
-@mixin padding-y($value)
-{
-    @if $value
-    {
-        padding:
-        {
+@mixin margin-y($value) {
+    @if $value {
+        margin: {
             top: $value;
             bottom: $value;
         }
     }
 }
 
+@mixin padding-x($value) {
+    @if $value {
+        padding: {
+            left: $value;
+            right: $value;
+        }
+    }
+}
 
-@mixin overlay ($top: 0,
-    $left: 0,
-    $width: 100%,
-    $height: 100%,
-    $position: absolute,
-    $z-index: 1)
-{
+@mixin padding-y($value) {
+    @if $value {
+        padding: {
+            top: $value;
+            bottom: $value;
+        }
+    }
+}
+
+@mixin overlay($top: 0, $left: 0, $width: 100%, $height: 100%, $position: absolute, $z-index: 1) {
     position: $position;
     top: $top;
     left: $left;
@@ -124,30 +86,22 @@
     z-index: $z-index;
 }
 
-%border-box
-{
+%border-box {
     box-sizing: border-box;
 }
 
-%no-overflow
-{
+%no-overflow {
     overflow: hidden;
 }
 
-@mixin make-container($padding-x: 0)
-{
+@mixin make-container($padding-x: 0) {
     width: 100%;
     @include padding-x($padding-x);
     @include margin-x(auto);
 }
 
-
-
-@mixin sizer($width, $height: null)
-{
-
-    @if $height ==null
-    {
+@mixin sizer($width, $height: null) {
+    @if $height ==null {
         $height: $width;
     }
 
@@ -155,16 +109,12 @@
     height: $height;
 }
 
+@mixin color-mode($mode: dark) {
+    // @media (prefers-color-scheme: $mode) {
+    //     @content;
+    // }
 
-@mixin color-mode($mode: dark)
-{
-    @media (prefers-color-scheme: $mode)
-    {
-        @content;
-    }
-
-    [data-bs-theme="#{$mode}"]
-    {
+    [data-bs-theme='#{$mode}'] & {
         @content;
     }
 }
