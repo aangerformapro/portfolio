@@ -38,11 +38,14 @@
     .navbar .nav-link {
         position: relative;
 
+        font-size: 1.3rem;
+
         &:hover {
             font-weight: 700;
         }
 
         @include lg {
+            font-size: 1rem;
             &::after {
                 content: '';
                 position: absolute;
@@ -82,6 +85,7 @@
 
     .nav-link.active {
         color: var(--bs-navbar-active-color) !important;
+        font-weight: 700;
     }
 
     /* Hamburger */
@@ -227,6 +231,13 @@
             @include lg {
                 min-height: 64px;
             }
+        }
+    }
+
+    .github-icon {
+        fill: #181616;
+        @include color-mode(dark) {
+            fill: #e7e9e9;
         }
     }
 }

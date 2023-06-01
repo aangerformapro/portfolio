@@ -73,12 +73,12 @@ export class Cursor
         }
 
         this.#root = root;
-        root.classList.add("cursor-area");
+
         this.#elem = createElement('<div class="cursor d-none"/>');
 
         emitter(root).mixin(this);
 
-        root.appendChild(this.#elem);
+
         this.start();
     }
 
@@ -87,6 +87,9 @@ export class Cursor
     {
         if (!this.#listener)
         {
+            this.#root.classList.add("cursor-area");
+            this.root.appendChild(this.#elem);
+
 
             this.on('mousemove', this.#listener = e =>
             {

@@ -116,6 +116,29 @@ const
 
     });
 
+
+
+    if (!IS_TOUCH)
+    {
+        const cur = Cursor.of('#home');
+
+        views.on('change', e =>
+        {
+            if (e.data.view !== cur.root)
+            {
+                cur.stop();
+            } else
+            {
+                cur.start();
+            }
+        });
+
+        setTimeout(() =>
+        {
+            cur.destroy();
+        }, 120000);
+    }
+
 })();
 
 
@@ -125,15 +148,6 @@ const
 {
     Typed.of('[data-typed');
 
-    if (!IS_TOUCH)
-    {
-        const cur = Cursor.of('#home');
-
-        setTimeout(() =>
-        {
-            cur.destroy();
-        }, 120000);
-    }
 
 
 })();
