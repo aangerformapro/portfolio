@@ -47,9 +47,9 @@ export class Skills
                 this.elements.tags.targets.push(createElement(
                     'div', {
                     class: 'skill-lang',
+                    role: 'switch',
+                    'aria-checked': false,
                     data: {
-                        role: 'switch',
-                        'aria-checked': false,
                         toggle: 'tag',
                         tag: tag.value,
                         bs: {
