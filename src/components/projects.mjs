@@ -33,6 +33,8 @@ export class ProjectLink
 
         this.element = createElement('<a target="_blank" class="link-secondary d-flex justify-content-center align-items-center"/>', {
             href: src,
+            title: label,
+            'aria-label': label,
             data: {
                 bs: {
                     toggle: 'tooltip',
@@ -118,8 +120,8 @@ export class Project
                 href: data.href,
                 target: data.href.startsWith('http') ? '_blank' : '_self',
                 class: 'project-thumbnail',
-                title: data.label,
-                'aria-label': data.label,
+                // title: data.label,
+                // 'aria-label': data.label,
                 data: {
                     bs: {
                         toggle: 'tooltip',
