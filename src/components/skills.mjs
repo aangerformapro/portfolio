@@ -48,6 +48,8 @@ export class Skills
                     'div', {
                     class: 'skill-lang',
                     data: {
+                        role: 'switch',
+                        'aria-checked': false,
                         toggle: 'tag',
                         tag: tag.value,
                         bs: {
@@ -123,7 +125,8 @@ export class Skills
         }
         const { targets } = this.elements.list;
         targets.forEach(t => t.classList.add('d-none'));
-        targets.filter(x => dataset(x, 'tags').includes(tag.value)).forEach(elem => elem.classList.remove('d-none'));
+        targets.filter(x => dataset(x, 'tags').includes(tag.value))
+            .forEach(elem => elem.classList.remove('d-none'));
 
         this.elements.tags.targets.forEach(x =>
         {
@@ -131,10 +134,12 @@ export class Skills
             if (tag.value === dataset(x, 'tag'))
             {
                 x.classList.add("active");
+                x.setAttribute('aria-checked', 'true');
             }
             else
             {
                 x.classList.remove("active");
+                x.setAttribute('aria-checked', 'false');
             }
 
         });

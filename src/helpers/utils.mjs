@@ -245,8 +245,8 @@ export function createElement(tag, params = null, html = '')
             {
                 parseDataElement(value).forEach(item =>
                 {
-                    const [key, value] = item;
-                    elem.setAttribute(key, value);
+                    const [key, val] = item;
+                    elem.setAttribute(key, val);
                 });
             }
             continue;

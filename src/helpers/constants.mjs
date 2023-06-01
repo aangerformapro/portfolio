@@ -47,7 +47,7 @@ export const PROJECT_LIST = [
         label: 'Portfolio',
         describe: 'Ce portfolio.',
         picture: 'portfolio.webp',
-        href: '',
+        href: './',
         icons: [
             {
                 label: 'NodeJS',
