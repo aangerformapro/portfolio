@@ -1,5 +1,5 @@
 // bootstrap components
-// import "./helpers/process.mjs"; // bootstrap popper fix
+import "./helpers/process.mjs"; // bootstrap popper fix
 import { Collapse, Tooltip } from "bootstrap";
 import NoScroll from "./components/noscroll.mjs";
 //import Typed from 'typed.js';
