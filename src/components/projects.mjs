@@ -119,6 +119,7 @@ export class Project
                 target: data.href.startsWith('http') ? '_blank' : '_self',
                 class: 'project-thumbnail',
                 title: data.label,
+                'aria-label': data.label,
                 data: {
                     bs: {
                         toggle: 'tooltip',
