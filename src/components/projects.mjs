@@ -1,25 +1,30 @@
-import { createElement, isHTML, isPlainObject, isString } from "../helpers/utils.mjs"
+import { createElement, isHTML, isPlainObject, isString } from "../helpers/utils.mjs";
 
 
-export class ProjectLink {
+export class ProjectLink
+{
 
-    src
-    label
-    icon
-    element
+    src;
+    label;
+    icon;
+    element;
 
-    constructor(src, label, icon) {
+    constructor(src, label, icon)
+    {
 
 
-        if (!isString(src)) {
+        if (!isString(src))
+        {
             throw new TypeError('src must be a String.');
         }
 
-        if (!isString(label)) {
+        if (!isString(label))
+        {
             throw new TypeError('label must be a String.');
         }
 
-        if (!isString(icon)) {
+        if (!isString(icon))
+        {
             throw new TypeError('icon must be a String.');
         }
 
@@ -43,19 +48,23 @@ export class ProjectLink {
 }
 
 
-export class ProjectIcon {
+export class ProjectIcon
+{
 
-    element
-    icon
-    label
+    element;
+    icon;
+    label;
 
-    constructor(icon, label) {
+    constructor(icon, label)
+    {
 
-        if (!isString(icon)) {
+        if (!isString(icon))
+        {
             throw new TypeError('icon must be a String.');
         }
 
-        if (!isString(label)) {
+        if (!isString(label))
+        {
             throw new TypeError('label must be a String.');
         }
 
@@ -78,17 +87,20 @@ export class ProjectIcon {
 
 
 
-export class Project {
+export class Project
+{
 
-    element
-    header
-    footer
-    body
-    title
-    text
+    element;
+    header;
+    footer;
+    body;
+    title;
+    text;
 
-    constructor(data) {
-        if (!isPlainObject(data)) {
+    constructor(data)
+    {
+        if (!isPlainObject(data))
+        {
             throw new TypeError('data must be an Object.');
         }
 
@@ -106,6 +118,7 @@ export class Project {
                 href: data.href,
                 target: data.href.startsWith('http') ? '_blank' : '_self',
                 class: 'project-thumbnail',
+                title: data.label,
                 data: {
                     bs: {
                         toggle: 'tooltip',
