@@ -334,7 +334,7 @@ export const SKILLS = [
         tags: [Tag.PHP],
         label: 'SlimPHP',
         describe: 'SlimPHP',
-        icon: '<img src="./assets/pictures/icons/slimphp.webp" alt="SlimPHP">',
+        icon: '<img width="32px" height="32px" src="./assets/pictures/icons/slimphp.webp" alt="SlimPHP">',
     },
     {
         tags: [Tag.PHP, Tag.IDE],
