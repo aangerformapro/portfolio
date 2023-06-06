@@ -27,6 +27,6 @@ export function checkWebpSupport()
     });
 };
 
-export const SUPPORTS_WEBP = await checkWebpSupport();
+//export const SUPPORTS_WEBP = await checkWebpSupport();
 
 

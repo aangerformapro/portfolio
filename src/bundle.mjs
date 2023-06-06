@@ -17,7 +17,7 @@ import NavPills from "./components/navpills.mjs";
 import Skills from "./components/skills.mjs";
 import Typed from "./helpers/typed.mjs";
 import Cursor from "./helpers/cursor.mjs";
-import { SUPPORTS_WEBP } from "./helpers/webp.mjs";
+import { checkWebpSupport } from "./helpers/webp.mjs";
 
 const
 
@@ -359,14 +359,17 @@ const
 // webp alt loader
 (() =>
 {
-
-    if (!SUPPORTS_WEBP)
+    checkWebpSupport().then(result =>
     {
-        document.querySelectorAll('img[data-src]').forEach(elem =>
+        if (!result)
         {
-            elem.src = dataset(elem, 'src');
-        });
-    }
+            document.querySelectorAll('img[data-src]').forEach(elem =>
+            {
+                elem.src = dataset(elem, 'src');
+            });
+        }
+
+    });
 
 
 })();
