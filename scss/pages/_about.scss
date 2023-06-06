@@ -31,5 +31,16 @@
                 // align-items: center;
             }
         }
+
+        .cv {
+            overflow: hidden;
+            img {
+                object-fit: cover;
+                object-position: top center;
+                // width: 100%;
+                height: 240px;
+                box-shadow: 4px 4px 4px 16px rgba(0, 0, 0, 0.3);
+            }
+        }
     }
 }

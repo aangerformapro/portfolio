@@ -41,7 +41,7 @@ body {
     box-sizing: border-box;
 }
 
-a {
+a:not([class*='link-underline']) {
     text-decoration: none;
 
     &.active {
