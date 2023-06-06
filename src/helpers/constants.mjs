@@ -13,7 +13,7 @@ export const PROJECT_LIST = [
     {
         label: 'Memory Game',
         describe: 'Un jeu de Memory développé pendant ma formation.',
-        picture: 'memory-desktop.webp',
+        picture: ['memory-desktop.webp', 'memory-desktop.png'],
         href: 'https://aanger-memory.netlify.app/',
         icons: [
             {
@@ -46,7 +46,7 @@ export const PROJECT_LIST = [
     {
         label: 'Portfolio',
         describe: 'Ce portfolio.',
-        picture: 'portfolio.webp',
+        picture: ['portfolio.webp', 'portfolio.png'],
         href: './',
         icons: [
             {
@@ -79,7 +79,7 @@ export const PROJECT_LIST = [
     {
         label: 'Cache',
         describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
-        picture: 'composer-project.webp',
+        picture: ['composer-project.webp', 'composer-project.png'],
         href: 'https://packagist.org/packages/ngsoft/cache',
         icons: [
             {
@@ -110,7 +110,7 @@ export const PROJECT_LIST = [
     {
         label: 'Cookie Middleware',
         describe: 'Un Middleware PSR-15 qui permet de créer et de gérer des cookies SameSite dans un framework php compatible PSR-7.',
-        picture: 'composer-project.webp',
+        picture: ['composer-project.webp', 'composer-project.png'],
         href: 'https://packagist.org/packages/ngsoft/slim-cookie-middleware',
         icons: [
             {
@@ -334,7 +334,7 @@ export const SKILLS = [
         tags: [Tag.PHP],
         label: 'SlimPHP',
         describe: 'SlimPHP',
-        icon: '<img width="32px" height="32px" src="./assets/pictures/icons/slimphp.webp" alt="SlimPHP">',
+        icon: '<img width="32" height="32" src="./assets/pictures/icons/slimphp.webp" data-src="./assets/pictures/icons/slimphp.png" alt="SlimPHP">',
     },
     {
         tags: [Tag.PHP, Tag.IDE],

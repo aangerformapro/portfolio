@@ -134,6 +134,7 @@ export class Cursor
         {
             this.off('mousemove', this.#listener);
             this.off('mouseenter mouseleave mousedown mouseup');
+            this.#root.classList.remove("cursor-area");
             this.#listener = null;
         }
     }

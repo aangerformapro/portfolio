@@ -1,4 +1,8 @@
 import { createElement, isHTML, isPlainObject, isString } from "../helpers/utils.mjs";
+import { SUPPORTS_WEBP } from "../helpers/webp.mjs";
+
+
+const picindex = SUPPORTS_WEBP ? 0 : 1;
 
 
 export class ProjectLink
@@ -128,8 +132,8 @@ export class Project
                         title: data.label
                     }
                 }
-            }, createElement('<img alt="Thumbnail"/>', {
-                src: './assets/pictures/' + data.picture
+            }, createElement('<img alt="Thumbnail" loading="lazy" width="615" height="495" />', {
+                src: './assets/pictures/' + data.picture[picindex]
             })),
             body = createElement('<div class="card-body pb-0 d-flex flex-column text-center">', [
                 title = createElement('<div class="card-title fw-bold fs-3 mt-0"/>', data.label),
