@@ -1,0 +1,30 @@
+{
+    "about": {
+        "alt": "about.png",
+        "src": "about.webp"
+    },
+    "composer-project": {
+        "alt": "composer-project.png",
+        "src": "composer-project.webp"
+    },
+    "cv": {
+        "alt": "cv.png",
+        "src": "cv.webp"
+    },
+    "hiro2": {
+        "alt": "hiro2.png",
+        "src": "hiro2.webp"
+    },
+    "memory-desktop": {
+        "alt": "memory-desktop.png",
+        "src": "memory-desktop.webp"
+    },
+    "movie-quiz": {
+        "alt": "movie-quiz.png",
+        "src": "movie-quiz.webp"
+    },
+    "portfolio": {
+        "alt": "portfolio.png",
+        "src": "portfolio.webp"
+    }
+}

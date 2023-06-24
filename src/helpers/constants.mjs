@@ -21,10 +21,6 @@ export const PROJECT_LIST = [
                 icon: 'devicon-nodejs-plain'
             },
             {
-                label: 'Babel',
-                icon: 'devicon-babel-plain'
-            },
-            {
                 label: 'SASS',
                 icon: 'devicon-sass-original'
             },
@@ -38,6 +34,41 @@ export const PROJECT_LIST = [
             {
                 label: 'Voir le projet sur github',
                 href: 'https://github.com/aangerformapro/memory-game',
+                icon: 'devicon-github-original'
+            }
+        ]
+
+    },
+
+    {
+        label: 'Movie Quiz',
+        describe: 'Un jeu ou on doit deviner des noms de films ou de séries avec une image',
+        picture: ['movie-quiz.webp', 'movie-quiz%.png'],
+        href: 'https://aa-movie-game.netlify.app/',
+        icons: [
+            {
+                label: 'NodeJS',
+                icon: 'devicon-nodejs-plain'
+            },
+            {
+                label: 'SASS',
+                icon: 'devicon-sass-original'
+            },
+
+            {
+                label: 'Bootstrap',
+                icon: 'devicon-bootstrap-plain'
+            },
+
+            {
+                label: 'Svelte',
+                icon: 'devicon-svelte-plain'
+            },
+        ],
+        links: [
+            {
+                label: 'Voir le projet sur github',
+                href: 'https://github.com/aangerformapro/movie-quiz',
                 icon: 'devicon-github-original'
             }
         ]
