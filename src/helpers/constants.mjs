@@ -251,6 +251,23 @@ export const SKILLS = [
         describe: 'NodeJS',
         icon: '<i class="devicon-nodejs-plain colored"></i>'
     },
+
+
+    {
+        tags: [Tag.JS, Tag.IDE],
+        label: 'WebPack',
+        describe: 'WebPack',
+        icon: '<i class="devicon-webpack-plain colored"></i>',
+    },
+
+    {
+        tags: [Tag.JS],
+        label: 'Vue.js',
+        describe: 'Vue',
+        icon: '<i class="devicon-vuejs-plain colored"></i>',
+    },
+
+
     {
         tags: [Tag.IDE],
         label: 'Figma',
@@ -278,12 +295,7 @@ export const SKILLS = [
         icon: '<i class="devicon-gitlab-plain colored"></i>',
     },
 
-    {
-        tags: [Tag.JS],
-        label: 'JQuery',
-        describe: 'JQuery',
-        icon: '<i class="devicon-jquery-plain colored"></i>',
-    },
+
 
     {
         tags: [Tag.PHP],
@@ -348,12 +360,7 @@ export const SKILLS = [
         describe: 'Svelte',
         icon: '<i class="devicon-svelte-plain colored"></i>',
     },
-    {
-        tags: [Tag.JS, Tag.IDE],
-        label: 'WebPack',
-        describe: 'WebPack',
-        icon: '<i class="devicon-webpack-plain colored"></i>',
-    },
+
     {
         tags: [Tag.PHP],
         label: 'Symfony',
@@ -423,17 +430,19 @@ export const SKILLS = [
         icon: ICON_NETBEANS,
     },
 
-    {
-        tags: [Tag.JS],
-        label: 'Vue.js',
-        describe: 'Vue',
-        icon: '<i class="devicon-vuejs-plain colored"></i>',
-    },
+
     {
         tags: [Tag.JS, Tag.IDE],
         label: 'Electron',
         describe: 'Electron',
         icon: '<i class="devicon-electron-original colored"></i>',
+    },
+
+    {
+        tags: [Tag.JS],
+        label: 'JQuery',
+        describe: 'JQuery',
+        icon: '<i class="devicon-jquery-plain colored"></i>',
     },
 
 ];
