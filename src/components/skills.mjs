@@ -66,7 +66,7 @@ export class Skills
 
         const listRoot = this.elements.list.root = createElement(
             '<div class="card-body list-skills"/>',
-            createElement('<div class="d-flex flex-wrap justify-content-between"/>',
+            createElement('<div class="d-flex flex-wrap"/>',
                 skills.map(item =>
                 {
 

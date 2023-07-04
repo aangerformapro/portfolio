@@ -380,6 +380,13 @@ export const SKILLS = [
         icon: '<i class="devicon-npm-original-wordmark colored"></i>',
     },
 
+    {
+        tags: [Tag.IDE],
+        label: 'Bash',
+        describe: 'Bash',
+        icon: '<i class="devicon-bash-plain colored"></i>',
+    },
+
 
 
     {
@@ -415,5 +422,19 @@ export const SKILLS = [
         describe: 'NetBeans',
         icon: ICON_NETBEANS,
     },
+
+    {
+        tags: [Tag.JS],
+        label: 'Vue.js',
+        describe: 'Vue',
+        icon: '<i class="devicon-vuejs-plain colored"></i>',
+    },
+    {
+        tags: [Tag.JS, Tag.IDE],
+        label: 'Electron',
+        describe: 'Electron',
+        icon: '<i class="devicon-electron-original colored"></i>',
+    },
+
 ];
 
