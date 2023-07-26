@@ -108,6 +108,33 @@ export const PROJECT_LIST = [
 
     },
     {
+        label: 'Guts Out',
+        describe: 'Un jeu en Javascript développé en 2 jours qui utilise les canvas pendant un événement OnlineFormapro GameJam 2023 du 5/07 au 6/07/2023.',
+        picture: ['gutsout.webp', 'gutsout.png'],
+        href: 'https://guts-out.netlify.app/',
+        icons: [
+            {
+                label: 'NodeJS',
+                icon: 'devicon-nodejs-plain'
+            },
+
+            {
+                label: 'SASS',
+                icon: 'devicon-sass-original'
+            },
+
+
+        ],
+        links: [
+            {
+                label: 'Voir le projet sur github',
+                href: 'https://github.com/aangerformapro/gamejam',
+                icon: 'devicon-github-original'
+            }
+        ]
+
+    },
+    {
         label: 'Cache',
         describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
         picture: ['composer-project.webp', 'composer-project.png'],
