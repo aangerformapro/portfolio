@@ -289,12 +289,29 @@ export const SKILLS = [
 
     {
         tags: [Tag.JS],
+        label: 'React',
+        describe: 'React',
+        icon: '<i class="devicon-react-original colored"></i>',
+    },
+    {
+        tags: [Tag.JS],
+        label: 'Next.js',
+        describe: 'Next.js',
+        icon: '<i class="devicon-nextjs-original colored"></i>',
+    },
+
+    {
+        tags: [Tag.JS],
         label: 'Vue.js',
         describe: 'Vue',
         icon: '<i class="devicon-vuejs-plain colored"></i>',
     },
-
-
+    {
+        tags: [Tag.JS],
+        label: 'Nuxt',
+        describe: 'Nuxt',
+        icon: '<i class="devicon-nuxtjs-plain colored"></i>',
+    },
     {
         tags: [Tag.IDE],
         label: 'Figma',
@@ -361,9 +378,10 @@ export const SKILLS = [
         describe: 'VSCode',
         icon: '<i class="devicon-vscode-plain colored"></i>',
     },
+
     {
         tags: [Tag.IDE],
-        label: 'Atom',
+        label: 'The hackable text editor',
         describe: 'Atom',
         icon: '<i class="devicon-atom-original colored"></i>',
     },
@@ -383,7 +401,7 @@ export const SKILLS = [
     },
     {
         tags: [Tag.JS],
-        label: 'Svelte',
+        label: 'Svelte / Sveltekit',
         describe: 'Svelte',
         icon: '<i class="devicon-svelte-plain colored"></i>',
     },
@@ -393,6 +411,13 @@ export const SKILLS = [
         label: 'Symfony',
         describe: 'Symfony',
         icon: '<i class="devicon-symfony-original colored"></i>',
+    },
+
+    {
+        tags: [Tag.PHP],
+        label: 'CakePHP',
+        describe: 'CakePHP',
+        icon: '<i class="devicon-cakephp-plain colored"></i>',
     },
 
     {
@@ -413,7 +438,12 @@ export const SKILLS = [
         describe: 'NPM',
         icon: '<i class="devicon-npm-original-wordmark colored"></i>',
     },
-
+    {
+        tags: [Tag.JS, Tag.IDE],
+        label: 'Yarn Package Manager',
+        describe: 'yarn',
+        icon: '<i class="devicon-yarn-plain colored"></i>',
+    },
     {
         tags: [Tag.IDE],
         label: 'Bash',
@@ -421,7 +451,12 @@ export const SKILLS = [
         icon: '<i class="devicon-bash-plain colored"></i>',
     },
 
-
+    {
+        tags: [Tag.IDE],
+        label: 'Python',
+        describe: 'Python',
+        icon: '<i class="devicon-python-plain colored"></i>',
+    },
 
     {
         tags: [Tag.IDE],
