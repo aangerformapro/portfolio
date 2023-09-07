@@ -43,7 +43,7 @@ export const PROJECT_LIST = [
     {
         label: 'Movie Quiz',
         describe: 'Un jeu ou on doit deviner des noms de films ou de séries avec une image',
-        picture: ['movie-quiz.webp', 'movie-quiz%.png'],
+        picture: ['movie-quiz.webp', 'movie-quiz.png'],
         href: 'https://aa-movie-game.netlify.app/',
         icons: [
             {
@@ -134,6 +134,45 @@ export const PROJECT_LIST = [
         ]
 
     },
+    {
+        label: 'DailySitter',
+        describe: 'Une plateforme de mise en relation de parents avec des assistantes maternelles développé en php',
+        picture: ['dailysitter.webp', 'dailysitter.png'],
+        href: 'https://dailysitter.000webhostapp.com/',
+        icons: [
+            {
+                label: 'PHP',
+                icon: 'devicon-php-plain'
+            },
+
+            {
+                label: 'SASS',
+                icon: 'devicon-sass-original'
+            },
+
+            {
+                label: 'Bootstrap',
+                icon: 'devicon-bootstrap-plain'
+            },
+
+            {
+                label: 'NodeJS',
+                icon: 'devicon-nodejs-plain'
+            },
+
+
+        ],
+        links: [
+            {
+                label: 'Voir le projet sur github',
+                href: 'https://github.com/aangerformapro/nounous',
+                icon: 'devicon-github-original'
+            }
+        ]
+
+    },
+
+
     {
         label: 'Cache',
         describe: 'Une librairie PSR-6/PSR-16/React/Laravel/Doctrine qui est compatible avec la majorité des moteurs de cache.',
