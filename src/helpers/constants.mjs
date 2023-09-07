@@ -146,6 +146,11 @@ export const PROJECT_LIST = [
             },
 
             {
+                label: 'MySQL',
+                icon: 'devicon-mysql-plain'
+            },
+
+            {
                 label: 'SASS',
                 icon: 'devicon-sass-original'
             },
