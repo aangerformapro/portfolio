@@ -75,6 +75,40 @@ export const PROJECT_LIST = [
 
     },
     {
+        label: 'Birthday Manager',
+        describe: 'Un gestionnaire pour gérer les cadeaux d\'anniversaire',
+        picture: ['b-manager.webp', 'b-manager.png'],
+        href: 'https://aa-bmanager.netlify.app/',
+        icons: [
+            {
+                label: 'NodeJS',
+                icon: 'devicon-nodejs-plain'
+            },
+            {
+                label: 'SASS',
+                icon: 'devicon-sass-original'
+            },
+
+            {
+                label: 'Tailwind',
+                icon: 'devicon-tailwindcss-plain'
+            },
+
+            {
+                label: 'Vue',
+                icon: 'devicon-vuejs-plain'
+            },
+        ],
+        links: [
+            {
+                label: 'Voir le projet sur github',
+                href: 'https://github.com/aangerformapro/mes-anniversaires',
+                icon: 'devicon-github-original'
+            }
+        ]
+
+    },
+    {
         label: 'Portfolio',
         describe: 'Ce portfolio.',
         picture: ['portfolio.webp', 'portfolio.png'],

@@ -3,6 +3,10 @@
         "alt": "about.png",
         "src": "about.webp"
     },
+    "b-manager": {
+        "alt": "b-manager.png",
+        "src": "b-manager.webp"
+    },
     "composer-project": {
         "alt": "composer-project.png",
         "src": "composer-project.webp"
